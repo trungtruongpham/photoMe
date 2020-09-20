@@ -1,0 +1,46 @@
+body{
+    background-color: #7facda;
+}
+
+.slider{
+    padding: 70px 100px;
+}
+
+.inputLogin{
+    padding-top: 70px;
+    padding-right: 50px;
+    text-align: center;
+}
+
+.inputLogin input[type="text"], .inputLogin input[type="password"]{
+    border: 2px solid #335372;
+    display: block;
+    background: none;
+    margin: 30px auto;
+    width: 250px;
+    text-align: center;
+    padding: 8px 10px;
+    border-radius: 24px;
+}
+
+.inputLogin input[type="text"]:focus, .inputLogin input[type="password"]:focus{
+    width: 280px;
+    border-color: teal;
+}
+
+
+.inputLogin input[type="submit"]{
+    border: 2px solid #335372;
+    width: 150px;
+    border-color: teal;
+    padding: 8px 10px;
+    border-radius: 24px;
+}
+
+.signContainer{
+    padding-top: 20px;
+}
+
+d-flex{
+    padding-left: 10px;
+}
