@@ -1,21 +1,24 @@
-body{
-    background-color: #7facda;
+.loginForm{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
 }
 
 .slider{
     padding: 70px 100px;
 }
 
-.inputLogin{
+.inputLogin {
     padding-top: 70px;
     padding-right: 50px;
     text-align: center;
 }
 
 .inputLogin input[type="text"], .inputLogin input[type="password"]{
-    border: 2px solid #335372;
+    border: 2px solid #ffffff;
     display: block;
-    background: none;
+    background: #e8e8e8;
     margin: 30px auto;
     width: 250px;
     text-align: center;
@@ -25,20 +28,23 @@ body{
 
 .inputLogin input[type="text"]:focus, .inputLogin input[type="password"]:focus{
     width: 280px;
-    border-color: teal;
+    border-color: #ffffff;
 }
 
 
 .inputLogin input[type="submit"]{
-    border: 2px solid #335372;
+    border: 2px solid #ffffff;
     width: 150px;
     border-color: teal;
     padding: 8px 10px;
     border-radius: 24px;
+    margin-bottom: 10px;
 }
 
 .signContainer{
     padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #ffffff;
 }
 
 d-flex{

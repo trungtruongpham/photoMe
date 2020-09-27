@@ -1,0 +1,97 @@
+<div class="flex-column">
+  <div class="d-flex flex-row">
+    <div class="slider col-9">
+      <carousel>
+        <slide>
+          <img
+            src="https://user-images.githubusercontent.com/32018323/94369059-ba80b100-0111-11eb-93a8-ef8b1c2a27f4.jpg"
+            alt="first slide"
+            style="display: block; width: 100%; height: 480px"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h3>First slide label</h3>
+            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          </div>
+        </slide>
+        <slide>
+          <img
+            src="https://user-images.githubusercontent.com/32018323/94369061-bbb1de00-0111-11eb-8642-e6810bf90adc.jpg"
+            alt="second slide"
+            style="display: block; width: 100%; height: 480px"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Second slide label</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          </div>
+        </slide>
+        <slide>
+          <img
+            src="https://user-images.githubusercontent.com/32018323/94369062-bc4a7480-0111-11eb-94c0-01598ceeef3f.jpg"
+            alt="third slide"
+            style="display: block; width: 100%; height: 480px"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Third slide label</h3>
+            <p>
+              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+            </p>
+          </div>
+        </slide>
+        <slide>
+          <img
+            src="https://user-images.githubusercontent.com/32018323/94369021-8c02d600-0111-11eb-8ae7-689b127ae19d.jpg"
+            alt="third slide"
+            style="display: block; width: 100%; height: 480px"
+          />
+          <div class="carousel-caption d-none d-md-block">
+            <h3>Third slide label</h3>
+            <p>
+              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+            </p>
+          </div>
+        </slide>
+      </carousel>
+    </div>
+
+    <div class="inputLogin col-3">
+      <div class="loginForm">
+        <h1 style="font-size: 40px">𝓹𝓱𝓸𝓽𝓸𝓜𝓮</h1>
+        <form *ngIf="!showDiv.isforgotPassword" method="post" action="">
+          <input type="text" name="" placeholder="Username" />
+          <input type="password" name="" placeholder="Password" />
+          <input
+            *ngIf="showDiv.issignUp"
+            type="password"
+            name=""
+            placeholder="Re-Password"
+          />
+          <input type="submit" name="submit" value="Login" />
+        </form>
+        <form *ngIf="showDiv.isforgotPassword" method="post" action="">
+          <input type="text" name="" placeholder="Email" />
+          <input type="submit" name="submit" value="Lấy lại mật khẩu" />
+        </form>
+        
+      </div>
+
+      <mat-divider [inset]="false"></mat-divider>
+
+      <div class="signContainer col">
+        <div class="d-flex justify-content-center">
+          <p>Quên mật khẩu ?</p>
+          <a
+            href="#"
+            (click)="showDiv.isforgotPassword = !showDiv.isforgotPassword"
+            >Lấy lại tại đây!</a
+          >
+        </div>
+        <div class="d-flex justify-content-center">
+          <p>Chưa có tài khoản ?</p>
+          <a href="#" (click)="showDiv.issignUp = !showDiv.issignUp">
+            Đăng ký tài khoản mới!</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
