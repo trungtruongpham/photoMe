@@ -1,8 +1,5 @@
-using System;
 using System.Net;
-using System.Text;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using photoMe_api.Data;
 using photoMe_api.Helpers;
@@ -51,19 +47,6 @@ namespace photoMe_api
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
-                    {
-                        Console.Write(Configuration.GetSection("AppSettings:SecretKey").Value);
-                        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                        {
-                            ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("AppSettings:SecretKey").Value)),
-                            ValidateIssuer = false,
-                            ValidateAudience = false,
-                        };
-                    });
-
             services.AddScoped<IAlbumRepository, AlbumRepository>()
                     .AddScoped<IUnitOfWork, UnitOfWork>()
                     .AddScoped<IAuthRepository, AuthRepository>()
@@ -78,6 +61,14 @@ namespace photoMe_api
 
             services.AddScoped<IAlbumService, AlbumService>()
                     .AddScoped<IAuthService, AuthService>();
+            // .AddScoped<IConstantService, ConstantService>()
+            // .AddScoped<ILikeService, LikeService>()
+            // .AddScoped<IMessageService, MessageService>()
+            // .AddScoped<INotificationService, NotificationService>()
+            // .AddScoped<IPhotoService, PhotoService>()
+            // .AddScoped<IPhotoShootService, PhotoShootService>()
+            // .AddScoped<IReviewService, ReviewService>()
+            // .AddScoped<IUserService, UserService>();
 
             services.AddControllers();
 
@@ -108,7 +99,7 @@ namespace photoMe_api
                         var error = context.Features.Get<IExceptionHandlerFeature>();
                         if (error != null)
                         {
-                            //context.Response.AddApplicationError(error.Error.Message);
+                            context.Response.AddApplicationError(error.Error.Message);
                             await context.Response.WriteAsync(error.Error.Message);
                         }
                     });

@@ -13,10 +13,12 @@ namespace photoMe_api.Services
     public class AuthService : IAuthService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly AuthRepository _authRepository;
 
         public AuthService(IUnitOfWork unitOfWork)
         {
             this._unitOfWork = unitOfWork;
+            this._authRepository = this._unitOfWork.AuthRepository();
         }
 
         public Task<User> Login(string username, string password)

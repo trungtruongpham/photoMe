@@ -1,38 +1,118 @@
 <div>
-  <div class="loginForm d-flex flex-row">
-      <div class="slider col-7">
+  <!--Navbar-->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">𝓹𝓱𝓸𝓽𝓸𝓜𝓮</a>
+    <form class="searchform form-inline">
+      <input id="searchBar" class="form-control" type="search" placeholder="Tìm kiếm" aria-label="Search" />
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        Search
+      </button>
+    </form>
+    <div class="navbar" id="navbarSupportedContent">
+      <ul class="navbar-nav leftnav">
+        <button class="inbox btn"><i class="fa fa-inbox fa-2x"></i></button>
         <img
-          src="https://png.pngtree.com/thumb_back/fh260/back_pic/03/51/70/585791ffa147edc.jpg"
-          alt="banner"
-          height="350px"
-        />
-      </div>
-    
-      <div class="inputLogin col-5">
-          <h1>𝓹𝓱𝓸𝓽𝓸𝓜𝓮</h1>
-        <form *ngIf="!showDiv.isforgotPassword" method="post" action="">
-          <input type="text" name="" placeholder="Username" />
-          <input type="password" name="" placeholder="Password" />
-          <input *ngIf="showDiv.issignUp" type="password" name="" placeholder="Re-Password" />
-          <input type="submit" name="submit" value="Login" />
-        </form>
-        <form *ngIf="showDiv.isforgotPassword" method="post" action="">
-          <input type="text" name="" placeholder="Email" />
-          <input type="submit" name="submit" value="Lấy lại mật khẩu" />
-        </form>
-        
-        <div class="signContainer col">
-            <div class="d-flex justify-content-center ">
-              <p>Quên mật khẩu ?</p>
-              <a href="#" (click)="showDiv.isforgotPassword =! showDiv.isforgotPassword">Lấy lại tại đây!</a>
+          src="https://static.toiimg.com/thumb/msid-67586673,width-800,height-600,resizemode-75,imgsize-3918697,pt-32,y_pad-40/67586673.jpg"
+          alt="Avatar" class="avatar" />
+        <li class="nav-item active">
+          <a class="nav-link" href="#">trungtruongpham <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Đăng xuất <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="newsContainer">
+    <div class="newsBox">
+      <div class="row">
+        <div class="col-8">
+          <div class="userPostInfo d-flex flex-row">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png"
+              alt="Avatar" class="userAvatar" />
+            <div class="userInfo">
+              <div class="userName col-12">
+                <a href="#" id="userName">Vu Minh Thang</a>
+                <button class="inbox btn">
+                  <i class="fa fa-camera-retro"></i>
+                </button>
+              </div>
+              <div class="col-12">
+                <mat-icon class="iconLocation">location_on</mat-icon>
+                <a href="#" id="location"> Da Lat, Lam Dong, Viet Nam</a>
+              </div>
             </div>
-            <div class="d-flex justify-content-center">
-              <p>Chưa có tài khoản ?</p>
-              <a href="#" (click)="showDiv.issignUp= ! showDiv.issignUp" >Đăng ký tài khoản mới!</a>
           </div>
-        </div>    
-        
+          <div class="postDes">
+            <p class="description">Chup meo ngu</p>
+            <a class="hashTag" href="#">#animal</a>
+          </div>
+          <div class="albumslider">
+            <mat-carousel timings="250ms ease-in" [autoplay]="true" interval="5000" color="accent" maxWidth="800"
+              proportion="60" slides="5" [loop]="true" [hideArrows]="false" [hideIndicators]="true" [useKeyboard]="true"
+              [useMouseWheel]="false" orientation="ltr">
+              <mat-carousel-slide #matCarouselSlide *ngFor="let slide of slides; let i = index" [image]="slide.image"
+                overlayColor="#00000040" [hideOverlay]="true"></mat-carousel-slide>
+            </mat-carousel>
+
+            <!-- <carousel>
+              <slide>
+                <img *ngFor="let slide of this.slides; let i = index" src="slide.image" alt="slides"
+                  style="display: block; width: 100%; height: 480px" />
+                <div class="carousel-caption d-none d-md-block">
+                  <h3>First slide label</h3>
+                  <p>
+                    Nulla vitae elit libero, a pharetra augue mollis interdum.
+                  </p>
+                </div>
+              </slide>
+            </carousel> -->
+          </div>
+          <div class="react">
+            <div class="row">
+              <mat-icon>thumb_up</mat-icon>
+              <a href="#" class="likes">256k likes</a>
+            </div>
+            <div class="contact d-flex flex-row-reverse">
+              <a href="#">Liên hệ</a>
+              <mat-icon>phone</mat-icon>
+            </div>
+          </div>
+        </div>
+        <div class="commentContainer col-4">
+          <h2>Đánh giá</h2>
+          <div class="commentBox">
+            <div class="comment col">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png"
+                alt="Avatar" class="userAvatar" />
+              <a href="#" id="userName">Vu Minh Thang</a>
+              <p>Heelo fomfomas</p>
+            </div>
+            <div class="comment col">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png"
+                alt="Avatar" class="userAvatar" />
+              <a href="#" id="userName">Vu Minh Thang</a>
+              <p>Heelo fomfomas</p>
+            </div>
+            <div class="comment col">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png"
+                alt="Avatar" class="userAvatar" />
+              <a href="#" id="userName">Vu Minh Thang</a>
+              <p>Heelo fomfomas</p>
+            </div>
+          </div>
+          <div class="commentInput">
+            <form>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Bình luận ngay</label>
+                <input type="comment" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Viết gì đó ..." />
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
 </div>
-

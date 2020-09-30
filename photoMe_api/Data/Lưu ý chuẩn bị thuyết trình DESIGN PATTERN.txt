@@ -1,4 +1,0 @@
-sơ đồ lớp cho demo
-thêm số vào trong uml sẽ dễ theo dõi hơn
-cần có phần ứng dụng
-thiếu những lưu ý khi cài đặt

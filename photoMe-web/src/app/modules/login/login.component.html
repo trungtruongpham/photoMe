@@ -57,15 +57,15 @@
       <div class="loginForm">
         <h1 style="font-size: 40px">𝓹𝓱𝓸𝓽𝓸𝓜𝓮</h1>
         <form *ngIf="!showDiv.isforgotPassword" method="post" action="">
-          <input type="text" name="" placeholder="Username" />
-          <input type="password" name="" placeholder="Password" />
+          <input type="text" name="username" placeholder="Username" [(ngModel)]="model.username" required/>
+          <input type="password" name="password" placeholder="Password" [(ngModel)]="model.password" required/>
           <input
             *ngIf="showDiv.issignUp"
             type="password"
             name=""
             placeholder="Re-Password"
           />
-          <input type="submit" name="submit" value="Login" />
+          <input type="submit" name="submit" value="Login" (click)="this.login()"/>
         </form>
         <form *ngIf="showDiv.isforgotPassword" method="post" action="">
           <input type="text" name="" placeholder="Email" />
