@@ -11,10 +11,14 @@ namespace photoMe_api.Models
         public string Name { get; set; }
         public string Role { get; set; }
         public string Address { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public DateTime JoinDate { get; set; }
         public Photo Avatar { get; set; }
         public ICollection<Album> PhotographerAlbums { get; set; }
+        public ICollection<Photo> Photos { get; set; }
         public ICollection<Album> ModelAlbums { get; set; }
         public ICollection<Message> SenderMessages { get; set; }
         public ICollection<Message> ReceiverMessages { get; set; }

@@ -17,21 +17,21 @@ namespace photoMe_api
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                try
-                {
-                    var context = services.GetRequiredService<AppDbContext>();
-                    context.Database.Migrate();
-                    Seed.SeedUser(context);
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occured during migrations");
-                }
-            }
+            // using (var scope = host.Services.CreateScope())
+            // {
+            //     var services = scope.ServiceProvider;
+            //     try
+            //     {
+            //         var context = services.GetRequiredService<AppDbContext>();
+            //         context.Database.Migrate();
+            //         Seed.SeedUser(context);
+            //     }
+            //     catch (Exception ex)
+            //     {
+            //         var logger = services.GetRequiredService<ILogger<Program>>();
+            //         logger.LogError(ex, "An error occured during migrations");
+            //     }
+            // }
 
             CreateHostBuilder(args).Build().Run();
         }

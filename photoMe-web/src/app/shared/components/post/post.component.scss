@@ -1,0 +1,73 @@
+.newsBox {
+  background-color: #f1f3f8;
+  padding: 3% 3% 2% 3%;
+  width: 1000px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+
+  .userPostInfo {
+    #userName,
+    .userName {
+      font-size: 20px;
+      height: 25px;
+    }
+  
+    #location {
+      font-size: 12px;
+      margin-left: 2%;
+    }
+  
+    .iconLocation {
+      font-size: 12px;
+      height: auto;
+      width: auto;
+    }
+    .postDes {
+      margin-top: 15px;
+      .description {
+        margin-bottom: 0px !important;
+      }
+  
+      .hashTag {
+        font-size: 15px;
+      }
+    }
+    .albumSlider {
+      height: 200px;
+    }
+  }
+  .react {
+    margin-left: 15px;
+  }
+  .likes {
+    margin-top: 2px;
+    margin-left: 8px;
+  }
+  .contact {
+    margin-top: -22px;
+  }
+  .comment-container{
+    border-radius: 20px;
+    .comment-box {
+      border-radius: 20px;
+      border: solid 1px grey;
+      margin-top: 10px;
+      height: 350px;
+      .comment {
+        padding: 10px 10px 0px 10px;
+      }
+    }
+
+    .comment-input{
+      margin-top: 10px;
+    }
+  }
+
+  .userAvatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+}
+

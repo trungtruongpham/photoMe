@@ -1,11 +1,12 @@
 using System;
+using System.Threading.Tasks;
 using photoMe_api.Data;
 
 namespace photoMe_api.Repositories
 {
     public interface IUnitOfWork
     {
-        void Save();
+        Task<bool> SaveAsync();
         AlbumRepository AlbumRepository();
         AuthRepository AuthRepository();
         ConstantRepository ConstantRepository();
@@ -58,9 +59,13 @@ namespace photoMe_api.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public void Save()
+        public async Task<bool> SaveAsync()
         {
-            context.SaveChanges();
+            if (await this.context.SaveChangesAsync() > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         public AlbumRepository AlbumRepository()

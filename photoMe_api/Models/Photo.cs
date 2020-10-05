@@ -8,6 +8,8 @@ namespace photoMe_api.Models
         public Guid? AlbumId { get; set; }
         public Album Album { get; set; }
         public Guid? UserId { get; set; }
+        public string PublicId { get; set; }
         public User User { get; set; }
+        public bool IsMain { get; set; }
     }
 }

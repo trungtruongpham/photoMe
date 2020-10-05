@@ -39,6 +39,11 @@ namespace photoMe_api.Controllers
                 return BadRequest(ModelState);
             }
 
+            if (model.Password != model.RePassword)
+            {
+                return BadRequest("Password and RePassword not match");
+            }
+
             model.Username = model.Username.ToLower();
 
             if (await this._authService.UserExists(model.Username))
@@ -54,7 +59,7 @@ namespace photoMe_api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody]UserLoginDto model)
+        public async Task<IActionResult> Login([FromBody] UserLoginDto model)
         {
             var userFromRepo = await this._authService.Login(model.UserName, model.Password);
 

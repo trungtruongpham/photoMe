@@ -16,6 +16,10 @@ namespace photoMe_api.Helpers
             CreateMap<UserRegisterDto, User>();
             CreateMap<UserLoginDto, User>();
             CreateMap<User, UserLoginDto>();
+            CreateMap<UserForDetailDto, User>();
+            CreateMap<User, UserForDetailDto>();
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<PhotoForCreationDto, Photo>();
         }
     }
 }

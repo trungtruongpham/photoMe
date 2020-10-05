@@ -1,8 +1,8 @@
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light ">
   <div class="container mx-auto">
-    <a class="navbar-brand" href="#">𝓹𝓱𝓸𝓽𝓸𝓜𝓮</a>
-    <form class="searchform form-inline">
+    <a class="navbar-brand" href="/home">𝓹𝓱𝓸𝓽𝓸𝓜𝓮</a>
+    <form class="search-form form-inline">
       <input
         id="searchBar"
         class="form-control"
@@ -16,7 +16,7 @@
     </form>
 
     <div class="user-info mx-auto" id="navbarSupportedContent">
-      <ul class="navbar-nav leftnav mr-auto">
+      <ul class="navbar-nav left-nav mr-auto">
         <button class="inbox btn"><i class="fa fa-inbox fa-2x"></i></button>
         <img
           src="https://static.toiimg.com/thumb/msid-67586673,width-800,height-600,resizemode-75,imgsize-3918697,pt-32,y_pad-40/67586673.jpg"
@@ -25,11 +25,11 @@
         />
         <li class="nav-item active">
           <a class="nav-link" href="#"
-            >trungtruongpham <span class="sr-only">(current)</span></a
+            >{{this.authService.decodedToken?.unique_name}} <span class="sr-only">(current)</span></a
           >
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="#"
+          <a class="nav-link" href="#" onclick="logout()"
             >Đăng xuất <span class="sr-only">(current)</span></a
           >
         </li>

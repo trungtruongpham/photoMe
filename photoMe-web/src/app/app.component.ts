@@ -20,6 +20,6 @@ export class AppComponent implements OnInit {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngAfterViewInit(): void{
-    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#f4f4f4';
+    this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#d6e0f0';
  }
 }

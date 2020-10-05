@@ -103,6 +103,11 @@ namespace photoMe_api.Data {
                                 .HasOne<Album> (p => p.Album)
                                 .WithMany (a => a.Photos)
                                 .HasForeignKey (p => p.AlbumId);
-                }
+                        
+                        builder.Entity<Photo>()
+                                .HasOne<User>(p => p.User)
+                                .WithMany(u => u.Photos)
+                                .HasForeignKey(p => p.UserId);
+                }       
         }
 }
