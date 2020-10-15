@@ -1,28 +1,37 @@
 <div class="newsBox">
-  <div class="row">
-    <img
-      src="https://static.toiimg.com/thumb/msid-67586673,width-800,height-600,resizemode-75,imgsize-3918697,pt-32,y_pad-40/67586673.jpg"
-      alt="Avatar"
-      class="avatar"
-    />
-    <form class="file-upload-form">
-      <p-fileUpload
-        styleClass="file-uploader"
-        name="demo[]"
-        url="./upload.php"
-        (onUpload)="onUpload($event)"
-        multiple="multiple"
-        accept="image/*"
-        maxFileSize="1000000"
-      >
-        <ng-template pTemplate="content">
-          <ul *ngIf="uploadedFiles.length">
-            <li *ngFor="let file of uploadedFiles">
-              {{ file.name }} - {{ file.size }} bytes
-            </li>
-          </ul>
+  <div class="row new-post">
+    <div class="static-new-post">
+      <img
+        src="https://static.toiimg.com/thumb/msid-67586673,width-800,height-600,resizemode-75,imgsize-3918697,pt-32,y_pad-40/67586673.jpg"
+        alt="Avatar" class="avatar" />
+      <textarea [rows]="3" [cols]="5" pInputTextarea class="popup-hint" (click)="this.handleNewPostClick()"
+        placeholder="{{this.authService.decodedToken?.unique_name}} ơi, bạn đang nghĩ gì thế?"></textarea>
+    </div>
+    <div class="popup-form">
+      <p-dialog header="Album mới" [(visible)]="isShowPopup" [style]="{ width: '50vw' }" [baseZIndex]="10000">
+        <form class="file-upload-form" [formGroup]="newAlbumForm" (ngSubmit)="onSubmit()">
+          <textarea rows="5" cols="30" pInputTextarea formControlName="title"
+            placeholder="{{this.authService.decodedToken?.unique_name}}, bạn có muốn tải lên album mới không?"></textarea>
+          <p-fileUpload #fileInput styleClass="file-uploader" customUpload="true" name="file-upload"
+            url="{{ this.url }}" (uploadHandler)="this.uploadFile()" (onSelect)="onSelect($event)"
+            multiple="multiple" accept="image/*" maxFileSize="1000000" [showCancelButton]="false"
+            [showUploadButton]="false">
+            <ng-template pTemplate="content">
+              <ul *ngIf="uploadedFiles.length">
+                <li *ngFor="let file of uploadedFiles">
+                  {{ file.name }} - {{ file.size }} bytes
+                </li>
+              </ul>
+            </ng-template>
+          </p-fileUpload>
+        </form>
+        <ng-template pTemplate="footer">
+          <p-button icon="pi pi-check" (click)="submitNewAlbum()" label="Đăng" styleClass="p-button-primary">
+          </p-button>
+          <p-button icon="pi pi-times" (click)="isShowPopup = false" label="Hủy" styleClass="p-button-danger">
+          </p-button>
         </ng-template>
-      </p-fileUpload>
-    </form>
+      </p-dialog>
+    </div>
   </div>
 </div>

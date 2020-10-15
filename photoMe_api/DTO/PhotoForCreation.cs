@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 
 namespace photoMe_api.DTO
@@ -7,10 +8,11 @@ namespace photoMe_api.DTO
     {
         public string Url { get; set; }
         public IFormFile File { get; set; }
+        public List<IFormFile> Files { get; set; }
         public string Description { get; set; }
         public DateTime DateAdded { get; set; }
         public string PublicId { get; set; }
-        public Guid UserId { get; set; }
+        public string Title { get; set; }
 
         public PhotoForCreationDto()
         {

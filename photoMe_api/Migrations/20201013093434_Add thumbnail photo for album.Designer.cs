@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using photoMe_api.Data;
 
 namespace photoMe_api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201013093434_Add thumbnail photo for album")]
+    partial class Addthumbnailphotoforalbum
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,9 +38,6 @@ namespace photoMe_api.Migrations
 
                     b.Property<Guid?>("PhotographerId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ThumbnailPublicId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -177,6 +176,9 @@ namespace photoMe_api.Migrations
                     b.Property<Guid?>("AlbumId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("AlbumId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -201,6 +203,10 @@ namespace photoMe_api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AlbumId");
+
+                    b.HasIndex("AlbumId1")
+                        .IsUnique()
+                        .HasFilter("[AlbumId1] IS NOT NULL");
 
                     b.HasIndex("UserId");
 
@@ -301,9 +307,6 @@ namespace photoMe_api.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Introduction")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("JoinDate")
                         .HasColumnType("datetime2");
 
@@ -390,6 +393,10 @@ namespace photoMe_api.Migrations
                     b.HasOne("photoMe_api.Models.Album", "Album")
                         .WithMany("Photos")
                         .HasForeignKey("AlbumId");
+
+                    b.HasOne("photoMe_api.Models.Album", null)
+                        .WithOne("ThumbnailPhoto")
+                        .HasForeignKey("photoMe_api.Models.Photo", "AlbumId1");
 
                     b.HasOne("photoMe_api.Models.User", "User")
                         .WithMany("Photos")

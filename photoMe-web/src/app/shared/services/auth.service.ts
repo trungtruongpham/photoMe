@@ -14,6 +14,7 @@ export class AuthService {
   baseUrl = environment.apiUrl + 'auth/';
   jwtHelper = new JwtHelperService();
   decodedToken: any;
+  token: string;
   currentUser: User;
   photoUrl = new BehaviorSubject<string>('../../assets/images/user.png');
   currentPhotoUrl = this.photoUrl.asObservable();
@@ -34,6 +35,8 @@ export class AuthService {
           this.localStorage.set('token', token);
           this.localStorage.set('user', JSON.stringify(user));
           this.decodedToken = this.jwtHelper.decodeToken(token);
+          console.log(this.decodedToken);
+          this.token = token;
           this.currentUser = user;
           this.changeMemberPhoto(this.currentUser.photoUrl);
         }
@@ -47,6 +50,8 @@ export class AuthService {
 
   loggedIn(): boolean {
     const token = localStorage.getItem('token');
+    this.decodedToken = this.jwtHelper.decodeToken(token);
+
     if (token) {
       return !this.jwtHelper.isTokenExpired(token);
     } else {

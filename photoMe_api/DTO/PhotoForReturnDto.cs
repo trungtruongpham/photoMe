@@ -10,5 +10,10 @@ namespace photoMe_api.DTO
         public DateTime DateAdded { get; set; }
         public string PublicId { get; set; }
         public bool IsMain { get; set; }
+
+        public PhotoForReturnDto()
+        {
+            this.DateAdded = DateTime.Now;
+        }
     }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { LocalStorageService } from 'ngx-localstorage';
 import { flatMap } from 'rxjs/operators';
 import { AlertifyService } from 'src/app/shared/services/alertify.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -25,10 +26,15 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private alertifyService: AlertifyService,
-    private router: Router
+    private router: Router,
+    private localStorage: LocalStorageService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.localStorage.clear();
+    this.localStorage.remove('token');
+    this.localStorage.remove('user');
+  }
 
   rePasswordValidate(): any {
     if (this.loginForm.controls.password.value !== this.loginForm.controls.rePassword.value) {
@@ -37,7 +43,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log(this.loginForm.value);
     this.authService.login(this.loginForm.value).subscribe(
       (next) => {
         this.alertifyService.success('Login successful');

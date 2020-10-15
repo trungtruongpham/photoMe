@@ -21,8 +21,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { MatButtonModule } from '@angular/material/button';
-import { PrimengModule } from './modules/primeng/primeng.module';
-import {FileUploadModule} from 'primeng/fileupload';
+import { FileUploadModule } from 'primeng/fileupload';
+import { UserProfileComponent } from './modules/user-profile/user-profile.component';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,7 @@ import {FileUploadModule} from 'primeng/fileupload';
     HeaderComponent,
     PostComponent,
     NewPostInputComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,10 @@ import {FileUploadModule} from 'primeng/fileupload';
     MatFormFieldModule,
     MatButtonModule,
     FileUploadModule,
-    PrimengModule
+    SelectButtonModule,
+    InputTextModule,
+    InputTextareaModule,
+    DialogModule
   ],
   providers: [
     AlertifyService,

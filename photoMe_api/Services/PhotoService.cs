@@ -11,6 +11,7 @@ namespace photoMe_api.Services
         Task<Photo> GetMainPhotoForUser(Guid userId);
         bool DeletePhoto(Photo photoToDelete);
         Task<bool> SaveAllAsync();
+        Task<bool> UploadPhotos();
     }
     public class PhotoService : IPhotoService
     {
@@ -41,6 +42,11 @@ namespace photoMe_api.Services
         public async Task<bool> SaveAllAsync()
         {
             return await this._unitOfWork.SaveAsync();
+        }
+
+        public Task<bool> UploadPhotos()
+        {
+            throw new NotImplementedException();
         }
     }
 }

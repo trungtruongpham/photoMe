@@ -25,6 +25,9 @@ namespace photoMe_api.Data
                     user.PasswordHash = passwordHash;
                     user.PasswordSalt = passwordSalt;
                     user.Username = user.Username.ToLower();
+                    user.CreatedAt = DateTime.Now;
+                    user.UpdatedAt = DateTime.Now;
+                    
                     context.Users.Add(user);
                 }
 

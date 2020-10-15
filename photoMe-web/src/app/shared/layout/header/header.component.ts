@@ -15,11 +15,9 @@ export class HeaderComponent implements OnInit {
     private alertify: AlertifyService,
     private router: Router,
     private localStorage: LocalStorageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    console.log(this.authService.decodedToken);
-    console.log(this.authService.currentUser);
   }
 
   loggedIn(): boolean {
@@ -27,6 +25,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut(): void {
+    this.localStorage.clear();
     this.localStorage.remove('token');
     this.localStorage.remove('user');
 

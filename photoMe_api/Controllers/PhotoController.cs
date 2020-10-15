@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Options;
@@ -16,7 +18,8 @@ using photoMe_api.Services;
 namespace photoMe_api.Controllers
 {
     [ApiController]
-    [Route("/api/photo/[action]")]
+    [Route("/api/user/{userId}/photos")]
+    [Authorize]
     public class PhotoController : ControllerBase
     {
         private IOptions<CloudinarySettings> _cloudinaryConfig;
@@ -26,7 +29,7 @@ namespace photoMe_api.Controllers
         private readonly IUserService _userService;
         private readonly Cloudinary _cloudinary;
 
-        public PhotoController(IPhotoService photoService,IUserService userService, IMapper mapper,
+        public PhotoController(IPhotoService photoService, IUserService userService, IMapper mapper,
          IOptions<CloudinarySettings> cloudinaryConfig, IActionContextAccessor actionContextAccessor)
         {
             _cloudinaryConfig = cloudinaryConfig;
@@ -54,11 +57,10 @@ namespace photoMe_api.Controllers
             return Ok(photo);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddPhotosForUser([FromForm] PhotoForCreationDto photoForCreationDto)
+        [HttpPost("upload-photos")]
+        public async Task<IActionResult> AddPhotosForUser(Guid userId, [FromForm] PhotoForCreationDto photoForCreationDto)
         {
-            Guid userId = photoForCreationDto.UserId;
-            if (!userId.Equals(new Guid(User.FindFirst(ClaimTypes.NameIdentifier).Value)))
+            if (!userId.Equals(new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier))))
             {
                 return Unauthorized();
             }
@@ -66,46 +68,50 @@ namespace photoMe_api.Controllers
             var userFromRepo = await _userService.GetUser(userId);
             var file = photoForCreationDto.File;
             var uploadResult = new ImageUploadResult();
+            List<PhotoForReturnDto> listPhotos = new List<PhotoForReturnDto>();
 
-            if (file.Length > 0)
+            foreach (var image in photoForCreationDto.Files)
             {
-                using (var stream = file.OpenReadStream())
+                if (image.Length > 0)
                 {
-                    var uploadParams = new ImageUploadParams()
+                    using (var stream = image.OpenReadStream())
                     {
-                        File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face"),
-                    };
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(image.Name, stream),
+                            Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face"),
+                        };
 
-                    uploadResult = _cloudinary.Upload(uploadParams);
+                        uploadResult = _cloudinary.Upload(uploadParams);
+                    }
                 }
+
+                photoForCreationDto.Url = uploadResult.Url.ToString();
+                photoForCreationDto.PublicId = uploadResult.PublicId;
+                photoForCreationDto.DateAdded = DateTime.UtcNow;
+                var photo = _mapper.Map<Photo>(photoForCreationDto);
+
+                if (!userFromRepo.Photos.Any(u => u.IsMain))
+                {
+                    photo.IsMain = true;
+                }
+
+                userFromRepo.Photos.Add(photo);
+                var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
+                listPhotos.Add(photoToReturn);
             }
-
-            photoForCreationDto.Url = uploadResult.Url.ToString();
-            photoForCreationDto.PublicId = uploadResult.PublicId;
-            photoForCreationDto.DateAdded = DateTime.UtcNow;
-            var photo = _mapper.Map<Photo>(photoForCreationDto);
-
-            if (!userFromRepo.Photos.Any(u => u.IsMain))
-            {
-                photo.IsMain = true;
-            }
-
-            userFromRepo.Photos.Add(photo);
 
             if (await _userService.SaveAll())
             {
-                var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
-                return CreatedAtRoute("", new { userId = userId, id = photo.Id }, photoToReturn);
+                return CreatedAtRoute("", new { userId = userId }, listPhotos);
             }
 
             return BadRequest("Could not add photo");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddPhotoForUser([FromForm] PhotoForCreationDto photoForCreationDto)
+        [HttpPost("upload-photo")]
+        public async Task<IActionResult> AddPhotoForUser(Guid userId, [FromForm] PhotoForCreationDto photoForCreationDto)
         {
-            Guid userId = photoForCreationDto.UserId;
             if (!userId.Equals(new Guid(User.FindFirst(ClaimTypes.NameIdentifier).Value)))
             {
                 return Unauthorized();

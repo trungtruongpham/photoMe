@@ -6,18 +6,31 @@
   margin-bottom: 20px;
   margin-top: 50px;
 
-  .file-upload-form{
-    width: 900px;
-
-    .file-uploader{
-      width: 900px;
+  .new-post {
+    gap: 20px;
+    .static-new-post {
+      .avatar {
+        vertical-align: baseline !important;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+      .popup-hint{
+        margin-left: 10px;
+        width: 900px;
+        height: 50px;
+      }
     }
-  }
-  
-  .avatar {
-    vertical-align: middle;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    .popup-form {
+      .file-upload-form {
+        width: 900px;
+        gap: 20px;
+
+        textarea {
+          width: 900px;
+          height: 100px;
+        }
+      }
+    }
   }
 }

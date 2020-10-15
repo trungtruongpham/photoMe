@@ -70,7 +70,7 @@ namespace photoMe_api.Controllers
 
             var claims = new[]{
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username),
+                new Claim(ClaimTypes.Name, userFromRepo.Name),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8
@@ -89,7 +89,6 @@ namespace photoMe_api.Controllers
 
             var user = _mapper.Map<UserForListDto>(userFromRepo);
             var tokenReturn = tokenHandler.WriteToken(token);
-            Console.Write(JsonConvert.SerializeObject(user));
 
             return Ok(JsonConvert.SerializeObject(new
             {

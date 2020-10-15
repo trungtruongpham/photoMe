@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using photoMe_api.DTO;
 using photoMe_api.Models;
@@ -20,6 +21,7 @@ namespace photoMe_api.Helpers
             CreateMap<User, UserForDetailDto>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<AlbumForCreationDto, Album>();
         }
     }
 }

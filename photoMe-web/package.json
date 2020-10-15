@@ -30,9 +30,10 @@
     "ng-alertify": "^1.0.2",
     "ngx-bootstrap": "^6.1.0",
     "ngx-localstorage": "^3.1.0",
+    "ngx-webstorage": "^6.0.0",
     "ngx-webstorage-service": "^4.1.0",
     "primeicons": "^4.0.0",
-    "primeng": "^10.0.2",
+    "primeng": "^10.0.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

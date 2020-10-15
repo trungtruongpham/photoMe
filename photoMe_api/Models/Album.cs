@@ -10,6 +10,8 @@ namespace photoMe_api.Models
         public virtual User Photographer { get; set; }
         public Guid? ModelId { get; set; }
         public virtual User Model { get; set; }
+        public string Title { get; set; }
+        public string ThumbnailPublicId { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Review> Reviews { get; set; }
     }

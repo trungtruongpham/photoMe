@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -21,7 +21,7 @@ export class FileUploadService {
     formData.append('File', fileToUpload, fileToUpload.name);
 
     return this.httpClient.post(
-      this.baseUrl + 'user/' + this.authService.decodedToken.nameid + '/photos',
+      this.baseUrl + 'user/' + this.authService.decodedToken.nameid + '/photos/upload-photo',
       formData
     );
   }
@@ -29,9 +29,18 @@ export class FileUploadService {
   uploadFiles(fileToUpload: File[]): Observable<any> {
     const formData: FormData = new FormData();
 
+    fileToUpload.forEach(file => {
+      formData.append('Files', file);
+    });
+
     return this.httpClient.post(
-      this.baseUrl + 'user/' + this.authService.decodedToken.nameid + '/photos',
-      formData
+      this.baseUrl + 'user/' + this.authService.decodedToken.nameid + '/photos/upload-photos',
+      formData,
+      {
+        headers: {
+          Authorization : 'Bearer ' + this.authService.token,
+        }
+      }
     );
   }
 }
