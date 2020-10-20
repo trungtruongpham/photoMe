@@ -35,7 +35,6 @@ export class AuthService {
           this.localStorage.set('token', token);
           this.localStorage.set('user', JSON.stringify(user));
           this.decodedToken = this.jwtHelper.decodeToken(token);
-          console.log(this.decodedToken);
           this.token = token;
           this.currentUser = user;
           this.changeMemberPhoto(this.currentUser.photoUrl);

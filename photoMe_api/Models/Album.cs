@@ -14,5 +14,10 @@ namespace photoMe_api.Models
         public string ThumbnailPublicId { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Review> Reviews { get; set; }
+
+        public Album()
+        {
+            this.Photos = new HashSet<Photo>();
+        }
     }
 }

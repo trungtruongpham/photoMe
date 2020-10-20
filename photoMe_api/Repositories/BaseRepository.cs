@@ -36,7 +36,9 @@ namespace photoMe_api.Repositories
         {
             var entity = dbSet.SingleOrDefaultAsync(e => e.Id.Equals(id));
             if (entity == null)
+            {
                 return false;
+            }
 
             context.Remove(entity);
             return await context.SaveChangesAsync() > 0;
@@ -57,7 +59,9 @@ namespace photoMe_api.Repositories
         public async Task<bool> InsertAsync(T entity)
         {
             if (entity == null)
+            {
                 return false;
+            }
 
             await context.AddAsync(entity);
             return context.SaveChanges() > 0;
@@ -66,7 +70,9 @@ namespace photoMe_api.Repositories
         public async Task<bool> UpdateAsync(T entity)
         {
             if (entity == null)
+            {
                 return false;
+            }
 
             dbSet.Update(entity);
             return await context.SaveChangesAsync() > 0;

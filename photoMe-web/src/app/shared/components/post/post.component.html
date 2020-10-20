@@ -1,12 +1,9 @@
 <div class="newsBox">
-  <div class="row">
-    <div class="col-8">
+  <div class="">
+    <div class="">
       <div class="userPostInfo d-flex flex-row">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png"
-          alt="Avatar"
-          class="userAvatar"
-        />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png" alt="Avatar"
+          class="userAvatar" />
         <div class="userInfo">
           <div class="userName col-12">
             <a href="#" id="userName">Vu Minh Thang</a>
@@ -25,68 +22,65 @@
         <a class="hashTag" href="#">#animal</a>
       </div>
       <div class="albumslider">
-        <mat-carousel
-          timings="250ms ease-in"
-          [autoplay]="true"
-          interval="5000"
-          color="accent"
-          maxWidth="800"
-          proportion="60"
-          slides="5"
-          [loop]="true"
-          [hideArrows]="false"
-          [hideIndicators]="true"
-          [useKeyboard]="true"
-          [useMouseWheel]="false"
-          orientation="ltr"
-        >
-          <mat-carousel-slide
-            #matCarouselSlide
-            *ngFor="let slide of slides; let i = index"
-            [image]="slide.image"
-            overlayColor="#00000040"
-            [hideOverlay]="true"
-          ></mat-carousel-slide>
-        </mat-carousel>
+        <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions"
+          [containerStyle]="{ 'max-width': '1000px' }" [numVisible]="5" [showThumbnails]="false" [showIndicators]="true"
+          [changeItemOnIndicatorHover]="true" [showIndicatorsOnItem]="true">
+          <ng-template pTemplate="item" let-item>
+            <img [src]="item.url" style="width: 100%; display: block" />
+          </ng-template>
+          <ng-template pTemplate="thumbnail" let-item>
+            <div class="p-grid p-nogutter p-justify-center">
+              <img [src]="item.url" style="display: block" />
+            </div>
+          </ng-template>
+        </p-galleria>
       </div>
       <div class="react">
-        <div class="row">
-          <mat-icon>thumb_up</mat-icon>
-          <a href="#" class="likes">256k likes</a>
-        </div>
-        <div class="contact d-flex flex-row-reverse">
+        <section class="reactions">
+          <span class="reaction-items"><button pButton pRipple type="button" icon="pi pi-heart"
+              class="p-button-rounded p-button-plain p-button-text"></button></span>
+          <span class="reaction-items"><button pButton pRipple type="button" icon="pi pi-comments"
+              class="p-button-rounded p-button-plain p-button-text"></button></span>
+          <span class="reaction-items"><button pButton pRipple type="button" icon="pi pi-inbox"
+              class="p-button-rounded p-button-plain p-button-text"></button></span>
+        </section>
+        <section class="likes">
+          <div>
+            <button class="likes-number"><span>10</span> likes</button>
+          </div>
+        </section>
+        <!-- <div class="contact d-flex flex-row-reverse">
           <a href="#">Liên hệ</a>
           <mat-icon>phone</mat-icon>
-        </div>
+        </div> -->
       </div>
     </div>
-    <div class="comment-container col-4">
+    <section class="new-comment">
+      <div class="comment-box">
+        <form class="comment-form">
+          <textarea aria-label="Thêm nhận xét" placeholder="Thêm nhận xét..." class="text-input" name="" id="" cols="" rows="3"></textarea>
+          <button class="comment-button">Đăng</button>
+        </form>
+      </div>
+    </section>
+    <!-- <div class="comment-container col-4">
       <h2>Đánh giá</h2>
       <div class="comment-box">
         <div class="comment col">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png"
-            alt="Avatar"
-            class="userAvatar"
-          />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png"
+            alt="Avatar" class="userAvatar" />
           <a href="#" id="userName">Vu Minh Thang</a>
           <p>Heelo fomfomas</p>
         </div>
         <div class="comment col">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png"
-            alt="Avatar"
-            class="userAvatar"
-          />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png"
+            alt="Avatar" class="userAvatar" />
           <a href="#" id="userName">Vu Minh Thang</a>
           <p>Heelo fomfomas</p>
         </div>
         <div class="comment col">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png"
-            alt="Avatar"
-            class="userAvatar"
-          />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png"
+            alt="Avatar" class="userAvatar" />
           <a href="#" id="userName">Vu Minh Thang</a>
           <p>Heelo fomfomas</p>
         </div>
@@ -95,16 +89,11 @@
         <form>
           <div class="form-group">
             <label for="exampleInputEmail1">Bình luận ngay</label>
-            <input
-              type="comment"
-              class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              placeholder="Viết gì đó ..."
-            />
+            <input type="comment" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="Viết gì đó ..." />
           </div>
         </form>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using photoMe_api.Models;
 using photoMe_api.Repositories;
@@ -12,6 +13,7 @@ namespace photoMe_api.Services
         bool DeletePhoto(Photo photoToDelete);
         Task<bool> SaveAllAsync();
         Task<bool> UploadPhotos();
+        Task<IEnumerable<Photo>> GetPhotoByAlbumId(Guid albumId);
     }
     public class PhotoService : IPhotoService
     {
@@ -37,6 +39,11 @@ namespace photoMe_api.Services
         public Task<Photo> GetPhoto(Guid photoId)
         {
             return this._photoRepository.GetPhoto(photoId);
+        }
+
+        public Task<IEnumerable<Photo>> GetPhotoByAlbumId(Guid albumId)
+        {
+           return this._photoRepository.GetPhotoByAlbumId(albumId);
         }
 
         public async Task<bool> SaveAllAsync()

@@ -27,6 +27,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { GalleriaModule } from 'primeng/galleria';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { DialogModule } from 'primeng/dialog';
     SelectButtonModule,
     InputTextModule,
     InputTextareaModule,
-    DialogModule
+    DialogModule,
+    DropdownModule,
+    GalleriaModule
   ],
   providers: [
     AlertifyService,

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ namespace photoMe_api.Repositories
     {
         Task<Photo> GetPhoto(Guid id);
         Task<Photo> GetMainPhotoForUser(Guid userId);
+        Task<IEnumerable<Photo>> GetPhotoByAlbumId(Guid albumId);
         bool DeletePhoto(Photo photoToDelete);
     }
     public class PhotoRepository : BaseRepository<Photo>, IPhotoRepository
@@ -42,6 +44,12 @@ namespace photoMe_api.Repositories
             var photo = await context.Photos.FirstOrDefaultAsync(p => p.Id.Equals(id));
 
             return photo;
+        }
+
+        public async Task<IEnumerable<Photo>> GetPhotoByAlbumId(Guid albumId)
+        {
+            var photos = await context.Photos.Where<Photo>(p => p.AlbumId.Equals(albumId)).ToListAsync();
+            return photos;
         }
     }
 }

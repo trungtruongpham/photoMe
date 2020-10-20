@@ -9,13 +9,16 @@
     </div>
     <div class="popup-form">
       <p-dialog header="Album mới" [(visible)]="isShowPopup" [style]="{ width: '50vw' }" [baseZIndex]="10000">
-        <form class="file-upload-form" [formGroup]="newAlbumForm" (ngSubmit)="onSubmit()">
-          <textarea rows="5" cols="30" pInputTextarea formControlName="title"
-            placeholder="{{this.authService.decodedToken?.unique_name}}, bạn có muốn tải lên album mới không?"></textarea>
+        <form class="file-upload-form" [formGroup]="newAlbumForm">
+          <div class="album-info">
+            <textarea [rows]="3" [cols]="5" pInputTextarea formControlName="title" class="album-title"
+              placeholder="{{this.authService.decodedToken?.unique_name}}, bạn có muốn tải lên album mới không?"></textarea>
+            <p-dropdown [options]="albumTypes" placeholder="Chọn loại album" class="album-type" formControlName="type"
+              optionLabel="name" [showClear]="true"></p-dropdown>
+          </div>
           <p-fileUpload #fileInput styleClass="file-uploader" customUpload="true" name="file-upload"
-            url="{{ this.url }}" (uploadHandler)="this.uploadFile()" (onSelect)="onSelect($event)"
-            multiple="multiple" accept="image/*" maxFileSize="1000000" [showCancelButton]="false"
-            [showUploadButton]="false">
+            url="{{ this.url }}" (uploadHandler)="this.uploadFile()" multiple="multiple"
+            accept="image/*" maxFileSize="1000000" [chooseLabel]="this.chooseLable" [showCancelButton]="false" [showUploadButton]="false">
             <ng-template pTemplate="content">
               <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles">

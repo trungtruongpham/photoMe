@@ -54,6 +54,7 @@ namespace photoMe_api.Repositories
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            user.Name = user.Username;
 
             await context.Users.AddAsync(user);
             await context.SaveChangesAsync();

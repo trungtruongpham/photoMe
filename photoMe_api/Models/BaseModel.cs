@@ -11,5 +11,10 @@ namespace photoMe_api.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
+        public BaseModel()
+        {
+            this.CreatedAt = DateTime.Now;
+            this.UpdatedAt = DateTime.Now;
+        }
     }
 }

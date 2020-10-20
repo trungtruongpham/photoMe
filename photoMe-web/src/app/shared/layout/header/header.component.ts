@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
 
     this.authService.decodedToken = null;
     this.authService.currentUser = null;
-    this.alertify.success('Logged out');
+    this.alertify.success('Đăng xuất thành công.');
     this.router.navigate(['/']);
   }
 }

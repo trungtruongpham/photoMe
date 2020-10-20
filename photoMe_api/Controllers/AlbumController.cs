@@ -31,13 +31,14 @@ namespace photoMe_api.Controllers
         private IAlbumService _albumService;
 
         public AlbumController(IPhotoService photoService, IUserService userService, IMapper mapper,
-         IOptions<CloudinarySettings> cloudinaryConfig, IActionContextAccessor actionContextAccessor)
+         IOptions<CloudinarySettings> cloudinaryConfig, IActionContextAccessor actionContextAccessor, IAlbumService albumService)
         {
             _cloudinaryConfig = cloudinaryConfig;
             _mapper = mapper;
             _photoService = photoService;
             _acctionContextAccessor = actionContextAccessor;
             _userService = userService;
+            _albumService = albumService;
 
             Account account = new Account(
                 _cloudinaryConfig.Value.CloudName,
@@ -56,11 +57,13 @@ namespace photoMe_api.Controllers
                 return Unauthorized();
             }
 
-            var userFromRepo = await _userService.GetUser(userId);
-            var uploadResult = new ImageUploadResult();
-            var album = new Album();
-            List<PhotoForReturnDto> listPhotosForReturn = new List<PhotoForReturnDto>();
-            List<Photo> listPhoto = new List<Photo>();
+            User userFromRepo = await _userService.GetUser(userId);
+            ImageUploadResult uploadResult = new ImageUploadResult();
+            Album album = this._mapper.Map<Album>(albumForCreationDto);
+            if (userFromRepo != null)
+            {
+                album.PhotographerId = userFromRepo.Id;
+            }
 
             foreach (var image in albumForCreationDto.Files)
             {
@@ -72,6 +75,7 @@ namespace photoMe_api.Controllers
                         {
                             File = new FileDescription(image.Name, stream),
                             Transformation = new Transformation().Width(500).Height(500).Crop("fill").Gravity("face"),
+                            Folder = "photome",
                         };
 
                         uploadResult = _cloudinary.Upload(uploadParams);
@@ -89,39 +93,47 @@ namespace photoMe_api.Controllers
                     photo.IsMain = true;
                 }
 
+                if (!album.Photos.Any(p => p.IsMain))
+                {
+                    album.ThumbnailPublicId = photo.PublicId;
+                }
+
                 userFromRepo.Photos.Add(photo);
+                album.Photos.Add(photo);
                 var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
-                listPhotosForReturn.Add(photoToReturn);
-                listPhoto.Add(photo);
             }
 
-            album.Photos = listPhoto;
-            album.PhotographerId = userFromRepo.Id;
-            Console.WriteLine(album.Photos.Count());
-            if (album == null)
-            {
-                return BadRequest();
-            }
-
-
-            if (await _userService.SaveAll())
-            {
-                if (await this._albumService.InsertAlbum(album))
-                    return BadRequest();
-                return CreatedAtRoute("", new { userId = userId }, listPhotosForReturn);
-            }
-
-            return BadRequest("Could not add photo");
-        }
-        [HttpPost("new-album")]
-        public async Task<IActionResult> InsertNewAlbum(Album album)
-        {
             if (await this._albumService.InsertAlbum(album))
             {
-                return Ok();
+                return CreatedAtRoute("", new { userId = userId }, album);
             }
-            else
-                return BadRequest();
+
+            return BadRequest("Could not add new album");
+        }
+
+        [HttpGet("")]
+        public async Task<IActionResult> GetAlbums(Guid userId)
+        {
+            if (!userId.Equals(new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier))))
+            {
+                return Unauthorized();
+            }
+
+            IEnumerable<Album> result = await this._albumService.GetAlbumsByUserId(userId);
+
+            return Ok(result);
+        }
+
+        [HttpGet("{albumId}/photos")]
+        public async Task<IActionResult> GetAlbumPhotos(Guid userId, Guid albumId)
+        {
+            if (!userId.Equals(new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier))))
+            {
+                return Unauthorized();
+            }
+
+            IEnumerable<Photo> result = await this._photoService.GetPhotoByAlbumId(albumId);
+            return Ok(result);
         }
     }
 

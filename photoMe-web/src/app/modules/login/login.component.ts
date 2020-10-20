@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.authService.login(this.loginForm.value).subscribe(
       (next) => {
-        this.alertifyService.success('Login successful');
+        this.alertifyService.success('Đăng nhập thành công');
       },
       // tslint:disable-next-line:no-shadowed-variable
       (error) => {
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
 
   register(): void {
     this.authService.register(this.loginForm.value).subscribe((res) => {
-      this.alertifyService.success('Register successful');
+      this.alertifyService.success('Đăng kí thành công.');
     },
       (error) => {
         this.alertifyService.error(error);
