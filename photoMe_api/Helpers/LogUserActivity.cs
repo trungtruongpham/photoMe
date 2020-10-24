@@ -15,7 +15,6 @@ namespace photoMe_api.Helpers
             var resultContext = await next();
 
             var userId = resultContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            Console.Write(userId);
             var repo = resultContext.HttpContext.RequestServices.GetService<IUserRepository>();
             var user = await repo.GetByIdAsync(new Guid(userId));
 

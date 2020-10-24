@@ -1,12 +1,19 @@
 [
   {
     'repeat(10)': {
-    Username: '{{surname("female")}} {{firstName("female")}}',
-    Gender: 'male',
+    Gender: 'female',
     DateOfBirth: '{{moment(this.date(new Date(2014, 0, 1), new Date())).format("YYYY-MM-DD")}}',
     Password: 'password',
     Role: '{{random("Photographer", "Model")}}',
-    Name: function(){ return this.Username; },
+    firstname: '{{firstName("female")}}',
+    surname: '{{surname("female")}}',
+    Email: function() {
+    	return `${this.firstname}.${this.surname}@gmail.com`.toLowerCase();
+    },
+    Username: function() {
+    	return `${this.firstname}`.toLowerCase();
+    },
+    Name: function(){ return `${this.surname} ${this.firstname}`; },
     CreatedAt: '{{moment(this.date(new Date(2014, 0, 1), new Date())).format("YYYY-MM-DD")}}',
     LastActive: function(){return this.Created; },
     Introduction: '{{lorem(1, "paragraphs")}}',

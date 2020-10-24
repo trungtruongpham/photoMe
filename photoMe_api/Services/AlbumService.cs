@@ -10,6 +10,8 @@ namespace photoMe_api.Services
     {
         Task<bool> InsertAlbum(Album album);
         Task<IEnumerable<Album>> GetAlbumsByUserId(Guid userId);
+        Task<IEnumerable<Album>> GetAllAbums();
+        Task<Album> GetAlbumById(Guid albumId);
     }
     public class AlbumService : IAlbumService
     {
@@ -22,9 +24,19 @@ namespace photoMe_api.Services
             this._albumRepository = this._unitOfWork.AlbumRepository();
         }
 
+        public Task<Album> GetAlbumById(Guid albumId)
+        {
+            return this._albumRepository.GetAlbumById(albumId);
+        }
+
         public Task<IEnumerable<Album>> GetAlbumsByUserId(Guid userId)
         {
             return this._albumRepository.GetAlbumsByUserId(userId);
+        }
+
+        public Task<IEnumerable<Album>> GetAllAbums()
+        {
+            return this._albumRepository.GetAllAlbums();
         }
 
         public Task<bool> InsertAlbum(Album album)

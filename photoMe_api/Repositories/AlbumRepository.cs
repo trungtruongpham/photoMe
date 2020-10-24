@@ -11,6 +11,8 @@ namespace photoMe_api.Repositories
     public interface IAlbumRepository : IBaseRepository<Album>
     {
         Task<IEnumerable<Album>> GetAlbumsByUserId(Guid userId);
+        Task<IEnumerable<Album>> GetAllAlbums();
+        Task<Album> GetAlbumById(Guid albumId);
     }
     public class AlbumRepository : BaseRepository<Album>, IAlbumRepository
     {
@@ -18,9 +20,19 @@ namespace photoMe_api.Repositories
         {
         }
 
+        public async Task<Album> GetAlbumById(Guid albumId)
+        {
+            return await this.dbSet.Include(a => a.Photos).Include(album => album.Photographer).Where(a => a.Id.Equals(albumId)).SingleOrDefaultAsync<Album>();
+        }
+
         public async Task<IEnumerable<Album>> GetAlbumsByUserId(Guid userId)
         {
             return await this.context.Albums.Where(a => a.PhotographerId.Equals(userId)).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Album>> GetAllAlbums()
+        {
+            return await this.dbSet.Include(album => album.Photos).Include(album => album.Photographer).ToListAsync();
         }
     }
 }

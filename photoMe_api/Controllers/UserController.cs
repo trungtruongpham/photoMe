@@ -11,7 +11,7 @@ using photoMe_api.Services;
 
 namespace photoMe_api.Controllers
 {
-    [Route("/api/user/[action]")]
+    [Route("/api/user/")]
     [ApiController]
     [Authorize]
     [ServiceFilter(typeof(LogUserActivity))]
@@ -25,7 +25,7 @@ namespace photoMe_api.Controllers
             this._userService = userService;
             this._mapper = mapper;
         }
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<IActionResult> GetUsers([FromQuery] UserParams userParams)
         {
             var currentUserid = new Guid(User.FindFirst(ClaimTypes.NameIdentifier).Value);

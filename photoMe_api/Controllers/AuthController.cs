@@ -86,14 +86,11 @@ namespace photoMe_api.Controllers
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
-
-            var user = _mapper.Map<UserForListDto>(userFromRepo);
-            var tokenReturn = tokenHandler.WriteToken(token);
+            string tokenReturn = tokenHandler.WriteToken(token);
 
             return Ok(JsonConvert.SerializeObject(new
             {
-                token = tokenHandler.WriteToken(token),
-                user
+                token = tokenHandler.WriteToken(token)
             }));
         }
     }

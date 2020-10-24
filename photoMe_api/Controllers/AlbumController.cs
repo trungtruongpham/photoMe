@@ -112,7 +112,7 @@ namespace photoMe_api.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> GetAlbums(Guid userId)
+        public async Task<IActionResult> GetAlbumsByUser(Guid userId)
         {
             if (!userId.Equals(new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier))))
             {
@@ -120,6 +120,19 @@ namespace photoMe_api.Controllers
             }
 
             IEnumerable<Album> result = await this._albumService.GetAlbumsByUserId(userId);
+
+            return Ok(result);
+        }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllAlbums(Guid userId)
+        {
+            if (!userId.Equals(new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier))))
+            {
+                return Unauthorized();
+            }
+
+            IEnumerable<Album> result = await this._albumService.GetAllAbums();
 
             return Ok(result);
         }
@@ -133,6 +146,23 @@ namespace photoMe_api.Controllers
             }
 
             IEnumerable<Photo> result = await this._photoService.GetPhotoByAlbumId(albumId);
+            return Ok(result);
+        }
+
+        [HttpGet("{albumId}")]
+        public async Task<IActionResult> GetAlbumById(Guid userId, Guid albumId)
+        {
+            if (!userId.Equals(new Guid(User.FindFirstValue(ClaimTypes.NameIdentifier))))
+            {
+                return Unauthorized();
+            }
+
+            Album result = await this._albumService.GetAlbumById(albumId);
+            if (result == null)
+            {
+                return BadRequest("Null album");
+            }
+            
             return Ok(result);
         }
     }

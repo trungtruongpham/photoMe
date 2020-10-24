@@ -1,0 +1,6 @@
+{
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "'Cascadia Code', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.lineHeight": 24,
+    "editor.letterSpacing": 0.5,
+}
