@@ -1,0 +1,47 @@
+.user-card {
+  flex: 0;
+  justify-content: flex-start;
+  height: 80px;
+  align-items: center;
+  flex-direction: column;
+
+  .tag {
+    height: 80px;
+    align-items: center;
+    flex-direction: column;
+    text-decoration: none !important;
+    .user-info {
+      padding: 20px 20px;
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      .avatar {
+        margin-right: 12px;
+
+        img {
+          height: 50px;
+          width: 50px;
+          border-radius: 50%;
+        }
+      }
+      .connect-info {
+        flex: 1;
+
+        .username {
+          font-weight: 600;
+        }
+
+        .last-active {
+          color: #9ba4b4;
+        }
+        p {
+          margin-bottom: 0 !important;
+        }
+      }
+    }
+    .user-info:hover {
+      opacity: 0.5;
+      background-color: #ebebeb;
+    }
+  }
+}

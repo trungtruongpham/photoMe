@@ -2,23 +2,24 @@
   <div class="row new-post">
     <div class="static-new-post">
       <img
-        src="https://static.toiimg.com/thumb/msid-67586673,width-800,height-600,resizemode-75,imgsize-3918697,pt-32,y_pad-40/67586673.jpg"
+        src="{{this.currentUser.avatar.url}}"
         alt="Avatar" class="avatar" />
       <textarea [rows]="3" [cols]="5" pInputTextarea class="popup-hint" (click)="this.handleNewPostClick()"
-        placeholder="{{this.authService.decodedToken?.unique_name}} ơi, bạn đang nghĩ gì thế?"></textarea>
+        placeholder="{{this.currentUser.name}} ơi, bạn đang nghĩ gì thế?"></textarea>
     </div>
-    <div class="popup-form">
-      <p-dialog header="Album mới" [(visible)]="isShowPopup" [style]="{ width: '50vw' }" [baseZIndex]="10000">
+    <div class="popup-container">
+      <p-dialog class="popup" header="Album mới" [(visible)]="isShowPopup" [style]="{ width: '50vw' }" [baseZIndex]="10000">
         <form class="file-upload-form" [formGroup]="newAlbumForm">
           <div class="album-info">
             <textarea [rows]="3" [cols]="5" pInputTextarea formControlName="title" class="album-title"
-              placeholder="{{this.authService.decodedToken?.unique_name}}, bạn có muốn tải lên album mới không?"></textarea>
+              placeholder="{{this.currentUser.name}}, bạn có muốn tải lên album mới không?"></textarea>
             <p-dropdown [options]="albumTypes" placeholder="Chọn loại album" class="album-type" formControlName="type"
-              optionLabel="name" [showClear]="true"></p-dropdown>
+              optionLabel="name" [showClear]="true" maxlength="14rem"></p-dropdown>
           </div>
-          <p-fileUpload #fileInput styleClass="file-uploader" customUpload="true" name="file-upload"
-            url="{{ this.url }}" (uploadHandler)="this.uploadFile()" multiple="multiple"
-            accept="image/*" maxFileSize="1000000" [chooseLabel]="this.chooseLable" [showCancelButton]="false" [showUploadButton]="false">
+          <p-fileUpload #fileInput class="file-uploader" customUpload="true" name="file-upload"
+            url="{{ this.url }}" (uploadHandler)="this.uploadFile()" multiple="multiple" accept="image/*"
+            maxFileSize="1000000" [chooseLabel]="this.chooseLable" [showCancelButton]="false"
+            [showUploadButton]="false">
             <ng-template pTemplate="content">
               <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles">

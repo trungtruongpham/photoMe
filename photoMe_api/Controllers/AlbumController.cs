@@ -158,12 +158,14 @@ namespace photoMe_api.Controllers
             }
 
             Album result = await this._albumService.GetAlbumById(albumId);
-            if (result == null)
+            AlbumForListDto albumForReturn = _mapper.Map<AlbumForListDto>(result);
+
+            if (albumForReturn == null)
             {
                 return BadRequest("Null album");
             }
-            
-            return Ok(result);
+
+            return Ok(albumForReturn);
         }
     }
 

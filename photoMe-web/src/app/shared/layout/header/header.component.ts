@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-localstorage';
+import { Photo } from '../../models/Photo';
+import { User } from '../../models/User';
 import { AlertifyService } from '../../services/alertify.service';
 import { AuthService } from '../../services/auth.service';
+import { PhotoService } from '../../services/photo.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -10,14 +14,18 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  currentUser: User = new User();
+
   constructor(
     public authService: AuthService,
     private alertify: AlertifyService,
     private router: Router,
-    private localStorage: LocalStorageService
-  ) { }
+    private localStorage: LocalStorageService,
+  ) {
+  }
 
   ngOnInit(): void {
+    this.currentUser = this.localStorage.get('user');
   }
 
   loggedIn(): boolean {

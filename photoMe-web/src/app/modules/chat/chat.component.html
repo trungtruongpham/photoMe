@@ -1,0 +1,23 @@
+<app-header></app-header>
+
+<div class="main-container">
+  <div class="chat-container">
+    <div class="contact-box">
+      <div class="contact-header">
+        <div class="header-content">
+          <div class="header-label">
+            <p>Messages</p>
+          </div>
+          <button pButton pRipple type="button" icon="pi pi-external-link"
+            class="p-button-rounded p-button-text p-button-plain p-button-lg"></button>
+        </div>
+      </div>
+      <div class="contact-user">
+        <div *ngFor="let id of this.listContactId">
+          <app-user-card [userId]="id" (onATagClick)="this.onSelectContact($event)"></app-user-card>
+        </div>
+      </div>
+    </div>
+    <app-message-box [contactId]="this.contactId"></app-message-box>
+  </div>
+</div>

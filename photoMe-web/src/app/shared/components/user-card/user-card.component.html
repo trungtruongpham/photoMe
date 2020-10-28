@@ -1,0 +1,13 @@
+<div class="user-card">
+    <a class="tag"  (click)="this.onClickATag()">
+        <div class="user-info">
+            <div class="avatar">
+                <img src="{{this.userContact.avatar?.url}}" alt="" srcset="">
+            </div>
+            <div class="connect-info">
+                <p class="username">{{this.userContact.name}}</p>
+                <p class="last-active">{{this.userContact.lastActive}}</p>
+            </div>
+        </div>
+    </a>
+</div>

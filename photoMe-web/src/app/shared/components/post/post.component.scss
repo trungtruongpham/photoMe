@@ -1,35 +1,57 @@
 .newsBox {
   background-color: #f1f3f8;
-  //padding: 3% 3% 2% 3%;
   width: 1000px;
   margin-bottom: 20px;
-  border-radius: 20px;
+  box-shadow: 0 1px 2px #bbb;
 
   .userPostInfo {
-    padding: 3% 3% 2% 3%;
-    #userName,
-    .userName {
-      font-size: 20px;
-      height: 25px;
+    padding-left: 3%;
+    padding-top: 3%;
+    margin-bottom: 10px;
+    #username,
+    .userInfo {
+      .username {
+        padding-left: 15px;
+        font-size: 20px;
+        font-weight: 600;
+        height: 25px;
+
+        a {
+          color: #393b44;
+        }
+      }
+
+      #location {
+        font-size: 12px;
+        margin-left: 2%;
+      }
+      .user-location {
+        padding-left: 15px;
+        display: inline;
+        font-weight: 600;
+        width: 50px;
+        white-space: nowrap;
+
+        .iconLocation {
+          font-size: 12px;
+          height: auto;
+          width: auto;
+        }
+
+        a {
+          color: #8d93ab;
+        }
+      }
     }
 
-    #location {
-      font-size: 12px;
-      margin-left: 2%;
-    }
-
-    .iconLocation {
-      font-size: 12px;
-      height: auto;
-      width: auto;
-    }
     .albumSlider {
       height: 500px !important;
       width: 1000px !important;
     }
   }
-  .postDes {
+  .album-description {
     padding-left: 3%;
+    margin-bottom: 10px;
     .description {
       margin-bottom: 0px !important;
     }
@@ -39,6 +61,8 @@
     }
   }
   .react {
+    padding-top: 10px;
+    
     .reactions {
       padding-left: 3%;
       padding-right: 3%;
@@ -46,30 +70,38 @@
       .reaction-items {
         display: inline-block;
         width: 40px;
+
+        button {
+          font-size: 1.5rem !important;
+        }
+
+        button:focus {
+          outline: 0 !important;
+        }
       }
     }
-    .likes{
+    .likes {
       padding-left: 3%;
       padding-right: 3%;
       background-color: transparent;
-      .likes-number{
+      .likes-number {
         border: none;
         outline: none;
         background-color: transparent;
       }
     }
   }
-  .new-comment{
+  .new-comment {
     margin-top: 4px;
     padding-left: 3%;
     padding-right: 3%;
     border-top: 1px solid #cdc9c3;
-    .comment-box{
-      .comment-form{
+    .comment-box {
+      .comment-form {
         display: flex;
         flex-direction: row;
         align-items: center;
-        .text-input{
+        .text-input {
           max-height: 80px;
           flex-direction: column;
           height: 40px;
@@ -84,7 +116,7 @@
           box-shadow: none;
           -webkit-box-shadow: none;
         }
-        .comment-button{
+        .comment-button {
           border: 0;
           outline: none;
           background-color: transparent;

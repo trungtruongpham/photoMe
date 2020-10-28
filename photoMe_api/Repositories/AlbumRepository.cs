@@ -32,7 +32,9 @@ namespace photoMe_api.Repositories
 
         public async Task<IEnumerable<Album>> GetAllAlbums()
         {
-            return await this.dbSet.Include(album => album.Photos).Include(album => album.Photographer).ToListAsync();
+            return await this.dbSet.Include(album => album.Photos)
+                                    .Include(album => album.Photographer)
+                                    .OrderByDescending(album => album.CreatedAt).ToListAsync();
         }
     }
 }

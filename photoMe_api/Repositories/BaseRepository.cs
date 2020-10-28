@@ -60,9 +60,11 @@ namespace photoMe_api.Repositories
         {
             if (entity == null)
             {
+                Console.WriteLine("null param");
                 return false;
             }
 
+            Console.WriteLine("Not null");
             await context.AddAsync(entity);
             return context.SaveChanges() > 0;
         }

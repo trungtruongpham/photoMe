@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using photoMe_api.DTO;
 using photoMe_api.Models;
 using photoMe_api.Services;
@@ -86,12 +87,19 @@ namespace photoMe_api.Controllers
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+            UserForDetailDto userToReturn = _mapper.Map<UserForDetailDto>(userFromRepo);
             string tokenReturn = tokenHandler.WriteToken(token);
+            string userSerialize = JsonConvert.SerializeObject(userToReturn);
 
-            return Ok(JsonConvert.SerializeObject(new
+            var jsonSerializerSettings = new JsonSerializerSettings
             {
-                token = tokenHandler.WriteToken(token)
-            }));
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
+            return Ok(JsonConvert.SerializeObject(new {
+                token = tokenReturn,
+                user = userToReturn
+            }, jsonSerializerSettings));
         }
     }
 }

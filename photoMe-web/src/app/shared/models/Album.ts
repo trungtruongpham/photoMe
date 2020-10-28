@@ -1,7 +1,8 @@
 import { Photo } from './Photo';
 import { Review } from './Review';
 
-export interface Album {
+export class Album {
+    id: string;
     albumType: string;
     title: string;
     thumbnailId: string;

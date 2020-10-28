@@ -1,5 +1,6 @@
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using photoMe_api.Data;
 using photoMe_api.Helpers;
+using photoMe_api.Hubs;
 using photoMe_api.Repositories;
 using photoMe_api.Services;
 
@@ -37,10 +40,8 @@ namespace photoMe_api
                     .AddNewtonsoftJson(opt =>
                     {
                         opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                        opt.SerializerSettings.ContractResolver = new DefaultContractResolver
-                        {
-                            NamingStrategy = new CamelCaseNamingStrategy(),
-                        };
+                        opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                        opt.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
                     });
 
             services.AddCors();
@@ -50,17 +51,38 @@ namespace photoMe_api
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
-                    {
-                        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                        {
-                            ValidateIssuerSigningKey = true,
-                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("AppSettings:SecretKey").Value)),
-                            ValidateIssuer = false,
-                            ValidateAudience = false,
-                        };
-                    });
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                   .AddJwtBearer(options =>
+                   {
+                       options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                       {
+                           ValidateIssuerSigningKey = true,
+                           IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("AppSettings:SecretKey").Value)),
+                           ValidateIssuer = false,
+                           ValidateAudience = false,
+                       };
+
+                       options.Events = new JwtBearerEvents
+                       {
+                           OnMessageReceived = context =>
+                           {
+                               var accessToken = context.Request.Query["access_token"];
+
+
+                               var path = context.HttpContext.Request.Path;
+                               if (!string.IsNullOrEmpty(accessToken) &&
+                                   (path.StartsWithSegments("/chatsocket")))
+                               {
+                                   context.Token = accessToken;
+                               }
+                               return Task.CompletedTask;
+                           }
+                       };
+                   });
 
             services.AddScoped<IAlbumRepository, AlbumRepository>()
                     .AddScoped<IUnitOfWork, UnitOfWork>()
@@ -77,7 +99,8 @@ namespace photoMe_api
             services.AddScoped<IAlbumService, AlbumService>()
                     .AddScoped<IAuthService, AuthService>()
                     .AddScoped<IPhotoService, PhotoService>()
-                    .AddScoped<IUserService, UserService>();
+                    .AddScoped<IUserService, UserService>()
+                    .AddScoped<IMessageService, MessageService>();
             // .AddScoped<IConstantService, ConstantService>()
             // .AddScoped<ILikeService, LikeService>()
             // .AddScoped<IMessageService, MessageService>()
@@ -90,6 +113,14 @@ namespace photoMe_api
             services.AddControllers();
 
             services.AddSwaggerGen();
+
+            services.AddSingleton<IUserIdProvider, NameBaseUserIdProvider>();
+            services.AddSignalR();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder => builder.WithOrigins("http://localhost:4200").AllowCredentials().AllowAnyMethod().AllowAnyHeader());
+            });
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
@@ -123,7 +154,6 @@ namespace photoMe_api
                 });
             }
 
-            // app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -131,7 +161,7 @@ namespace photoMe_api
                 c.RoutePrefix = string.Empty;
             });
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors("CorsPolicy");
             app.UseRouting();
 
             app.UseAuthentication();
@@ -140,6 +170,7 @@ namespace photoMe_api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chatsocket");
             });
         }
     }

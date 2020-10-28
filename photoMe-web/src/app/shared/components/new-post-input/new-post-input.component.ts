@@ -1,12 +1,15 @@
-import { ViewChild } from '@angular/core';
+import { EventEmitter, Output, ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { LocalStorageService } from 'ngx-localstorage';
 import { FileUpload } from 'primeng/fileupload';
 import { environment } from 'src/environments/environment';
 import { AlbumForCreation } from '../../models/AlbumForCreation';
+import { User } from '../../models/User';
 import { AlertifyService } from '../../services/alertify.service';
 import { AuthService } from '../../services/auth.service';
 import { FileUploadService } from '../../services/file-upload.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-new-post-input',
@@ -15,6 +18,7 @@ import { FileUploadService } from '../../services/file-upload.service';
 })
 export class NewPostInputComponent implements OnInit {
   @ViewChild('fileInput') fileInput: FileUpload;
+  @Output() submitAlbum = new EventEmitter();
 
   albumTypes: any[];
   selectedAlbumType: any;
@@ -23,13 +27,15 @@ export class NewPostInputComponent implements OnInit {
   isShowPopup: boolean;
   chooseLable = 'Chọn';
   newAlbum: AlbumForCreation;
+  currentUser: User;
   newAlbumForm = new FormGroup({
     title: new FormControl(''),
     type: new FormControl(''),
     photos: new FormControl(''),
   });
 
-  constructor(private fileUploadService: FileUploadService, private alertify: AlertifyService, public authService: AuthService) {
+  constructor(private fileUploadService: FileUploadService, private alertify: AlertifyService,
+              public authService: AuthService, private userService: UserService, private localStorage: LocalStorageService) {
     this.url = environment.apiUrl + 'user/' + authService.decodedToken.nameid + '/photos/upload-photos';
     this.isShowPopup = false;
     this.albumTypes = [
@@ -42,6 +48,8 @@ export class NewPostInputComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentUser = this.localStorage.get('user');
+    console.log(this.currentUser);
   }
 
   uploadFile(): void {
@@ -62,14 +70,15 @@ export class NewPostInputComponent implements OnInit {
 
   submitNewAlbum(): void {
     this.newAlbumForm.controls.photos.setValue(this.fileInput.files);
-
     this.newAlbum.title = this.newAlbumForm.controls.title.value;
     this.newAlbum.albumType = this.newAlbumForm.controls.type.value.name;
     this.newAlbum.files = this.newAlbumForm.controls.photos.value;
 
     this.fileUploadService.uploadAlbum(this.newAlbum).subscribe((res) => {
       this.clearForm();
+      this.isShowPopup = false;
       this.alertify.success('Tải lên thành công!');
+      this.submitAlbum.emit();
     }, error => {
       this.alertify.error('Tải lên thất bại!');
     });

@@ -6,11 +6,10 @@
     <div class="profile">
         <div class="user-info">
             <div class="topprofile">
-                <img src="https://static.toiimg.com/thumb/msid-67586673,width-800,height-600,resizemode-75,imgsize-3918697,pt-32,y_pad-40/67586673.jpg"
-                    alt="Avatar" class="topprofile_avatar" />
+                <img src="{{this.currentUser.avatar.url}}" alt="Avatar" class="topprofile_avatar" />
                 <div class="topprofile_right">
                     <p class="p_username">
-                        {{ this.authService.decodedToken?.unique_name }}
+                        {{ this.currentUser.name }}
                     </p>
                     <p class="p_role">Photographer</p>
                     <div class="hashtag">
@@ -34,23 +33,28 @@
                         <tbody>
                             <tr>
                                 <th data-field="Location">Vị trí :</th>
-                                <td>Đà Lạt</td>
+                                <td>{{this.currentUser.address}}</td>
                             </tr>
                             <tr>
                                 <th data-field="Age">Tuổi :</th>
-                                <td>21</td>
+                                <td>{{this.currentUser.age}}</td>
                             </tr>
                             <tr>
                                 <th data-field="Gender">Giới tính :</th>
-                                <td>Nam</td>
+                                <ng-container *ngIf="this.currentUser.gender === 'female'; else elseTemplate">
+                                    <td>Nữ</td>
+                                </ng-container>
+                                <ng-template #elseTemplate>
+                                    <td>Nam</td>
+                                </ng-template>
                             </tr>
                             <tr>
                                 <th data-field="PhoneNumber">SĐT :</th>
-                                <td>123456789</td>
+                                <td>{{this.currentUser.phone}}</td>
                             </tr>
                             <tr>
                                 <th data-field="Email">Email :</th>
-                                <td>trungtruongpham@gmail.com</td>
+                                <td>{{this.currentUser.email}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -99,72 +103,21 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="newsContainer">
-                        <app-post></app-post>
+                        <ul style="list-style-type: none; padding-inline-start: 0;">
+                            <li *ngFor="let album of listAlbums">
+                                <app-post [albumId]="album.id"></app-post>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="container page-top">
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                                <a href="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                            <div class="col-lg-3 col-md-4 col-xs-6 thumb" *ngFor="let photo of this.listPhotos">
+                                <a href="{{photo.url}}"
                                     class="fancybox" rel="ligthbox">
-                                    <img src="https://images.pexels.com/photos/62307/air-bubbles-diving-underwater-blow-62307.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                                    <img src="{{photo.url}}"
                                         class="zoom img-fluid" alt="Underwater" />
-                                </a>
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                                <a href="https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                                    class="fancybox" rel="ligthbox">
-                                    <img src="https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                                        class="zoom img-fluid" alt="" />
-                                </a>
-                            </div>
-
-                            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                                <a href="https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                                    class="fancybox" rel="ligthbox">
-                                    <img src="https://images.pexels.com/photos/158827/field-corn-air-frisch-158827.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                                        class="zoom img-fluid" alt="" />
-                                </a>
-                            </div>
-
-                            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                                <a href="https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                                    class="fancybox" rel="ligthbox">
-                                    <img src="https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                                        class="zoom img-fluid" alt="" />
-                                </a>
-                            </div>
-
-                            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                                <a href="https://images.pexels.com/photos/1038914/pexels-photo-1038914.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                                    class="fancybox" rel="ligthbox">
-                                    <img src="https://images.pexels.com/photos/1038914/pexels-photo-1038914.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                                        class="zoom img-fluid" alt="" />
-                                </a>
-                            </div>
-
-                            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                                <a href="https://images.pexels.com/photos/414645/pexels-photo-414645.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                                    class="fancybox" rel="ligthbox">
-                                    <img src="https://images.pexels.com/photos/414645/pexels-photo-414645.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-                                        class="zoom img-fluid" alt="" />
-                                </a>
-                            </div>
-
-                            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                                <a href="https://images.pexels.com/photos/56005/fiji-beach-sand-palm-trees-56005.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                                    class="fancybox" rel="ligthbox">
-                                    <img src="https://images.pexels.com/photos/56005/fiji-beach-sand-palm-trees-56005.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                                        class="zoom img-fluid" alt="" />
-                                </a>
-                            </div>
-
-                            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                                <a href="https://images.pexels.com/photos/1038002/pexels-photo-1038002.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                                    class="fancybox" rel="ligthbox">
-                                    <img src="https://images.pexels.com/photos/1038002/pexels-photo-1038002.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                                        class="zoom img-fluid" alt="" />
                                 </a>
                             </div>
                         </div>

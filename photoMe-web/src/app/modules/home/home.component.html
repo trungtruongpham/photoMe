@@ -3,10 +3,11 @@
   <app-header></app-header>
 
   <div class="newsContainer">
-    <app-new-post-input></app-new-post-input>
-    <app-post [albumId] = "this.albumId"></app-post>
-    <app-post [albumId] = "this.albumId"></app-post>
-    <app-post [albumId] = "this.albumId"></app-post>
-    <app-post [albumId] = "this.albumId"></app-post>
+    <app-new-post-input (submitAlbum)="this.onNewAlbumSubmitted()"></app-new-post-input>
+    <ul style="list-style-type: none;">
+      <li *ngFor="let album of listAlbums">
+        <app-post [albumId] = "album.id"></app-post>
+      </li>
+    </ul>
   </div>
 </div>

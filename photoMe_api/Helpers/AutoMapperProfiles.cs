@@ -18,10 +18,11 @@ namespace photoMe_api.Helpers
             CreateMap<UserLoginDto, User>();
             CreateMap<User, UserLoginDto>();
             CreateMap<UserForDetailDto, User>();
-            CreateMap<User, UserForDetailDto>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
             CreateMap<AlbumForCreationDto, Album>();
+            CreateMap<User, UserForDetailDto>().ForMember(dest => dest.Albums, opt => opt.MapFrom(src => src.PhotographerAlbums));
+            CreateMap<Album, AlbumForListDto>().ForMember(dest => dest.Photographer, opt => opt.MapFrom(src => src.Photographer));
         }
     }
 }

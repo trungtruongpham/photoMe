@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ namespace photoMe_api.Repositories
         }
         public async Task<User> GetUser(Guid id)
         {
-            var user = await context.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id.Equals(id));
+            var user = await context.Users.Include(p => p.Photos).Include(u => u.PhotographerAlbums).FirstOrDefaultAsync(u => u.Id.Equals(id));
 
             return user;
         }
@@ -33,13 +34,13 @@ namespace photoMe_api.Repositories
 
             //users = users.Where(u => u.Gender == userParams.Gender);
 
-            if (userParams.MinAge != 18 || userParams.MaxAge != 99)
-            {
-                var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
-                var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
+            // if (userParams.MinAge != 18 || userParams.MaxAge != 99)
+            // {
+            //     var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
+            //     var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
 
-                users = users.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
-            }
+            //     users = users.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
+            // }
 
             return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }

@@ -29,6 +29,13 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { GalleriaModule } from 'primeng/galleria';
+import { MainComponent } from './modules/main/main.component';
+import { ChatTestComponent } from './modules/chat-test/chat-test.component';
+import { UserCardComponent } from './shared/components/user-card/user-card.component';
+import { ChatComponent } from './modules/chat/chat.component';
+import { MessageBoxComponent } from './shared/components/message-box/message-box.component';
+import { MessageComponent } from './shared/components/message/message.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -40,6 +47,12 @@ import { GalleriaModule } from 'primeng/galleria';
     PostComponent,
     NewPostInputComponent,
     UserProfileComponent,
+    MainComponent,
+    ChatTestComponent,
+    UserCardComponent,
+    ChatComponent,
+    MessageBoxComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -62,11 +75,15 @@ import { GalleriaModule } from 'primeng/galleria';
     InputTextareaModule,
     DialogModule,
     DropdownModule,
-    GalleriaModule
+    GalleriaModule,
+    RouterModule
   ],
   providers: [
     AlertifyService,
-    AuthService
+    AuthService,
+    // MessageService,
+    // UserService,
+    // AlbumService
   ],
   bootstrap: [AppComponent]
 })
