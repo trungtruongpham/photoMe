@@ -33,21 +33,7 @@
           </ng-template>
         </p-galleria>
       </div>
-      <div class="react">
-        <section class="reactions">
-          <span class="reaction-items"><button pButton pRipple type="button" icon="pi pi-heart"
-              class="p-button-rounded p-button-plain p-button-text p-button-lg"></button></span>
-          <span class="reaction-items"><button pButton pRipple type="button" icon="pi pi-comments"
-              class="p-button-rounded p-button-plain p-button-text p-button-lg"></button></span>
-          <span class="reaction-items"><button pButton pRipple type="button" icon="pi pi-inbox"
-              class="p-button-rounded p-button-plain p-button-text p-button-lg"></button></span>
-        </section>
-        <section class="likes">
-          <div>
-            <button class="likes-number"><span>10</span> likes</button>
-          </div>
-        </section>
-      </div>
+      <app-react-album [likesNumber]="this.album.likesNumber" [albumId]="this.albumId" (onLikeAlbum)="this.onLikeClick()"></app-react-album>
     </div>
     <section class="new-comment">
       <div class="comment-box">

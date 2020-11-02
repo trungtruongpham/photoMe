@@ -36,6 +36,8 @@ import { ChatComponent } from './modules/chat/chat.component';
 import { MessageBoxComponent } from './shared/components/message-box/message-box.component';
 import { MessageComponent } from './shared/components/message/message.component';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReactAlbumComponent } from './shared/components/react-album/react-album.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import { RouterModule } from '@angular/router';
     UserCardComponent,
     ChatComponent,
     MessageBoxComponent,
-    MessageComponent
+    MessageComponent,
+    ReactAlbumComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +79,8 @@ import { RouterModule } from '@angular/router';
     DialogModule,
     DropdownModule,
     GalleriaModule,
-    RouterModule
+    RouterModule,
+    FontAwesomeModule
   ],
   providers: [
     AlertifyService,

@@ -11,5 +11,6 @@ namespace photoMe_api.DTO
         public string Title { get; set; }
         public string AlbumType { get; set; }
         public ICollection<Photo> Photos { get; set; }
+        public int LikesNumber { get; set; }
     }
 }

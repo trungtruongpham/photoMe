@@ -4,9 +4,9 @@ namespace photoMe_api.Models
 {
     public class Like : BaseModel
     {
-        public Guid? LikerId { get; set; }
-        public User Liker { get; set; }
-        public Guid? LikeeId { get; set; }
-        public User Likee { get; set; }
+        public Guid? AlbumId { get; set; }
+        public Album Album { get; set; }
+        public Guid? MakerId { get; set; }
+        public User Maker { get; set; }
     }
 }

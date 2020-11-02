@@ -1,0 +1,35 @@
+.react {
+  padding-top: 10px;
+
+  .reactions {
+    padding-left: 3%;
+    padding-right: 3%;
+    height: 40px;
+    display: flex;
+    gap: 20px;
+    .reaction-items {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+
+      button {
+        font-size: 1.5rem !important;
+        outline: none !important;
+      }
+
+      button:focus {
+        outline: 0 !important;
+      }
+    }
+  }
+  .likes {
+    padding-left: 3%;
+    padding-right: 3%;
+    background-color: transparent;
+    .likes-number {
+      border: none;
+      outline: none;
+      background-color: transparent;
+    }
+  }
+}

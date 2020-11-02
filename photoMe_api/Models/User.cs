@@ -25,8 +25,7 @@ namespace photoMe_api.Models
         public ICollection<Album> ModelAlbums { get; set; }
         public ICollection<Message> SenderMessages { get; set; }
         public ICollection<Message> ReceiverMessages { get; set; }
-        public ICollection<Like> Likees { get; set; }
-        public ICollection<Like> Likers { get; set; }
+        public ICollection<Like> Likes { get; set; }
         public ICollection<Notification> SenderNotifications { get; set; }
         public ICollection<Notification> ReceiverNotifications { get; set; }
         public ICollection<Review> Reviews { get; set; }

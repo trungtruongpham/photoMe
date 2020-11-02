@@ -1,0 +1,16 @@
+<div class="react">
+  <section class="reactions">
+    <span class="reaction-items"><button pButton pRipple type="button" icon="pi pi-heart"
+        [ngClass]="{'p-button-rounded': true, 'p-button-danger': this.isLiked , 'p-button-text p-button-lg' : !this.isLiked}"
+        (click)="this.onLikeClick()"></button></span>
+    <span class="reaction-items"><button pButton pRipple type="button" icon="pi pi-comments"
+        class="p-button-rounded p-button-plain p-button-text p-button-lg"></button></span>
+    <span class="reaction-items"><button pButton pRipple type="button" icon="pi pi-inbox"
+        class="p-button-rounded p-button-plain p-button-text p-button-lg"></button></span>
+  </section>
+  <section class="likes">
+    <div>
+      <button class="likes-number"><span>{{this.likesNumber}}</span> likes</button>
+    </div>
+  </section>
+</div>

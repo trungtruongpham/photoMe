@@ -34,19 +34,26 @@ namespace photoMe_api.Repositories
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            var entity = dbSet.SingleOrDefaultAsync(e => e.Id.Equals(id));
+            var entity = await dbSet.SingleOrDefaultAsync(e => e.Id.Equals(id));
             if (entity == null)
             {
                 return false;
             }
 
-            context.Remove(entity);
+            var result = context.Remove(entity);
             return await context.SaveChangesAsync() > 0;
         }
 
-        public Task<T> GetByIdAsync(Guid id)
+        public async Task<T> GetByIdAsync(Guid id)
         {
-            var entity = dbSet.SingleOrDefaultAsync(e => e.Id.Equals(id));
+            var entity = await dbSet.SingleOrDefaultAsync(e => e.Id.Equals(id));
+
+            if (entity == null)
+            {
+                Console.WriteLine("abc");
+                return null;
+            }
+
             return entity;
         }
 
@@ -60,11 +67,9 @@ namespace photoMe_api.Repositories
         {
             if (entity == null)
             {
-                Console.WriteLine("null param");
                 return false;
             }
 
-            Console.WriteLine("Not null");
             await context.AddAsync(entity);
             return context.SaveChanges() > 0;
         }

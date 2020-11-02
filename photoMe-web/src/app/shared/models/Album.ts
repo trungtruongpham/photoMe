@@ -8,4 +8,5 @@ export class Album {
     thumbnailId: string;
     photos?: Photo[];
     review?: Review[];
+    likesNumber: number;
 }

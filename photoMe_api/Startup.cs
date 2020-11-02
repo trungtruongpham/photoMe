@@ -37,12 +37,12 @@ namespace photoMe_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
-                    .AddNewtonsoftJson(opt =>
-                    {
-                        opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-                        opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                        opt.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
-                    });
+                .AddNewtonsoftJson(opt =>
+                {
+                    opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    opt.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+                });
 
             services.AddCors();
             services.AddAutoMapper(typeof(UserRepository).Assembly);
@@ -56,59 +56,51 @@ namespace photoMe_api
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                   .AddJwtBearer(options =>
-                   {
-                       options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                       {
-                           ValidateIssuerSigningKey = true,
-                           IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("AppSettings:SecretKey").Value)),
-                           ValidateIssuer = false,
-                           ValidateAudience = false,
-                       };
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("AppSettings:SecretKey").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                    };
 
-                       options.Events = new JwtBearerEvents
-                       {
-                           OnMessageReceived = context =>
-                           {
-                               var accessToken = context.Request.Query["access_token"];
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
 
-
-                               var path = context.HttpContext.Request.Path;
-                               if (!string.IsNullOrEmpty(accessToken) &&
-                                   (path.StartsWithSegments("/chatsocket")))
-                               {
-                                   context.Token = accessToken;
-                               }
-                               return Task.CompletedTask;
-                           }
-                       };
-                   });
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) &&
+                                (path.StartsWithSegments("/chatsocket")))
+                            {
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
 
             services.AddScoped<IAlbumRepository, AlbumRepository>()
-                    .AddScoped<IUnitOfWork, UnitOfWork>()
-                    .AddScoped<IAuthRepository, AuthRepository>()
-                    .AddScoped<IConstantRepository, ConstantRepository>()
-                    .AddScoped<ILikeRepository, LikeRepository>()
-                    .AddScoped<IMessageRepository, MessageRepository>()
-                    .AddScoped<INotificationRepository, NotificationRepository>()
-                    .AddScoped<IPhotoRepository, PhotoRepository>()
-                    .AddScoped<IPhotoShootRepository, PhotoShootRepository>()
-                    .AddScoped<IReviewRepository, ReviewRepository>()
-                    .AddScoped<IUserRepository, UserRepository>();
+                .AddScoped<IUnitOfWork, UnitOfWork>()
+                .AddScoped<IAuthRepository, AuthRepository>()
+                .AddScoped<IConstantRepository, ConstantRepository>()
+                .AddScoped<ILikeRepository, LikeRepository>()
+                .AddScoped<IMessageRepository, MessageRepository>()
+                .AddScoped<INotificationRepository, NotificationRepository>()
+                .AddScoped<IPhotoRepository, PhotoRepository>()
+                .AddScoped<IPhotoShootRepository, PhotoShootRepository>()
+                .AddScoped<IReviewRepository, ReviewRepository>()
+                .AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IAlbumService, AlbumService>()
-                    .AddScoped<IAuthService, AuthService>()
-                    .AddScoped<IPhotoService, PhotoService>()
-                    .AddScoped<IUserService, UserService>()
-                    .AddScoped<IMessageService, MessageService>();
-            // .AddScoped<IConstantService, ConstantService>()
-            // .AddScoped<ILikeService, LikeService>()
-            // .AddScoped<IMessageService, MessageService>()
-            // .AddScoped<INotificationService, NotificationService>()
-            // .AddScoped<IPhotoService, PhotoService>()
-            // .AddScoped<IPhotoShootService, PhotoShootService>()
-            // .AddScoped<IReviewService, ReviewService>()
-            // .AddScoped<IUserService, UserService>();
+                .AddScoped<IAuthService, AuthService>()
+                .AddScoped<IPhotoService, PhotoService>()
+                .AddScoped<IUserService, UserService>()
+                .AddScoped<IMessageService, MessageService>()
+                .AddScoped<ILikeService, LikeService>();
 
             services.AddControllers();
 
@@ -119,7 +111,13 @@ namespace photoMe_api
 
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy", builder => builder.WithOrigins("http://localhost:4200").AllowCredentials().AllowAnyMethod().AllowAnyHeader());
+                options.AddPolicy("CorsPolicy", builder => builder.WithOrigins("http://localhost:4200")
+                                                                   .AllowCredentials()
+                                                                   .AllowAnyMethod()
+                                                                   .AllowAnyHeader());
+                options.AddPolicy("AllowAll", builder => builder.AllowAnyHeader()
+                                                                   .AllowAnyOrigin()
+                                                                   .AllowAnyMethod());
             });
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();

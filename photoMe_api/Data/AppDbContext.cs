@@ -33,18 +33,6 @@ namespace photoMe_api.Data
             builder.Entity<Review>().ToTable("Reviews");
             builder.Entity<User>().ToTable("Users");
 
-            builder.Entity<Like>()
-                    .HasOne(l => l.Likee)
-                    .WithMany(u => u.Likers)
-                    .HasForeignKey(l => l.LikeeId)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<Like>()
-                    .HasOne(l => l.Liker)
-                    .WithMany(u => u.Likees)
-                    .HasForeignKey(l => l.LikerId)
-                    .OnDelete(DeleteBehavior.Restrict);
-
             builder.Entity<Album>()
                     .HasOne(a => a.Model)
                     .WithMany(u => u.ModelAlbums)
@@ -112,6 +100,16 @@ namespace photoMe_api.Data
                     .HasOne<User>(p => p.User)
                     .WithMany(u => u.Photos)
                     .HasForeignKey(p => p.UserId);
+
+            builder.Entity<Like>()
+                    .HasOne<Album>(l => l.Album)
+                    .WithMany(a => a.Likes)
+                    .HasForeignKey(l => l.AlbumId);
+
+            builder.Entity<Like>()
+                    .HasOne<User>(l => l.Maker)
+                    .WithMany(u => u.Likes)
+                    .HasForeignKey(l => l.MakerId);
         }
     }
 }
