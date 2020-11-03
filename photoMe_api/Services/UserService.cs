@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using photoMe_api.Helpers;
 using photoMe_api.Models;
@@ -11,6 +12,7 @@ namespace photoMe_api.Services
         Task<User> GetUser(Guid userId);
         Task<PagedList<User>> GetUsers(UserParams userParams);
         Task<bool> SaveAll();
+        Task<IEnumerable<User>> SearchUser(string username);
     }
     public class UserService : IUserService
     {
@@ -35,6 +37,11 @@ namespace photoMe_api.Services
         public Task<bool> SaveAll()
         {
             return this._unitOfWork.SaveAsync();
+        }
+
+        public Task<IEnumerable<User>> SearchUser(string username)
+        {
+            return this._userService.SearchUser(username);
         }
     }
 }

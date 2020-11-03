@@ -1,0 +1,24 @@
+<div class="modal-dialog">
+  <p-dialog header="Tin nhắn mới" [(visible)]="displayModal" [modal]="true" [style]="{width: '30vw', overflow: 'none'}"
+    [transitionOptions]="'0ms'" [baseZIndex]="10000" [draggable]="false" [resizable]="false"
+    [contentStyle]="{overflow: 'hidden'}" class="new-chat-dialog" (onHide)="this.onHideModal()">
+    <div class="modal-body">
+      <div class="username-input">
+        <h5>Gửi đến:</h5>
+        <textarea placeholder="Nhập người nhận" rows="1" [(ngModel)]="this.username"
+          (ngModelChange)="this.searchUserContact()"></textarea>
+      </div>
+      <div class="user-list">
+        <div *ngFor="let user of this.listUser; let i=index">
+          <app-user-card [userId]="user.id" (onATagClick)="onSelectUser($event)"></app-user-card>
+        </div>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="this.onSubmitNewChatEvent()" label="Đồng ý" styleClass="p-button-text">
+      </p-button>
+      <p-button icon="pi pi-times" (click)="displayModal=false" label="Hủy" styleClass="p-button-text p-button-danger">
+      </p-button>
+    </ng-template>
+  </p-dialog>
+</div>

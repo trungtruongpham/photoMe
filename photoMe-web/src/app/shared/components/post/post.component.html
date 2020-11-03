@@ -2,15 +2,14 @@
   <div class="">
     <div class="">
       <div class="userPostInfo d-flex flex-row">
-        <img src={{this.currentUser.avatar?.url}} alt="Avatar"
-          class="userAvatar" />
+        <img src={{this.photographer.avatar?.url}} alt="Avatar" class="userAvatar" />
         <div class="userInfo">
           <div class="username">
-            <a href="#" id="userName">{{this.currentUser.name}}</a>
+            <a [routerLink]="['/user', this.photographer.id]" id="userName">{{this.photographer.name}}</a>
           </div>
           <div class="user-location">
             <mat-icon class="iconLocation">location_on</mat-icon>
-            <a href="#" id="location"> {{this.currentUser.address}}</a>
+            <a href="/user" id="location"> {{this.photographer.address}}</a>
           </div>
         </div>
       </div>
@@ -33,15 +32,21 @@
           </ng-template>
         </p-galleria>
       </div>
-      <app-react-album [likesNumber]="this.album.likesNumber" [albumId]="this.albumId" (onLikeAlbum)="this.onLikeClick()"></app-react-album>
+      <app-react-album [likesNumber]="this.album.likesNumber" [albumId]="this.albumId"
+        (onLikeAlbum)="this.onLikeClick()"></app-react-album>
     </div>
+    <section class="review-view">
+      <div class="list-review" *ngIf="!this.isNoReview">
+        <div class="review" *ngFor="let review of this.reviews; let i=index">
+          <app-review [review]= review></app-review>
+        </div>
+      </div>
+    </section>
     <section class="new-comment">
       <div class="comment-box">
-        <form class="comment-form">
-          <textarea aria-label="Thêm nhận xét" placeholder="Thêm nhận xét..." class="text-input" name="" cols=""
-            rows="3"></textarea>
+          <textarea aria-label="Thêm nhận xét" placeholder="Thêm nhận xét..." class="text-input" [(ngModel)]="this.reviewMessage"
+            rows="3" (keydown.enter)="this.onEnterReview($event)"></textarea>
           <button class="comment-button">Đăng</button>
-        </form>
       </div>
     </section>
   </div>

@@ -6,10 +6,12 @@
       <div class="contact-header">
         <div class="header-content">
           <div class="header-label">
-            <p>Messages</p>
+            <p>Tin nhắn</p>
           </div>
           <button pButton pRipple type="button" icon="pi pi-external-link"
-            class="p-button-rounded p-button-text p-button-plain p-button-lg"></button>
+            class="p-button-rounded p-button-text p-button-plain p-button-lg" (click)="showModalPopup()"></button>
+          <app-new-chat-dialog [displayModal]="this.displayModal" (onHideModalPopup)="this.onHideModalPopup()"
+            (onSubmitNewChat)="this.onSubmitNewChat($event)"></app-new-chat-dialog>
         </div>
       </div>
       <div class="contact-user">

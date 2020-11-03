@@ -19,7 +19,7 @@ export class User {
   interests?: string;
   introduction?: string;
   lookingFor?: string;
-  avatar: Photo;
+  avatar?: Photo;
   photos?: Photo[];
   albums?: Album[];
 }

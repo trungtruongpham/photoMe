@@ -13,6 +13,7 @@ namespace photoMe_api.Repositories
     {
         Task<User> GetUser(Guid id);
         Task<PagedList<User>> GetUsers(UserParams userParams);
+        Task<IEnumerable<User>> SearchUser(string username);
     }
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
@@ -43,6 +44,11 @@ namespace photoMe_api.Repositories
             // }
 
             return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
+        }
+
+        public async Task<IEnumerable<User>> SearchUser(string username)
+        {
+            return await this.dbSet.Where(u => u.Name.Contains(username)).ToListAsync();
         }
     }
 }

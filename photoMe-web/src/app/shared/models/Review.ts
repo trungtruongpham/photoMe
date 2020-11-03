@@ -1,4 +1,8 @@
-export interface Review {
+import { User } from './User';
+
+export class Review {
     reviewMessage: string;
-    stars: number;
+    maker: User;
+    makerId: string;
+    albumId: string;
 }

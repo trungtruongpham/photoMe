@@ -14,12 +14,12 @@ export class UserService {
   userUrl = environment.apiUrl + 'user';
   constructor(private authService: AuthService, private httpClient: HttpClient, private localStorage: LocalStorageService) { }
 
-  getUserById(userId: string): Observable<any>{
+  getUserById(userId: string): Observable<any> {
     const url = this.userUrl + '/' + userId;
 
     return this.httpClient.get(url, {
       headers: {
-        Authorization: 'Bearer ' +  this.localStorage.get('token')
+        Authorization: 'Bearer ' + this.localStorage.get('token')
       }
     });
   }
@@ -36,5 +36,13 @@ export class UserService {
         userContact.avatar.url = 'https://user-images.githubusercontent.com/32018323/96729540-74043680-13df-11eb-8e33-82f40db5b8c5.png';
       }
     }
+  }
+
+  searchUser(user: any): Observable<any> {
+    return this.httpClient.post(this.userUrl + '/search', user, {
+      headers: {
+        Authorization: 'Bearer ' + this.localStorage.get('token')
+      }
+    });
   }
 }

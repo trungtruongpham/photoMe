@@ -1,0 +1,9 @@
+<div class="review">
+  <a [routerLink]="['/user', this.review.maker?.id]"><img src='{{this.review.maker.avatar?.url}}' alt="Avatar"
+      class="reviewer-avatar" /></a>
+  <div class="review-content">
+    <span class="review-message"><a [routerLink]="['/user', this.review.maker?.id]">{{this.review.maker?.name}}</a>
+      {{this.review.reviewMessage}}</span>
+    <span class="review-reactions">3d</span>
+  </div>
+</div>

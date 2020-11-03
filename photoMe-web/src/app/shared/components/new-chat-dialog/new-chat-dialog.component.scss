@@ -1,0 +1,40 @@
+.modal-dialog {
+  .new-chat-dialog {
+    border-radius: 50px !important;
+    width: 40vw;
+
+    .p-dialog-content {
+      padding: 0 !important;
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+
+      .username-input {
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        gap: 10px;
+
+        textarea {
+          border: none;
+          outline: none;
+          flex: 1;
+          resize: none;
+          text-align: start;
+        }
+
+        h5 {
+          margin-bottom: none !important;
+        }
+      }
+
+      .user-list {
+        overflow-y: scroll;
+        height: 300px;
+      }
+    }
+  }
+}

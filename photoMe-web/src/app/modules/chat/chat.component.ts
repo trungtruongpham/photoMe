@@ -14,11 +14,15 @@ export class ChatComponent implements OnInit {
   isTexting: boolean;
   listContactId: string[] = [];
   contactId: string;
+  displayModal: boolean;
+  testUser1: string;
+  testUser2: string;
 
   constructor(private messageService: MessageService, private alertify: AlertifyService) { }
 
   ngOnInit(): void {
     this.isTexting = false;
+    this.displayModal = false;
 
     this.messageService.getListContact().subscribe((res) => {
       this.listContactId = res;
@@ -46,5 +50,17 @@ export class ChatComponent implements OnInit {
 
   onSelectContact(contactId: string): void {
     this.contactId = contactId;
+  }
+
+  showModalPopup(): void {
+    this.displayModal = !this.displayModal;
+  }
+
+  onHideModalPopup(): void {
+    this.displayModal = false;
+  }
+
+  onSubmitNewChat(contactId: string): void{
+    this.listContactId.unshift(contactId);
   }
 }

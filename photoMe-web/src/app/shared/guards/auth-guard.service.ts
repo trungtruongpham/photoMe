@@ -12,11 +12,14 @@ export class AuthGuardService implements CanActivate {
   constructor(public auth: AuthService, public router: Router, private alertify: AlertifyService) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.auth.loggedIn()) {
+      console.log(this.auth.loggedIn());
+      
       return true;
     }
 
-    this.alertify.error('Bạn cần đăng nhập / đăng kí để tiếp tục !');
     this.router.navigate(['login']);
+    this.alertify.error('Bạn cần đăng nhập / đăng kí để tiếp tục !');
+
     return false;
   }
 }

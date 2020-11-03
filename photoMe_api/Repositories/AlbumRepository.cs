@@ -27,7 +27,7 @@ namespace photoMe_api.Repositories
 
         public async Task<IEnumerable<Album>> GetAlbumsByUserId(Guid userId)
         {
-            return await this.context.Albums.Where(a => a.PhotographerId.Equals(userId)).ToListAsync();
+            return await this.context.Albums.Include(album => album.Reviews).Where(a => a.PhotographerId.Equals(userId)).ToListAsync();
         }
 
         public async Task<IEnumerable<Album>> GetAllAlbums()

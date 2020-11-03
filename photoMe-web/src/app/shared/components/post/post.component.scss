@@ -62,7 +62,7 @@
   }
   .react {
     padding-top: 10px;
-    
+
     .reactions {
       padding-left: 3%;
       padding-right: 3%;
@@ -92,39 +92,74 @@
       }
     }
   }
+
+  .review-view {
+    border-top: 1px solid #cdc9c3;
+    margin-top: 5px;
+    padding-left: 3%;
+    padding-right: 3%;
+    .list-review {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .review {
+        display: flex;
+        align-items: center;
+
+        .reviewer-avatar {
+          vertical-align: middle;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+        }
+
+        .review-content {
+          display: flex;
+          flex-direction: column;
+
+          .review-message {
+            a {
+              font-weight: 600;
+              color: black;
+            }
+          }
+        }
+      }
+    }
+  }
   .new-comment {
     margin-top: 4px;
     padding-left: 3%;
     padding-right: 3%;
     border-top: 1px solid #cdc9c3;
     .comment-box {
-      .comment-form {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        .text-input {
-          max-height: 80px;
-          flex-direction: column;
-          height: 40px;
-          padding-top: 5px;
-          text-align: start;
-          border: none;
-          outline: none;
-          border-color: transparent;
-          background: 0;
-          flex-grow: 1;
-          resize: none;
-          box-shadow: none;
-          -webkit-box-shadow: none;
-        }
-        .comment-button {
-          border: 0;
-          outline: none;
-          background-color: transparent;
-          color: #0278ae;
-          height: 40px;
-          font-weight: 600;
-        }
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .text-input {
+        max-height: 80px;
+        flex-direction: column;
+        height: 40px;
+        padding-top: 5px;
+        text-align: start;
+        border: none;
+        outline: none;
+        border-color: transparent;
+        background: 0;
+        flex-grow: 1;
+        resize: none;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+      }
+      .comment-button {
+        border: 0;
+        outline: none;
+        background-color: transparent;
+        color: #0278ae;
+        height: 40px;
+        font-weight: 600;
       }
     }
   }

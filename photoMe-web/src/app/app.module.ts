@@ -38,6 +38,8 @@ import { MessageComponent } from './shared/components/message/message.component'
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactAlbumComponent } from './shared/components/react-album/react-album.component';
+import { NewChatDialogComponent } from './shared/components/new-chat-dialog/new-chat-dialog.component';
+import { ReviewComponent } from './shared/components/review/review.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { ReactAlbumComponent } from './shared/components/react-album/react-album
     ChatComponent,
     MessageBoxComponent,
     MessageComponent,
-    ReactAlbumComponent
+    ReactAlbumComponent,
+    NewChatDialogComponent,
+    ReviewComponent
   ],
   imports: [
     BrowserModule,

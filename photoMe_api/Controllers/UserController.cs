@@ -58,5 +58,25 @@ namespace photoMe_api.Controllers
 
             return Ok(userToReturn);
         }
+
+        [HttpPost("search")]
+        public async Task<IActionResult> SearchUserAsync([FromBody] UserForSearchDto userInput)
+        {
+            var listUser = await this._userService.SearchUser(userInput.Username);
+            var listUserForReturn = new List<UserForListDto>();
+
+            foreach (var user in listUser)
+            {
+                UserForListDto userToReturn = this._mapper.Map<UserForListDto>(user);
+                listUserForReturn.Add(userToReturn);
+            }
+
+            if (listUserForReturn != null)
+            {
+                return Ok(listUserForReturn);
+            }
+
+            return BadRequest();
+        }
     }
 }
