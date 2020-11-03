@@ -131,7 +131,11 @@ namespace photoMe_api
                 c.RoutePrefix = string.Empty;
             });
 
+<<<<<<< Updated upstream
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+=======
+            app.UseCors("AllowAll");
+>>>>>>> Stashed changes
             app.UseRouting();
 
             app.UseAuthentication();
