@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using photoMe_api.DTO;
 using photoMe_api.Models;
 using photoMe_api.Repositories;
 
@@ -12,6 +13,7 @@ namespace photoMe_api.Services
         Task<IEnumerable<Album>> GetAlbumsByUserId(Guid userId);
         Task<IEnumerable<Album>> GetAllAbums();
         Task<Album> GetAlbumById(Guid albumId);
+        Task<IEnumerable<Album>> GetPagedAlbum(int page, int pageSize);
     }
     public class AlbumService : IAlbumService
     {
@@ -37,6 +39,11 @@ namespace photoMe_api.Services
         public Task<IEnumerable<Album>> GetAllAbums()
         {
             return this._albumRepository.GetAllAlbums();
+        }
+
+        public async Task<IEnumerable<Album>> GetPagedAlbum(int page, int pageSize)
+        {
+            return await this._albumRepository.GetPagedAlbumAsync(page, pageSize);
         }
 
         public Task<bool> InsertAlbum(Album album)

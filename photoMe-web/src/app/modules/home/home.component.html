@@ -3,11 +3,16 @@
   <app-header></app-header>
 
   <div class="newsContainer">
-    <app-new-post-input (submitAlbum)="this.onNewAlbumSubmitted()"></app-new-post-input>
-    <ul style="list-style-type: none;">
-      <li *ngFor="let album of listAlbums">
-        <app-post [albumId] = "album.id"></app-post>
-      </li>
-    </ul>
+    <app-infinite-scroll (scrolled)="this.onScroll()">
+      <app-new-post-input (submitAlbum)="this.onNewAlbumSubmitted()"></app-new-post-input>
+      <div *ngFor="let album of this.listAlbums">
+        <app-post [albumId]="album.id"></app-post>
+      </div>
+      
+      <div *ngIf="isLoading">
+        Fetching albums...
+       </div>
+    </app-infinite-scroll>
+
   </div>
 </div>

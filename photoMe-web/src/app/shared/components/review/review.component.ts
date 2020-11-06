@@ -14,8 +14,6 @@ export class ReviewComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    console.log(this.review);
-    
     this.userService.setDefaultAvatar(this.review.maker);
   }
 }

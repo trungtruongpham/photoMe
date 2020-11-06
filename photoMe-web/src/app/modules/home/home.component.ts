@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { error } from 'protractor';
 import { AlbumService } from 'src/app/shared/services/album.service';
 import { AlertifyService } from 'src/app/shared/services/alertify.service';
 
@@ -10,23 +9,40 @@ import { AlertifyService } from 'src/app/shared/services/alertify.service';
 })
 export class HomeComponent implements OnInit {
   listAlbums = [];
+  page: number;
+  pagedAlbums: [];
+  isLoading: boolean;
   title = 'HomePage';
 
   constructor(private albumService: AlbumService, private alertify: AlertifyService) { }
 
   ngOnInit(): void {
-    this.loadAlbums();
+    this.loadAlbums(1);
+    this.page = 0;
+    this.isLoading = false;
+    this.albumService.getPagedAlbum(1, 5).subscribe(res => {
+      console.log(res);
+      this.pagedAlbums = res;
+    });
   }
 
   onNewAlbumSubmitted(): void {
-    this.loadAlbums();
+    this.loadAlbums(1);
   }
 
-  loadAlbums(): void {
-    this.albumService.getAllAlbum().subscribe((res) => {
-      this.listAlbums = res;
-    }, () => {
-      this.alertify.error('Tải danh sách album thất bại!');
+  loadAlbums(page: number): void {
+    this.albumService.getPagedAlbum(page, 5).subscribe(res => {
+      res.forEach(item => {
+        this.listAlbums.push(item);
+      });
     });
+  }
+
+  onScroll(): void {
+    console.log('scrolling');
+    this.page += 1;
+
+    this.loadAlbums(this.page);
+    console.log(this.listAlbums);
   }
 }

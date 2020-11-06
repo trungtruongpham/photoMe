@@ -20,16 +20,13 @@ export class ReactAlbumComponent implements OnInit {
   constructor(private likeService: LikeService, private alertify: AlertifyService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    console.log(this.albumId);
     this.likeService.getUserLike(this.albumId).subscribe((res) => {
-      console.log(res);
       if (res === null || res === undefined) {
         this.isLiked = false;
       }
       else {
         this.isLiked = true;
       }
-      console.log(this.isLiked);
     });
   }
 
@@ -42,13 +39,11 @@ export class ReactAlbumComponent implements OnInit {
         this.alertify.error('Bạn vừa bỏ thích một album!');
         this.isLiked = !this.isLiked;
         this.onLikeAlbum.emit();
-        console.log(this.isLiked);
         return;
       }
 
       this.alertify.success('Bạn vừa like một ablum!');
       this.isLiked = !this.isLiked;
-      console.log(this.isLiked);
       this.onLikeAlbum.emit();
     }, error => {
       this.alertify.error('Like thất bại!');

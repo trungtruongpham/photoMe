@@ -23,7 +23,7 @@ export class AlbumService {
     });
   }
 
-  getAllAlbum(): Observable<any>{
+  getAllAlbum(): Observable<any> {
     const url = this.albumUrl + '/all';
 
     return this.httpCLient.get(url, {
@@ -37,6 +37,23 @@ export class AlbumService {
     const url = this.albumUrl + '/';
 
     return this.httpCLient.get(url, {
+      headers: {
+        Authorization: 'Bearer ' + this.localStorage.get('token'),
+      }
+    });
+  }
+
+  getPagedAlbum(page: number, pageSize: number): Observable<any> {
+    const url = this.albumUrl + '/pagedAlbums';
+    const params = {
+      page: page.toString(),
+      pageSize: pageSize.toString()
+    };
+
+    console.log(params);
+
+    return this.httpCLient.get(url, {
+      params,
       headers: {
         Authorization: 'Bearer ' + this.localStorage.get('token'),
       }

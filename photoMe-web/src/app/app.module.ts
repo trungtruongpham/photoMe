@@ -40,6 +40,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactAlbumComponent } from './shared/components/react-album/react-album.component';
 import { NewChatDialogComponent } from './shared/components/new-chat-dialog/new-chat-dialog.component';
 import { ReviewComponent } from './shared/components/review/review.component';
+import { InfiniteScrollComponent } from './shared/components/infinite-scroll/infinite-scroll.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ReviewComponent } from './shared/components/review/review.component';
     MessageComponent,
     ReactAlbumComponent,
     NewChatDialogComponent,
-    ReviewComponent
+    ReviewComponent,
+    InfiniteScrollComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +86,7 @@ import { ReviewComponent } from './shared/components/review/review.component';
     DropdownModule,
     GalleriaModule,
     RouterModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [
     AlertifyService,

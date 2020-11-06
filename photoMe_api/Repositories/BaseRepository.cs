@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using photoMe_api.Data;
+using photoMe_api.DTO;
 using photoMe_api.Models;
 
 namespace photoMe_api.Repositories
@@ -15,6 +17,8 @@ namespace photoMe_api.Repositories
         Task<bool> DeleteAsync(Guid id);
         Task<T> GetByIdAsync(Guid id);
         Task<bool> SaveAll();
+
+        Task<PagedResultDto<T>> GetPaged(int page, int pageSize);
     }
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
     {
@@ -83,6 +87,19 @@ namespace photoMe_api.Repositories
 
             dbSet.Update(entity);
             return await context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<PagedResultDto<T>> GetPaged(int page, int pageSize)
+        {
+            var result = new PagedResultDto<T>();
+            result.CurrentPage = page;
+            result.PageSize = pageSize;
+
+            var skip = (page-1 )* pageSize;
+            result.Items = await this.dbSet.Skip(skip).Take(pageSize).ToListAsync();
+            result.PageCount = result.Items.Count();
+
+            return result;
         }
     }
 }

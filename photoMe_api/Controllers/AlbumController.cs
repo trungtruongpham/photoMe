@@ -167,6 +167,13 @@ namespace photoMe_api.Controllers
 
             return Ok(albumForReturn);
         }
+
+        [HttpGet("pagedAlbums")]
+        public async Task<IActionResult> GetPagedAlbumAsync([FromQuery] int page, int pageSize){
+            var result = await this._albumService.GetPagedAlbum(page, pageSize);
+
+            return Ok(result);
+        }
     }
 
 

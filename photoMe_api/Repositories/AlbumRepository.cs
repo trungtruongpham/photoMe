@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using photoMe_api.Data;
+using photoMe_api.DTO;
 using photoMe_api.Models;
 
 namespace photoMe_api.Repositories
@@ -13,6 +14,7 @@ namespace photoMe_api.Repositories
         Task<IEnumerable<Album>> GetAlbumsByUserId(Guid userId);
         Task<IEnumerable<Album>> GetAllAlbums();
         Task<Album> GetAlbumById(Guid albumId);
+        Task<IEnumerable<Album>> GetPagedAlbumAsync(int page, int pageSize);
     }
     public class AlbumRepository : BaseRepository<Album>, IAlbumRepository
     {
@@ -35,6 +37,15 @@ namespace photoMe_api.Repositories
             return await this.dbSet.Include(album => album.Photos)
                                     .Include(album => album.Photographer)
                                     .OrderByDescending(album => album.CreatedAt).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Album>> GetPagedAlbumAsync(int page, int pageSize)
+        {
+            var skip = (page - 1 )* pageSize;   
+            return await this.dbSet.Skip(skip).Take(pageSize).Include(album => album.Photos)
+                                    .Include(album => album.Photographer)
+                                    .OrderByDescending(album => album.CreatedAt).ToListAsync();
+
         }
     }
 }

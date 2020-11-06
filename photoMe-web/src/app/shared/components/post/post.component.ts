@@ -41,7 +41,7 @@ export class PostComponent implements OnInit {
   ];
 
   constructor(private albumService: AlbumService, private alertify: AlertifyService, private localStorageService: LocalStorageService,
-    private reviewService: ReviewService, private authService: AuthService) { }
+              private reviewService: ReviewService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.isNoReview = false;
