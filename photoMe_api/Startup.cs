@@ -101,7 +101,8 @@ namespace photoMe_api
                 .AddScoped<IUserService, UserService>()
                 .AddScoped<IMessageService, MessageService>()
                 .AddScoped<ILikeService, LikeService>()
-                .AddScoped<IReviewService, ReviewService>();
+                .AddScoped<IReviewService, ReviewService>()
+                .AddScoped<INotificationService, NotificationService>();
 
             services.AddControllers();
 

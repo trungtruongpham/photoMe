@@ -1,0 +1,41 @@
+.notification {
+  display: flex;
+  gap: 10px;
+  padding: 10px 10px;
+
+  img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+  }
+
+  .noti-info {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    border-bottom: 1px solid #556052;
+
+    .username {
+      a {
+          font-weight: 600;
+          color: black;
+        font-size: 16px;
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .noti-message {
+      display: flex;
+      gap: 10px;
+
+      p {
+        font-size: 16px;
+        margin-bottom: 0 !important;
+      }
+
+      .message{
+          flex-grow: 1;
+      }
+    }
+  }
+}

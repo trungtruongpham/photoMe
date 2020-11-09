@@ -29,7 +29,8 @@ namespace photoMe_api.Controllers
         }
 
         [HttpPost("send/{receiverId}")]
-        public async Task<IActionResult> SendToSpecificUserAsync([FromBody] MessageDto message, string receiverId){
+        public async Task<IActionResult> SendToSpecificUserAsync([FromBody] MessageDto message, string receiverId)
+        {
             var senderId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             Message messageToSave = new Message();
@@ -45,7 +46,8 @@ namespace photoMe_api.Controllers
         }
 
         [HttpGet("get-list-contact")]
-        public IActionResult GetListContact(){
+        public IActionResult GetListContact()
+        {
             var senderId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             IEnumerable<Guid> result = this._messageService.GetUserIdContact(new Guid(senderId));
@@ -54,7 +56,8 @@ namespace photoMe_api.Controllers
         }
 
         [HttpGet("get-talk-messages/{receiverId}")]
-        public async Task<IActionResult> GetTalkMessagesAsync(Guid receiverId){
+        public async Task<IActionResult> GetTalkMessagesAsync(Guid receiverId)
+        {
             var senderId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var result = await this._messageService.GetTalkMessage(new Guid(senderId), receiverId);

@@ -12,7 +12,17 @@
         <a href="/inbox"><img src="https://www.flaticon.com/svg/static/icons/svg/812/812421.svg" alt="" srcset=""></a>
       </div>
       <div class="notification-icon">
-        <a href="/chat"><img src="https://www.flaticon.com/svg/static/icons/svg/860/860808.svg" alt="" srcset=""></a>
+        <button (click)="this.showNotiPopup()"><img src="https://www.flaticon.com/svg/static/icons/svg/860/860808.svg"
+            alt="" srcset=""></button>
+        <div class="noti-overlayer">
+          <div *ngIf="isShowNoti" [ngClass]="{'noti-popup': true, 'show': isShowNoti, 'hidden': !isShowNoti}">
+            <div class="noti-view">
+              <div *ngFor="let noti of this.notiList; let i=index">
+                <app-notification [noti] = noti></app-notification>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="logout-icon">
         <a href="#" (onclick)="this.logOut()"><img src="https://www.flaticon.com/svg/static/icons/svg/3596/3596149.svg"

@@ -17,13 +17,8 @@ export class HomeComponent implements OnInit {
   constructor(private albumService: AlbumService, private alertify: AlertifyService) { }
 
   ngOnInit(): void {
-    this.loadAlbums(1);
     this.page = 0;
     this.isLoading = false;
-    this.albumService.getPagedAlbum(1, 5).subscribe(res => {
-      console.log(res);
-      this.pagedAlbums = res;
-    });
   }
 
   onNewAlbumSubmitted(): void {
@@ -41,6 +36,7 @@ export class HomeComponent implements OnInit {
   onScroll(): void {
     console.log('scrolling');
     this.page += 1;
+    this.isLoading = true;
 
     this.loadAlbums(this.page);
     console.log(this.listAlbums);

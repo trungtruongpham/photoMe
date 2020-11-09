@@ -41,6 +41,7 @@ import { ReactAlbumComponent } from './shared/components/react-album/react-album
 import { NewChatDialogComponent } from './shared/components/new-chat-dialog/new-chat-dialog.component';
 import { ReviewComponent } from './shared/components/review/review.component';
 import { InfiniteScrollComponent } from './shared/components/infinite-scroll/infinite-scroll.component';
+import { NotificationComponent } from './shared/components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { InfiniteScrollComponent } from './shared/components/infinite-scroll/inf
     ReactAlbumComponent,
     NewChatDialogComponent,
     ReviewComponent,
-    InfiniteScrollComponent
+    InfiniteScrollComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

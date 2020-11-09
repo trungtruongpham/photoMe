@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using photoMe_api.Data;
-using photoMe_api.DTO;
 using photoMe_api.Models;
 
 namespace photoMe_api.Repositories
@@ -41,11 +40,10 @@ namespace photoMe_api.Repositories
 
         public async Task<IEnumerable<Album>> GetPagedAlbumAsync(int page, int pageSize)
         {
-            var skip = (page - 1 )* pageSize;   
+            var skip = (page - 1) * pageSize;
             return await this.dbSet.Skip(skip).Take(pageSize).Include(album => album.Photos)
                                     .Include(album => album.Photographer)
                                     .OrderByDescending(album => album.CreatedAt).ToListAsync();
-
         }
     }
 }

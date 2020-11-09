@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { concatAll } from 'rxjs/operators';
 import { AlertifyService } from 'src/app/shared/services/alertify.service';
 import { MessageService } from 'src/app/shared/services/message.service';
 
@@ -60,7 +61,13 @@ export class ChatComponent implements OnInit {
     this.displayModal = false;
   }
 
-  onSubmitNewChat(contactId: string): void{
+  onSubmitNewChat(contactId: string): void {
+
+    if (contactId === undefined || contactId === null) {
+      this.alertify.error('Bạn chưa chọn người dùng!');
+      return;
+    }
+
     this.listContactId.unshift(contactId);
   }
 }

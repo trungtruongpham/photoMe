@@ -16,6 +16,8 @@ export class InfiniteScrollComponent implements OnInit, OnDestroy {
   constructor(private host: ElementRef) { }
 
   ngOnInit(): void {
+    // console.log('oninit');
+    
     // const options = {
     //   root: null,
     //   ... this.options
@@ -40,7 +42,6 @@ export class InfiniteScrollComponent implements OnInit, OnDestroy {
     };
     console.log(options);
     console.log(this.anchor.nativeElement);
-    
 
     this.observer = new IntersectionObserver(([entry]) => {
       // tslint:disable-next-line:no-unused-expression

@@ -9,5 +9,6 @@ namespace photoMe_api.Models
         public Guid? ReceiverId { get; set; }
         public User Receiver { get; set; }
         public string NotiMessage { get; set; }
+        public bool IsSeen { get; set; }
     }
 }

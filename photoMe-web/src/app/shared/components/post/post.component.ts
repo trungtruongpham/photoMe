@@ -47,6 +47,7 @@ export class PostComponent implements OnInit {
     this.isNoReview = false;
     this.loadAlbumData();
     this.loadReviews(this.albumId);
+    console.log('load 1 album');
   }
 
   loadAlbumData(): void {

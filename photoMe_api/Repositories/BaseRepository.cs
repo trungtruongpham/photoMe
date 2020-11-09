@@ -30,7 +30,6 @@ namespace photoMe_api.Repositories
             this.dbSet = context.Set<T>();
         }
 
-
         public async Task<bool> SaveAll()
         {
             return await context.SaveChangesAsync() > 0;
@@ -54,7 +53,6 @@ namespace photoMe_api.Repositories
 
             if (entity == null)
             {
-                Console.WriteLine("abc");
                 return null;
             }
 
@@ -95,7 +93,7 @@ namespace photoMe_api.Repositories
             result.CurrentPage = page;
             result.PageSize = pageSize;
 
-            var skip = (page-1 )* pageSize;
+            var skip = (page - 1) * pageSize;
             result.Items = await this.dbSet.Skip(skip).Take(pageSize).ToListAsync();
             result.PageCount = result.Items.Count();
 

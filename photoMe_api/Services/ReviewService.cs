@@ -10,6 +10,7 @@ namespace photoMe_api.Services
     {
         Task<IEnumerable<Review>> GetAlbumReviews(Guid albumId);
         Task<bool> ReviewAlbum(Review newReview);
+        Task<IEnumerable<Guid>> GetListUserReview(Guid albumId);
     }
     public class ReviewService : IReviewService
     {
@@ -25,6 +26,11 @@ namespace photoMe_api.Services
         public async Task<IEnumerable<Review>> GetAlbumReviews(Guid albumId)
         {
             return await this._reviewRepository.GetAlbumReviews(albumId);
+        }
+
+        public async Task<IEnumerable<Guid>> GetListUserReview(Guid albumId)
+        {
+            return await this._reviewRepository.GetListUserReview(albumId);
         }
 
         public async Task<bool> ReviewAlbum(Review newReview)

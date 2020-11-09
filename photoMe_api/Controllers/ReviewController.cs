@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +18,13 @@ namespace photoMe_api.Controllers
     {
         private readonly IReviewService _reviewService;
         private readonly IMapper _mapper;
+        private readonly INotificationService _notifService;
 
-        public ReviewController(IReviewService reviewService, IMapper mapper)
+        public ReviewController(IReviewService reviewService, IMapper mapper, INotificationService notifService)
         {
             this._reviewService = reviewService;
             this._mapper = mapper;
+            this._notifService = notifService;
         }
 
         [HttpPost("new-review")]
@@ -34,6 +38,12 @@ namespace photoMe_api.Controllers
             if (await this._reviewService.ReviewAlbum(newReview))
             {
                 ReviewForListDto reviewToReturn = this._mapper.Map<ReviewForListDto>(newReview);
+                var listUserReview = await this._reviewService.GetListUserReview(new Guid(newReview.AlbumId.ToString()));
+                var senderId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var senderName = User.FindFirstValue(ClaimTypes.Name);
+                
+                await this._notifService.SendNoti(new Guid(senderId), listUserReview.ToList(),senderName + " bình luận bài viết!");
+
                 return Ok(reviewToReturn);
             }
 
@@ -41,7 +51,7 @@ namespace photoMe_api.Controllers
         }
 
         [HttpGet("{albumId}")]
-        public async Task<IActionResult> GetAlbumReivews(Guid albumId)
+        public async Task<IActionResult> GetAlbumReviews(Guid albumId)
         {
             var reviewList = await this._reviewService.GetAlbumReviews(albumId);
 
@@ -61,6 +71,12 @@ namespace photoMe_api.Controllers
             }
 
             return BadRequest("Failed to get reviews");
+        }
+
+        [HttpGet("{albumId}/listUserReview")]
+        public async Task<IActionResult> GetListUserReviewAsync(Guid albumId)
+        {
+            return Ok(await this._reviewService.GetListUserReview(albumId));
         }
     }
 }

@@ -56,9 +56,14 @@ export class NewChatDialogComponent implements OnInit {
     });
   }
 
-  onSubmitNewChatEvent(): void{
-    this.displayModal = false;
+  onSubmitNewChatEvent(): void {
+    if (this.username !== undefined || this.username !== null || this.username !== '') {
+      console.log(this.username);
+      console.log(this.currentUser.id);
+      
+      this.onSubmitNewChat.emit(this.currentUser.id);
+    }
 
-    this.onSubmitNewChat.emit(this.currentUser.id);
+    this.displayModal = false;
   }
 }

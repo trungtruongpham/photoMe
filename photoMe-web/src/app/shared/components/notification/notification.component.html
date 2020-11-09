@@ -1,0 +1,12 @@
+<div class="notification">
+  <img src="{{this.sender.avatar?.url}}" alt="" srcset="">
+  <div class="noti-info">
+    <div class="username">
+      <a [routerLink]="['/user', this.sender.id]">{{this.sender.name}}</a>
+    </div>
+    <div class="noti-message">
+      <p class="message">{{this.noti.notiMessage}}</p>
+      <p class="created-at">{{this.noti.createdAt | date:'short'}}</p>
+    </div>
+  </div>
+</div>
