@@ -8,10 +8,15 @@
       <div *ngFor="let album of this.listAlbums">
         <app-post [albumId]="album.id"></app-post>
       </div>
-      
-      <div *ngIf="isLoading">
-        Fetching albums...
-       </div>
+
+      <div class="loading-spinner" *ngIf="isLoading">
+        <div class="spinner">
+          <p-progressSpinner></p-progressSpinner>
+        </div>
+      </div>
+      <div class="end-page" *ngIf="this.isEndPage">
+        <p>Đã hết album mới!</p>
+      </div>
     </app-infinite-scroll>
 
   </div>

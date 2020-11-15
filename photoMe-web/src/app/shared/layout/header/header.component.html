@@ -9,27 +9,55 @@
 
     <div class="nav-buttons" id="navbarSupportedContent">
       <div class="inbox-icon">
-        <a href="/inbox"><img src="https://www.flaticon.com/svg/static/icons/svg/812/812421.svg" alt="" srcset=""></a>
+        <a href="/inbox"><img src="https://www.flaticon.com/svg/static/icons/svg/610/610413.svg" alt="" srcset=""></a>
       </div>
       <div class="notification-icon">
-        <button (click)="this.showNotiPopup()"><img src="https://www.flaticon.com/svg/static/icons/svg/860/860808.svg"
-            alt="" srcset=""></button>
-        <div class="noti-overlayer">
-          <div *ngIf="isShowNoti" [ngClass]="{'noti-popup': true, 'show': isShowNoti, 'hidden': !isShowNoti}">
+        <button (click)="this.showNotiPopup()"><span class="p-overlay-badge p-mr-5">
+            <img src="https://www.flaticon.com/svg/static/icons/svg/1156/1156949.svg" alt="" srcset="">
+            <span class="p-badge">2</span>
+          </span>
+        </button>
+        <div class="noti-overlayer" *ngIf="this.isShowNoti" (click)="onClickOut()">
+          <div *ngIf="isShowNoti" [ngClass]="{'noti-popup': true, 'show': isShowNoti}">
             <div class="noti-view">
               <div *ngFor="let noti of this.notiList; let i=index">
-                <app-notification [noti] = noti></app-notification>
+                <app-notification [noti]=noti></app-notification>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="logout-icon">
-        <a href="#" (onclick)="this.logOut()"><img src="https://www.flaticon.com/svg/static/icons/svg/3596/3596149.svg"
-            alt="" srcset=""></a>
+      <div class="booking-icon">
+        <a [routerLink]="['/booking']"><span class="p-overlay-badge p-mr-5">
+            <img src="https://www.flaticon.com/svg/static/icons/svg/3078/3078971.svg" alt="" srcset="">
+            <span class="p-badge">2</span>
+          </span></a>
       </div>
       <div class="user-avatar">
-        <img src="{{this.currentUser.avatar?.url}}" alt="Avatar" class="avatar" />
+        <button class="drop-btn" (click)="onClickDropdown()"><img src="{{this.currentUser.avatar?.url}}" alt="Avatar"
+            class="avatar" /></button>
+        <div class="dropdown-overlay" *ngIf="this.isShowDropdown" (click)="this.onClickOutDropdown()">
+          <div id="myDropdown" [ngClass]="{'dropdown-content': true, 'show': isShowDropdown}">
+            <a [routerLink]="['/user', this.currentUser.id]" class="dropdown-item">
+              <div class="item-content">
+                <i class="pi pi-user" style="font-size: 1rem"></i>
+                <span>Trang cá nhân</span>
+              </div>
+            </a>
+            <a href="#" class="dropdown-item">
+              <div class="item-content">
+                <i class="pi pi-cog" style="font-size: 1rem"></i>
+                <span>Cài đặt</span>
+              </div>
+            </a>
+            <a href="#" class="dropdown-item" (onclick)="this.logOut()">
+              <div class="item-content">
+                <i class="pi pi-sign-out" style="font-size: 1rem"></i>
+                <span>Đăng xuất</span>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>

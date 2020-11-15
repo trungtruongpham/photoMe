@@ -12,8 +12,6 @@ export class AuthGuardService implements CanActivate {
   constructor(public auth: AuthService, public router: Router, private alertify: AlertifyService) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.auth.loggedIn()) {
-      console.log(this.auth.loggedIn());
-      
       return true;
     }
 

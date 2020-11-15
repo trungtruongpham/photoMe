@@ -10,7 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { FooterComponent } from './shared/layout/footer/footer.component';
 import { AlertifyService } from './shared/services/alertify.service';
 import { AuthService } from './shared/services/auth.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { HomeComponent } from './modules/home/home.component';
 import { HeaderComponent } from './shared/layout/header/header.component';
@@ -30,7 +30,6 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { GalleriaModule } from 'primeng/galleria';
 import { MainComponent } from './modules/main/main.component';
-import { ChatTestComponent } from './modules/chat-test/chat-test.component';
 import { UserCardComponent } from './shared/components/user-card/user-card.component';
 import { ChatComponent } from './modules/chat/chat.component';
 import { MessageBoxComponent } from './shared/components/message-box/message-box.component';
@@ -42,6 +41,10 @@ import { NewChatDialogComponent } from './shared/components/new-chat-dialog/new-
 import { ReviewComponent } from './shared/components/review/review.component';
 import { InfiniteScrollComponent } from './shared/components/infinite-scroll/infinite-scroll.component';
 import { NotificationComponent } from './shared/components/notification/notification.component';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import { TokenInterceptor } from './shared/helpers/token.interceptor';
+import { PhotoshootBookingComponent } from './modules/photoshoot-booking/photoshoot-booking.component';
+
 
 @NgModule({
   declarations: [
@@ -54,7 +57,6 @@ import { NotificationComponent } from './shared/components/notification/notifica
     NewPostInputComponent,
     UserProfileComponent,
     MainComponent,
-    ChatTestComponent,
     UserCardComponent,
     ChatComponent,
     MessageBoxComponent,
@@ -63,7 +65,8 @@ import { NotificationComponent } from './shared/components/notification/notifica
     NewChatDialogComponent,
     ReviewComponent,
     InfiniteScrollComponent,
-    NotificationComponent
+    NotificationComponent,
+    PhotoshootBookingComponent
   ],
   imports: [
     BrowserModule,
@@ -89,13 +92,16 @@ import { NotificationComponent } from './shared/components/notification/notifica
     GalleriaModule,
     RouterModule,
     FontAwesomeModule,
+    ProgressSpinnerModule
   ],
   providers: [
     AlertifyService,
     AuthService,
-    // MessageService,
-    // UserService,
-    // AlbumService
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

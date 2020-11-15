@@ -16,18 +16,10 @@ export class LikeService {
               private localStorage: LocalStorageService) { }
 
   likeAlbum(like: Like): Observable<any> {
-    return this.httpClient.post(this.likeUrl + 'like-album', like, {
-      headers: {
-        Authorization: 'Bearer ' + this.localStorage.get('token')
-      }
-    });
+    return this.httpClient.post(this.likeUrl + 'like-album', like);
   }
 
   getUserLike(albumId: string): Observable<any> {
-    return this.httpClient.get(this.likeUrl + albumId, {
-      headers: {
-        Authorization: 'Bearer ' + this.localStorage.get('token')
-      }
-    });
+    return this.httpClient.get(this.likeUrl + albumId);
   }
 }

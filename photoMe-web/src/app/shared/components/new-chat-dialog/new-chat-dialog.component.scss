@@ -10,7 +10,8 @@
     .modal-body {
       display: flex;
       flex-direction: column;
-      padding: 0;
+      padding: 5px;
+      border: 2px solid black;
 
       .username-input {
         display: flex;

@@ -19,7 +19,6 @@ export class NotificationComponent implements OnInit {
 
   ngOnInit(): void {
     this.sender = new User();
-    console.log(this.noti.createdAt);
     this.loadNotiInfo();
   }
 

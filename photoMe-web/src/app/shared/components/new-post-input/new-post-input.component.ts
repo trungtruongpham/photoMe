@@ -49,7 +49,6 @@ export class NewPostInputComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.localStorage.get('user');
-    console.log(this.currentUser);
   }
 
   uploadFile(): void {

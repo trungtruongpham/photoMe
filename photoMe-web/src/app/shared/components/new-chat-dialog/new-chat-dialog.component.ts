@@ -51,6 +51,8 @@ export class NewChatDialogComponent implements OnInit {
       this.currentUser = res;
       this.username = this.currentUser.name;
       console.log(this.username);
+      this.listUser = this.listUser.filter(u => u.name === this.username);
+      console.log(this.listUser);
     }, error => {
       this.alertify.error('');
     });
@@ -58,9 +60,6 @@ export class NewChatDialogComponent implements OnInit {
 
   onSubmitNewChatEvent(): void {
     if (this.username !== undefined || this.username !== null || this.username !== '') {
-      console.log(this.username);
-      console.log(this.currentUser.id);
-      
       this.onSubmitNewChat.emit(this.currentUser.id);
     }
 

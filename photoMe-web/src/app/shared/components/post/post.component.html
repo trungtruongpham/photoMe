@@ -9,7 +9,7 @@
           </div>
           <div class="user-location">
             <mat-icon class="iconLocation">location_on</mat-icon>
-            <a href="/user" id="location"> {{this.photographer.address}}</a>
+            <a [routerLink]="['/user', this.photographer.id]" id="location"> {{this.photographer.address}}</a>
           </div>
         </div>
       </div>
@@ -33,20 +33,26 @@
         </p-galleria>
       </div>
       <app-react-album [likesNumber]="this.album.likesNumber" [albumId]="this.albumId"
-        (onLikeAlbum)="this.onLikeClick()"></app-react-album>
+        (onLikeAlbum)="this.onLikeClick()" (onCommentAlbum)="this.onCommentClick()"></app-react-album>
     </div>
     <section class="review-view">
       <div class="list-review" *ngIf="!this.isNoReview">
         <div class="review" *ngFor="let review of this.reviews; let i=index">
-          <app-review [review]= review></app-review>
+          <app-review [review]=review></app-review>
+        </div>
+        <div class="spinner" *ngIf="isLoading">
+          <p-progressSpinner [style]="{width: '50px', height: '50px'}"></p-progressSpinner>
+        </div>
+        <div [ngClass]="{'more-review': true, 'hide-more-review': true}">
+          <span><button class="view-more-button" (click)="onViewMoreClick()">Xem thêm</button></span>
         </div>
       </div>
     </section>
     <section class="new-comment">
       <div class="comment-box">
-          <textarea aria-label="Thêm nhận xét" placeholder="Thêm nhận xét..." class="text-input" [(ngModel)]="this.reviewMessage"
-            rows="3" (keydown.enter)="this.onEnterReview($event)"></textarea>
-          <button class="comment-button">Đăng</button>
+        <textarea aria-label="Thêm nhận xét" placeholder="Thêm nhận xét..." class="text-input" #newCommentInput
+          [(ngModel)]="this.reviewMessage" rows="3" (keydown.enter)="this.onEnterReview($event)"></textarea>
+        <button class="comment-button">Đăng</button>
       </div>
     </section>
   </div>

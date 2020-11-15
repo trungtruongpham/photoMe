@@ -5,7 +5,6 @@ import { MessageDto } from '../models/messagedto';
 import * as signalR from '@microsoft/signalr';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from 'ngx-localstorage';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -63,15 +62,10 @@ export class ChatService {
     this.sharedObj.next(this.receivedMessageObject);
   }
 
-  /* ****************************** Public Mehods **************************************** */
 
   // Calls the controller method
   public broadcastMessage(msgDto: MessageDto): void {
-    this.http.post(this.POST_URL2 + msgDto.receiverId, msgDto, {
-      headers: {
-        Authorization: 'Bearer ' + this.localStorage.get('token')
-      }
-    }).subscribe(data => console.log(data));
+    this.http.post(this.POST_URL2 + msgDto.receiverId, msgDto).subscribe(data => console.log(data));
   }
 
   public retrieveMappedObject(): Observable<MessageDto> {

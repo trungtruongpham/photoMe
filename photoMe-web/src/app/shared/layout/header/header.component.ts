@@ -14,6 +14,7 @@ import { NotificationService } from '../../services/notification.service';
 export class HeaderComponent implements OnInit {
   currentUser: User = new User();
   isShowNoti: boolean;
+  isShowDropdown: boolean;
   notiList: Notification[] = [];
 
   constructor(
@@ -28,10 +29,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = this.localStorage.get('user');
     this.isShowNoti = false;
+    this.isShowDropdown = false;
     this.notiService.getUserNotifications(this.currentUser.id).subscribe((res) => {
-      console.log(res);
       this.notiList = res;
-      console.log(this.notiList);
     });
   }
 
@@ -50,8 +50,21 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  showNotiPopup(): void{
+  showNotiPopup(): void {
     this.isShowNoti = !this.isShowNoti;
-    console.log(this.isShowNoti);
+  }
+
+  onClickOut(): void {
+    console.log('a');
+
+    this.isShowNoti = false;
+  }
+
+  onClickOutDropdown(): void{
+    this.isShowDropdown = false;
+  }
+
+  onClickDropdown(): void {
+    this.isShowDropdown = !this.isShowDropdown;
   }
 }

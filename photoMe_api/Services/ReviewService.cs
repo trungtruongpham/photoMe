@@ -11,6 +11,7 @@ namespace photoMe_api.Services
         Task<IEnumerable<Review>> GetAlbumReviews(Guid albumId);
         Task<bool> ReviewAlbum(Review newReview);
         Task<IEnumerable<Guid>> GetListUserReview(Guid albumId);
+        Task<IEnumerable<Review>> GetPagedReview(int page, int size, Guid albumId);
     }
     public class ReviewService : IReviewService
     {
@@ -31,6 +32,11 @@ namespace photoMe_api.Services
         public async Task<IEnumerable<Guid>> GetListUserReview(Guid albumId)
         {
             return await this._reviewRepository.GetListUserReview(albumId);
+        }
+
+        public async Task<IEnumerable<Review>> GetPagedReview(int page, int size, Guid albumId)
+        {
+            return await this._reviewRepository.GetPagedReview(page, size ,albumId);
         }
 
         public async Task<bool> ReviewAlbum(Review newReview)

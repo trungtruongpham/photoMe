@@ -11,13 +11,9 @@ import { AuthService } from './auth.service';
 export class NotificationService {
   notiUrl: string = environment.apiUrl + 'noti/';
 
-  constructor(private httpClient: HttpClient, private authService: AuthService, private localStorage: LocalStorageService) { }
+  constructor(private httpClient: HttpClient) { }
 
   getUserNotifications(userId: string): Observable<any> {
-    return this.httpClient.get(this.notiUrl + userId, {
-      headers: {
-        Authorization: 'Bearer ' + this.localStorage.get('token')
-      }
-    });
+    return this.httpClient.get(this.notiUrl + userId);
   }
 }

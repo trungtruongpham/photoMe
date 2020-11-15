@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { LocalStorageService } from 'ngx-localstorage';
 import { Album } from '../../models/Album';
 import { Photo } from '../../models/Photo';
@@ -16,6 +16,8 @@ import { ReviewComponent } from '../review/review.component';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
+
+  @ViewChild('newCommentInput') newCommentInput: ElementRef;
   @Input() albumId: string;
   photographer: User = new User();
   images: [];
@@ -24,6 +26,8 @@ export class PostComponent implements OnInit {
   isNoReview: boolean;
   reviewMessage: string;
   newReview: Review = new Review();
+  page: number;
+  isLoading: boolean;
 
   responsiveOptions: any[] = [
     {
@@ -44,10 +48,12 @@ export class PostComponent implements OnInit {
               private reviewService: ReviewService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.isLoading = false;
+    this.page = 0;
     this.isNoReview = false;
     this.loadAlbumData();
-    this.loadReviews(this.albumId);
-    console.log('load 1 album');
+    // this.loadReviews(this.albumId);
+    this.loadPagedReviews(1, this.albumId);
   }
 
   loadAlbumData(): void {
@@ -59,12 +65,39 @@ export class PostComponent implements OnInit {
     });
   }
 
+  loadPagedReviews(page: number, albumId: string): void {
+    this.reviewService.getPagedReviews(page, 2, albumId).subscribe((res) => {
+      this.isLoading = false;
+      if (!Object.keys(res).length) {
+
+        if (page === 1) {
+          this.isNoReview = true;
+          return;
+        }
+
+        this.alertify.error('Bạn đã xem hết đánh giá!');
+        return;
+      }
+
+
+
+      res.forEach(review => {
+        this.reviews.push(review);
+      });
+    }, error => {
+      this.alertify.error('Không thể tải đánh giá!');
+    });
+  }
+
   loadReviews(albumId: string): void {
-    this.reviewService.getAlbumReviews(this.albumId).subscribe(res => {
-      if (res === null || res === undefined) {
+    this.reviewService.getAlbumReviews(albumId).subscribe((res) => {
+      if (!Object.keys(res).length) {
         this.isNoReview = true;
       }
+
       this.reviews = res;
+    }, error => {
+      this.alertify.error('Không thể tải đánh giá!');
     });
   }
 
@@ -86,6 +119,10 @@ export class PostComponent implements OnInit {
     this.loadAlbumData();
   }
 
+  onCommentClick(): void {
+    this.newCommentInput.nativeElement.focus();
+  }
+
   onEnterReview(event): void {
     event.preventDefault();
 
@@ -101,5 +138,12 @@ export class PostComponent implements OnInit {
     }, error => {
       this.alertify.error('Thêm review thất bại!');
     });
+  }
+
+  onViewMoreClick(): void {
+    this.page += 1;
+    this.isLoading = true;
+
+    this.loadPagedReviews(this.page, this.albumId);
   }
 }

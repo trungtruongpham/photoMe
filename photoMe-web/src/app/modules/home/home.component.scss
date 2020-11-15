@@ -14,4 +14,18 @@
     width: 1000px;
     padding-inline-start: none !important;
   }
+
+  .loading-spinner {
+    align-items: center;
+  }
+
+  .end-page {
+    align-items: center;
+    p {
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      font-style: italic;
+    }
+  }
 }

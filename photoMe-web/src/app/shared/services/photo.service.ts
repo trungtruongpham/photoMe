@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'ngx-localstorage';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Photo } from '../models/Photo';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -17,10 +16,6 @@ export class PhotoService {
   getAlbumPhotos(albumId: string): Observable<any> {
     const url = this.photoUrl + '/' + albumId + '/photos';
 
-    return this.httpClient.get(url, {
-      headers: {
-        Authorization: 'Bearer ' + this.localStorage.get('token'),
-      }
-    });
+    return this.httpClient.get(url);
   }
 }

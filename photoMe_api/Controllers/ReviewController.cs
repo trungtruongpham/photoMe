@@ -41,8 +41,8 @@ namespace photoMe_api.Controllers
                 var listUserReview = await this._reviewService.GetListUserReview(new Guid(newReview.AlbumId.ToString()));
                 var senderId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var senderName = User.FindFirstValue(ClaimTypes.Name);
-                
-                await this._notifService.SendNoti(new Guid(senderId), listUserReview.ToList(),senderName + " bình luận bài viết!");
+
+                await this._notifService.SendNoti(new Guid(senderId), listUserReview.ToList(), senderName + " bình luận bài viết!");
 
                 return Ok(reviewToReturn);
             }
@@ -77,6 +77,22 @@ namespace photoMe_api.Controllers
         public async Task<IActionResult> GetListUserReviewAsync(Guid albumId)
         {
             return Ok(await this._reviewService.GetListUserReview(albumId));
+        }
+
+        [HttpGet("{albumId}/paged")]
+        public async Task<IActionResult> GetPagedReviewAsync([FromQuery] int page, int size, Guid albumId)
+        {
+            IEnumerable<Review> listReviews = await this._reviewService.GetPagedReview(page, size, albumId);
+            var listReviewToReturn = new List<ReviewForListDto>();
+
+            foreach (Review review in listReviews)
+            {
+                var reviewForList = this._mapper.Map<ReviewForListDto>(review);
+
+                listReviewToReturn.Add(reviewForList);
+            }
+
+            return Ok(listReviewToReturn);
         }
     }
 }

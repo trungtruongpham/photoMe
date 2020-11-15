@@ -1,6 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from 'ngx-localstorage';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AlbumForCreation } from '../models/AlbumForCreation';
@@ -16,7 +15,6 @@ export class FileUploadService {
   constructor(
     private httpClient: HttpClient,
     private authService: AuthService,
-    private localStorage: LocalStorageService,
   ) { }
 
   uploadFile(fileToUpload: File): Observable<any> {
@@ -38,19 +36,13 @@ export class FileUploadService {
 
     return this.httpClient.post(
       this.fileUploadUrl + + '/photos/upload-photos',
-      formData,
-      {
-        headers: {
-          Authorization: 'Bearer ' + this.localStorage.get('token'),
-        }
-      }
+      formData
     );
   }
 
   uploadAlbum(albumFroCreation: AlbumForCreation): Observable<any> {
     const formData: FormData = new FormData();
 
-    console.log(this.authService.token);
     formData.append('Title', albumFroCreation.title);
     formData.append('AlbumType', albumFroCreation.albumType);
     albumFroCreation.files.forEach(file => {
@@ -59,12 +51,6 @@ export class FileUploadService {
 
     return this.httpClient.post(
       this.fileUploadUrl + '/albums/upload-album',
-      formData,
-      {
-        headers: {
-          Authorization: 'Bearer ' + this.localStorage.get('token'),
-        }
-      }
-    );
+      formData);
   }
 }

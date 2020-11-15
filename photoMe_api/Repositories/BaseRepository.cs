@@ -17,8 +17,8 @@ namespace photoMe_api.Repositories
         Task<bool> DeleteAsync(Guid id);
         Task<T> GetByIdAsync(Guid id);
         Task<bool> SaveAll();
-
         Task<PagedResultDto<T>> GetPaged(int page, int pageSize);
+        Task<IEnumerable<T>> GetPagedData(int page, int pageSize);
     }
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
     {
@@ -98,6 +98,12 @@ namespace photoMe_api.Repositories
             result.PageCount = result.Items.Count();
 
             return result;
+        }
+
+        public async Task<IEnumerable<T>> GetPagedData(int page, int pageSize)
+        {
+            var skip = (page - 1) * pageSize;
+            return await this.dbSet.Skip(skip).Take(pageSize).ToListAsync();
         }
     }
 }

@@ -15,6 +15,8 @@ export class ReactAlbumComponent implements OnInit {
   @Input() likesNumber: number;
   // tslint:disable-next-line:no-output-on-prefix
   @Output() onLikeAlbum = new EventEmitter();
+  // tslint:disable-next-line:no-output-on-prefix
+  @Output() onCommentAlbum = new EventEmitter();
   isLiked: boolean;
 
   constructor(private likeService: LikeService, private alertify: AlertifyService, private authService: AuthService) { }
@@ -48,5 +50,9 @@ export class ReactAlbumComponent implements OnInit {
     }, error => {
       this.alertify.error('Like thất bại!');
     });
+  }
+
+  onCommentClick(): void {
+    this.onCommentAlbum.emit(true);
   }
 }

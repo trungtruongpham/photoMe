@@ -32,13 +32,11 @@ export class AuthService {
       map((response: any) => {
         const token = response.token;
         this.currentUser = response.user;
-        console.log(this.currentUser);
         this.setDefaultAvatar();
         if (token) {
           this.localStorage.set('token', token);
           this.localStorage.set('user', response.user);
           this.decodedToken = this.jwtHelper.decodeToken(token);
-          console.log(this.decodedToken);
           this.token = token;
         }
       })
@@ -49,11 +47,14 @@ export class AuthService {
     return this.http.post(this.baseUrl + 'Register', user);
   }
 
+  getToken(): string{
+    return this.localStorage.get('token');
+  }
+
   loggedIn(): boolean {
     const token = localStorage.getItem('token');
     this.decodedToken = this.jwtHelper.decodeToken(token);
-    console.log(this.jwtHelper.isTokenExpired(token));
-    
+
     if (token) {
       return !this.jwtHelper.isTokenExpired(token);
     } else {

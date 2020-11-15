@@ -23,7 +23,7 @@ export class MessageBoxComponent implements OnInit, OnChanges {
   messageList: MessageDto[] = [];
 
   constructor(private userService: UserService, private messageService: MessageService, private alertify: AlertifyService,
-    private chatService: ChatService, private authService: AuthService) { }
+              private chatService: ChatService, private authService: AuthService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.loadUserInfo(this.contactId);
@@ -53,7 +53,7 @@ export class MessageBoxComponent implements OnInit, OnChanges {
       this.messageService.getTalkMessage(this.contactId).subscribe((res) => {
         this.messageList = res;
         this.messageList.forEach(message => {
-            message.receiverId === this.contactId ? message.messageType = 'send' : message.messageType = 'receive';
+          message.receiverId === this.contactId ? message.messageType = 'send' : message.messageType = 'receive';
         });
       }, error => {
         this.alertify.error(error);
@@ -73,7 +73,6 @@ export class MessageBoxComponent implements OnInit, OnChanges {
   }
 
   sendMessage(): void {
-    console.log(this.message);
     if (this.message === null || this.message === '' || this.message === undefined) {
       this.alertify.error('Bạn phải nhập tin nhắn trước khi gửi!');
     }
@@ -87,13 +86,12 @@ export class MessageBoxComponent implements OnInit, OnChanges {
     }
   }
 
-  addToInbox(messageDto: MessageDto): void{
+  addToInbox(messageDto: MessageDto): void {
     const newMessage = new MessageDto();
     newMessage.senderId = messageDto.senderId;
     newMessage.messageType = messageDto.messageType;
     newMessage.receiverId = messageDto.receiverId;
     newMessage.content = messageDto.content;
-    console.log(newMessage);
     this.messageList.push(newMessage);
   }
 

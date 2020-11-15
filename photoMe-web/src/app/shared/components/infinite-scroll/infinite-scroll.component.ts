@@ -17,13 +17,13 @@ export class InfiniteScrollComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // console.log('oninit');
-    
+
     // const options = {
     //   root: null,
     //   ... this.options
     // };
     // console.log(options);
-    
+
 
     // this.observer = new IntersectionObserver(([entry]) => {
     //   // tslint:disable-next-line:no-unused-expression
@@ -35,13 +35,10 @@ export class InfiniteScrollComponent implements OnInit, OnDestroy {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngAfterViewInit(): void {
-    console.log('onafterview');
     const options = {
       root: null,
       ... this.options
     };
-    console.log(options);
-    console.log(this.anchor.nativeElement);
 
     this.observer = new IntersectionObserver(([entry]) => {
       // tslint:disable-next-line:no-unused-expression

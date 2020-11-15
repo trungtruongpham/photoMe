@@ -127,6 +127,21 @@
           }
         }
       }
+
+      .spinner {
+        text-align: center;
+      }
+
+      .more-review {
+        span {
+          .view-more-button {
+            border: none;
+            outline: none;
+            background-color: transparent;
+            font-weight: 600;
+          }
+        }
+      }
     }
   }
   .new-comment {

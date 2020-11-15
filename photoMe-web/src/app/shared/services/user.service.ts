@@ -1,27 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from 'ngx-localstorage';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Photo } from '../models/Photo';
 import { User } from '../models/User';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   userUrl = environment.apiUrl + 'user';
-  constructor(private authService: AuthService, private httpClient: HttpClient, private localStorage: LocalStorageService) { }
+  constructor(private httpClient: HttpClient) { }
 
   getUserById(userId: string): Observable<any> {
     const url = this.userUrl + '/' + userId;
 
-    return this.httpClient.get(url, {
-      headers: {
-        Authorization: 'Bearer ' + this.localStorage.get('token')
-      }
-    });
+    return this.httpClient.get(url);
   }
 
   setDefaultAvatar(userContact: User): void {
@@ -39,10 +33,6 @@ export class UserService {
   }
 
   searchUser(user: any): Observable<any> {
-    return this.httpClient.post(this.userUrl + '/search', user, {
-      headers: {
-        Authorization: 'Bearer ' + this.localStorage.get('token')
-      }
-    });
+    return this.httpClient.post(this.userUrl + '/search', user);
   }
 }

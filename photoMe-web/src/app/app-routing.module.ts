@@ -6,6 +6,7 @@ import { UserProfileComponent } from './modules/user-profile/user-profile.compon
 import { AuthGuardService } from './shared/guards/auth-guard.service';
 import { ChatComponent } from './modules/chat/chat.component';
 import { ReviewComponent } from './shared/components/review/review.component';
+import { PhotoshootBookingComponent } from './modules/photoshoot-booking/photoshoot-booking.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -18,7 +19,7 @@ const routes: Routes = [
       { path: 'user/:userId', component: UserProfileComponent, canActivate: [AuthGuardService] },
       { path: 'inbox', component: ChatComponent, canActivate: [AuthGuardService] },
       { path: 'inbox/:contactId', component: ChatComponent, canActivate: [AuthGuardService] },
-      { path: 'review', component: ReviewComponent}
+      { path: 'booking', component: PhotoshootBookingComponent, canActivate: [AuthGuardService] }
     ]
   },
   { path: '**', component: HomeComponent },

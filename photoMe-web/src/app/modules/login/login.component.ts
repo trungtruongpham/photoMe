@@ -50,11 +50,9 @@ export class LoginComponent implements OnInit {
       // tslint:disable-next-line:no-shadowed-variable
       (error) => {
         this.alertifyService.error('Đăng nhập thất bại! Vui lòng kiểm tra lại tài khoản và mật khẩu.');
-        console.log(error);
       },
       () => {
         this.router.navigate(['/home']);
-        console.log(this.authService.decodedToken);
       }
     );
   }

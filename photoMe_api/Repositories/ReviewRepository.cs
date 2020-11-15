@@ -13,6 +13,7 @@ namespace photoMe_api.Repositories
         Task<bool> ReviewAlbum(Review newReview);
         Task<IEnumerable<Review>> GetAlbumReviews(Guid albumId);
         Task<IEnumerable<Guid>> GetListUserReview(Guid albumId);
+        Task<IEnumerable<Review>> GetPagedReview(int page, int size, Guid albumId);
     }
     public class ReviewRepository : BaseRepository<Review>, IReviewRepository
     {
@@ -29,6 +30,14 @@ namespace photoMe_api.Repositories
         {
             var listUserReview = await this.dbSet.Where(a => a.AlbumId.Equals(albumId)).Select(a => a.MakerId).Distinct().ToListAsync();
             return listUserReview.Select(g => g ?? Guid.Empty).ToList();
+        }
+
+        public async Task<IEnumerable<Review>> GetPagedReview(int page, int size, Guid albumId)
+        {
+            var listAlbumReviews = await this.GetAlbumReviews(albumId);
+            var listPagedReviews = listAlbumReviews.Skip((int)(page - 1) * size).Take(size);
+
+            return listPagedReviews;
         }
 
         public async Task<bool> ReviewAlbum(Review newReview)
