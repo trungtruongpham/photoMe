@@ -1,0 +1,19 @@
+<div class="progress-bar">
+  <ul class="progress-list">
+    <li class="progress-item">
+      <img src="../../../assets/package.png" alt="" srcset="">
+      <p class="step-num in-progress finish-progress">1</p>
+      <p class="step-name">Choose Package</p>
+    </li>
+    <li class="progress-item">
+      <img src="../../../assets/detail.png" alt="" srcset="">
+      <p [ngClass]="{'step-num': true, 'in-progress': isStep2, 'finish-progress': !isStep2}">2</p>
+      <p class="step-name">Photo Shoot Details</p>
+    </li>
+    <li class="progress-item">
+      <img src="../../../assets/confirm.png" alt="" srcset="">
+      <p [ngClass]="{'step-num': true, 'in-progress': isStep3, 'finish-progress': !isStep2}">3</p>
+      <p class="step-name">Confirmation</p>
+    </li>
+  </ul>
+</div>

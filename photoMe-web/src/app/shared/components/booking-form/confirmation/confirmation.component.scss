@@ -1,0 +1,81 @@
+.confirmation-container {
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+
+  .payment {
+    flex-grow: 1;
+    height: 500px;
+    background-color: #cfd3ce;
+    border-radius: 10px;
+    padding: 10px 20px;
+
+    .payment-title {
+      font-size: 25px;
+      font-weight: bold;
+      color: #ee6f57;
+    }
+
+    .payment-info {
+      display: flex;
+      flex-direction: column;
+        
+      label {
+        margin-bottom: 0;
+      }
+      input {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid black;
+      }
+    }
+  }
+  .shoot-recap {
+    height: 100%;
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 20px;
+    background-color: #cfd3ce;
+    border-radius: 10px;
+
+    .recap-title {
+      font-size: 25px;
+      font-weight: bold;
+      color: #ee6f57;
+    }
+
+    .shoot-detail {
+      .shoot-info {
+        display: flex !important;
+        flex-direction: row;
+        justify-content: space-between;
+
+        p {
+          font-size: 20px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .shoot-detail::after {
+      border: 1px solid black;
+      z-index: 1;
+    }
+
+    .total {
+      display: flex !important;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .total-price {
+        color: #ee6f57;
+      }
+
+      p {
+        font-size: 20px;
+        font-weight: 600;
+      }
+    }
+  }
+}

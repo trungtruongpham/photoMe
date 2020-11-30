@@ -1,0 +1,114 @@
+.container {
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  width: 1000px;
+  padding: 0;
+  background-color: #f1f3f8;
+  padding-top: 10px;
+
+  .progress-bar {
+    background-color: transparent;
+    padding: 5px 10px;
+
+    .progress-list {
+      display: inline-block;
+      margin: 0;
+      padding: 5px;
+      background-color: transparent;
+      text-decoration: none;
+      list-style-type: none;
+      counter-reset: step;
+
+      .progress-item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        float: left;
+        width: 33.33%;
+        align-items: center;
+
+        img {
+          width: 100px;
+          height: 100px;
+          margin-bottom: 30px;
+        }
+
+        .step-num {
+          margin-bottom: 0 !important;
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          padding: 5px;
+          background-color: #ffa45b;
+          text-align: center;
+          z-index: 2;
+        }
+
+        .finish-progress::after {
+          content: "";
+          position: absolute;
+          background-color: transparent;
+          height: 5px;
+          width: 300px;
+          left: 0;
+          top: 145px;
+          display: block;
+          z-index: -1;
+        }
+
+        .in-progress::after {
+          content: "";
+          position: absolute;
+          background-color: #ffa45b;
+          height: 5px;
+          width: 300px;
+          left: 0;
+          top: 145px;
+          display: block;
+          z-index: -1;
+        }
+
+        .step-name {
+          color: #ffa45b;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .direct-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 15px;
+
+    .previous-btn {
+      padding: 5px;
+      border: none;
+      width: 100px;
+      background-color: #ffa45b;
+      border-radius: 5%;
+      outline: none;
+    }
+
+    .previous-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .next-btn {
+      padding: 5px;
+      border: none;
+      width: 100px;
+      background-color: #ffa45b;
+      border-radius: 5%;
+      outline: none;
+    }
+
+    .next-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+    }
+  }
+}

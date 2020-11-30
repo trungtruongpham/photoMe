@@ -1,5 +1,45 @@
-<app-header></app-header>
+<!-- <app-header></app-header> -->
 
-<p>
-  photoshoot-booking works!
-</p>
+<div class="main-container">
+  <div class="booking-container">
+    <div class="calendar-view">
+      <img src="https://user-images.githubusercontent.com/32018323/99217174-085c9000-280a-11eb-999a-9f1921800d12.png"
+        alt="" srcset="">
+      <p-calendar [(ngModel)]="date" [inline]="true" [showWeek]="true" styleClass="calendar"></p-calendar>
+    </div>
+    <div class="booking-view">
+      <div class="booking-view-header">
+        Booking List
+      </div>
+      <div class="booking-list">
+        <div class="booking">
+          <div class="simple-card">
+            <div class="simple-card-image">
+              <img src="https://cdn.pixabay.com/photo/2020/11/06/05/33/woman-5716875_960_720.png" alt="" />
+            </div>
+            <div class="simple-card-content">
+              <h3 class="simple-card-title">PhotoShoot</h3>
+              <p class="simple-card-desc">Photo Shoot for User ....</p>
+              <div class="simple-card-line"></div>
+            </div>
+          </div>
+        </div>
+        <div class="booking">
+          <div class="simple-card">
+            <div class="simple-card-image">
+              <img src="https://cdn.pixabay.com/photo/2020/11/06/05/33/woman-5716875_960_720.png" alt="" />
+            </div>
+            <div class="simple-card-content">
+              <h3 class="simple-card-title">Applying for a Design Job</h3>
+              <p class="simple-card-desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio cupiditate,
+                eius illo sapiente repellat recusandae quo tempora totam corrupti.</p>
+              <div class="simple-card-line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

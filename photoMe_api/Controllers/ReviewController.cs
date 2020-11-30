@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using photoMe_api.DTO;
 using photoMe_api.DTO.ReviewDto;
@@ -14,6 +15,7 @@ namespace photoMe_api.Controllers
 {
     [ApiController]
     [Route("/api/review/")]
+    [Authorize]
     public class ReviewController : ControllerBase
     {
         private readonly IReviewService _reviewService;
@@ -28,16 +30,19 @@ namespace photoMe_api.Controllers
         }
 
         [HttpPost("new-review")]
-        public async Task<IActionResult> ReviewAlbumAsync([FromBody] Review newReview)
+        public async Task<IActionResult> ReviewAlbumAsync([FromBody] ReviewForCreationDto newReview)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("Input is invalid");
             }
 
-            if (await this._reviewService.ReviewAlbum(newReview))
+            Review review = this._mapper.Map<Review>(newReview);
+            Console.WriteLine(review.AlbumId);
+
+            if (await this._reviewService.ReviewAlbum(review))
             {
-                ReviewForListDto reviewToReturn = this._mapper.Map<ReviewForListDto>(newReview);
+                ReviewForListDto reviewToReturn = this._mapper.Map<ReviewForListDto>(review);
                 var listUserReview = await this._reviewService.GetListUserReview(new Guid(newReview.AlbumId.ToString()));
                 var senderId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var senderName = User.FindFirstValue(ClaimTypes.Name);

@@ -1,0 +1,10 @@
+<div class="container">
+  <app-booking-steps [curStep]="curStep"></app-booking-steps>
+
+  <router-outlet (activate)="onActivateRoute()"></router-outlet>
+
+  <div class="direct-buttons">
+    <button class="previous-btn" (click)="prevStep()" ><span>Previous</span></button>
+    <button class="next-btn" (click)="nextStep()"><span>  Next  </span></button>
+  </div>
+</div>

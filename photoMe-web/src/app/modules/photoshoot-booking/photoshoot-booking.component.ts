@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PhotoshootBookingComponent implements OnInit {
 
+  date: Date;
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
-
 }

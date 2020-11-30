@@ -18,7 +18,6 @@ namespace photoMe_api.DTO
         public DateTime LastActive { get; set; }
         public int Age { get; set; }
         public DateTime CreatedAt { get; set; }
-        public Photo Avatar { get; set; }
         public ICollection<Album> Albums { get; set; }
         public ICollection<Photo> Photos { get; set; }
     }

@@ -5,24 +5,19 @@ import { HomeComponent } from './modules/home/home.component';
 import { UserProfileComponent } from './modules/user-profile/user-profile.component';
 import { AuthGuardService } from './shared/guards/auth-guard.service';
 import { ChatComponent } from './modules/chat/chat.component';
-import { ReviewComponent } from './shared/components/review/review.component';
 import { PhotoshootBookingComponent } from './modules/photoshoot-booking/photoshoot-booking.component';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   {
     path: '',
-    runGuardsAndResolvers: 'always',
-    canActivate: [AuthGuardService],
-    children: [
-      { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
-      { path: 'user/:userId', component: UserProfileComponent, canActivate: [AuthGuardService] },
-      { path: 'inbox', component: ChatComponent, canActivate: [AuthGuardService] },
-      { path: 'inbox/:contactId', component: ChatComponent, canActivate: [AuthGuardService] },
-      { path: 'booking', component: PhotoshootBookingComponent, canActivate: [AuthGuardService] }
-    ]
+    loadChildren: () => import('./modules/main/main.module').then(m => m.MainModule)
   },
-  { path: '**', component: HomeComponent },
+  {
+    path: '**',
+    component: NotFoundComponent
+  }
 ];
 
 @NgModule({

@@ -204,18 +204,11 @@ namespace photoMe_api.Migrations
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("UserId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AlbumId");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1")
-                        .IsUnique()
-                        .HasFilter("[UserId1] IS NOT NULL");
 
                     b.ToTable("Photos");
                 });
@@ -240,6 +233,9 @@ namespace photoMe_api.Migrations
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("ShootTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -404,10 +400,6 @@ namespace photoMe_api.Migrations
                     b.HasOne("photoMe_api.Models.User", "User")
                         .WithMany("Photos")
                         .HasForeignKey("UserId");
-
-                    b.HasOne("photoMe_api.Models.User", null)
-                        .WithOne("Avatar")
-                        .HasForeignKey("photoMe_api.Models.Photo", "UserId1");
                 });
 
             modelBuilder.Entity("photoMe_api.Models.PhotoShoot", b =>

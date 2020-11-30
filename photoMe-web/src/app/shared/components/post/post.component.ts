@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-localstorage';
 import { Album } from '../../models/Album';
 import { Photo } from '../../models/Photo';
@@ -8,7 +9,6 @@ import { AlbumService } from '../../services/album.service';
 import { AlertifyService } from '../../services/alertify.service';
 import { AuthService } from '../../services/auth.service';
 import { ReviewService } from '../../services/review.service';
-import { ReviewComponent } from '../review/review.component';
 
 @Component({
   selector: 'app-post',
@@ -44,8 +44,8 @@ export class PostComponent implements OnInit {
     }
   ];
 
-  constructor(private albumService: AlbumService, private alertify: AlertifyService, private localStorageService: LocalStorageService,
-              private reviewService: ReviewService, private authService: AuthService) { }
+  constructor(private albumService: AlbumService, private alertify: AlertifyService, private reviewService: ReviewService,
+    private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.isLoading = false;
@@ -84,7 +84,7 @@ export class PostComponent implements OnInit {
       res.forEach(review => {
         this.reviews.push(review);
       });
-    }, error => {
+    }, () => {
       this.alertify.error('Không thể tải đánh giá!');
     });
   }
@@ -96,7 +96,7 @@ export class PostComponent implements OnInit {
       }
 
       this.reviews = res;
-    }, error => {
+    }, () => {
       this.alertify.error('Không thể tải đánh giá!');
     });
   }
@@ -130,12 +130,12 @@ export class PostComponent implements OnInit {
     this.newReview.albumId = this.albumId;
     this.newReview.makerId = this.authService.decodedToken.nameid;
 
-    this.reviewService.reviewAlbum(this.newReview).subscribe(res => {
+    this.reviewService.reviewAlbum(this.newReview).subscribe(() => {
       this.reviewMessage = '';
       this.loadReviews(this.albumId);
 
       this.alertify.success('Thêm nhận xét thành công!');
-    }, error => {
+    }, () => {
       this.alertify.error('Thêm review thất bại!');
     });
   }

@@ -30,9 +30,7 @@ export class HeaderComponent implements OnInit {
     this.currentUser = this.localStorage.get('user');
     this.isShowNoti = false;
     this.isShowDropdown = false;
-    this.notiService.getUserNotifications(this.currentUser.id).subscribe((res) => {
-      this.notiList = res;
-    });
+    
   }
 
   loggedIn(): boolean {
@@ -52,6 +50,11 @@ export class HeaderComponent implements OnInit {
 
   showNotiPopup(): void {
     this.isShowNoti = !this.isShowNoti;
+    this.notiService.getUserNotifications(this.currentUser.id).subscribe((res) => {
+      this.notiList = res;
+      console.log(res);
+      
+    });
   }
 
   onClickOut(): void {

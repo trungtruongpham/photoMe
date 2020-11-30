@@ -29,7 +29,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { GalleriaModule } from 'primeng/galleria';
-import { MainComponent } from './modules/main/main.component';
 import { UserCardComponent } from './shared/components/user-card/user-card.component';
 import { ChatComponent } from './modules/chat/chat.component';
 import { MessageBoxComponent } from './shared/components/message-box/message-box.component';
@@ -41,9 +40,11 @@ import { NewChatDialogComponent } from './shared/components/new-chat-dialog/new-
 import { ReviewComponent } from './shared/components/review/review.component';
 import { InfiniteScrollComponent } from './shared/components/infinite-scroll/infinite-scroll.component';
 import { NotificationComponent } from './shared/components/notification/notification.component';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TokenInterceptor } from './shared/helpers/token.interceptor';
 import { PhotoshootBookingComponent } from './modules/photoshoot-booking/photoshoot-booking.component';
+import { CalendarModule } from 'primeng/calendar';
+import { MainModule } from './modules/main/main.module';
 
 
 @NgModule({
@@ -52,11 +53,9 @@ import { PhotoshootBookingComponent } from './modules/photoshoot-booking/photosh
     LoginComponent,
     HomeComponent,
     FooterComponent,
-    HeaderComponent,
     PostComponent,
     NewPostInputComponent,
     UserProfileComponent,
-    MainComponent,
     UserCardComponent,
     ChatComponent,
     MessageBoxComponent,
@@ -65,7 +64,6 @@ import { PhotoshootBookingComponent } from './modules/photoshoot-booking/photosh
     NewChatDialogComponent,
     ReviewComponent,
     InfiniteScrollComponent,
-    NotificationComponent,
     PhotoshootBookingComponent
   ],
   imports: [
@@ -92,7 +90,9 @@ import { PhotoshootBookingComponent } from './modules/photoshoot-booking/photosh
     GalleriaModule,
     RouterModule,
     FontAwesomeModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    CalendarModule,
+    MainModule
   ],
   providers: [
     AlertifyService,

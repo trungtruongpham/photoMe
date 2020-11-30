@@ -10,5 +10,6 @@ namespace photoMe_api.Models
         public User Model { get; set; }
         public string Location { get; set; }
         public int Price { get; set; }
+        public DateTime ShootTime { get; set; }
     }
 }

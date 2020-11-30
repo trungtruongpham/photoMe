@@ -12,6 +12,9 @@
             <a [routerLink]="['/user', this.photographer.id]" id="location"> {{this.photographer.address}}</a>
           </div>
         </div>
+        <div class="booking">
+          <button class="booking-btn" [routerLink]="['/booking']">Booking</button>
+        </div>
       </div>
       <div class="album-description">
         <p class="description">{{this.album.title}}</p>

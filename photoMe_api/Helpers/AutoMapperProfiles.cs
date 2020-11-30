@@ -11,8 +11,6 @@ namespace photoMe_api.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<User, UserForListDto>()
-                    .ForMember(dest => dest.PhotoUrl, opt => opt
-                    .MapFrom(src => src.Avatar.Url))
                     .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
 
             CreateMap<UserRegisterDto, User>();
@@ -25,6 +23,7 @@ namespace photoMe_api.Helpers
             CreateMap<User, UserForDetailDto>().ForMember(dest => dest.Albums, opt => opt.MapFrom(src => src.PhotographerAlbums));
             CreateMap<Album, AlbumForListDto>().ForMember(dest => dest.Photographer, opt => opt.MapFrom(src => src.Photographer));
             CreateMap<Review, ReviewForListDto>();
+            CreateMap<ReviewForCreationDto, Review>();
         }
     }
 }

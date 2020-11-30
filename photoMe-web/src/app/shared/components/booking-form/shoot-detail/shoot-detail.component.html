@@ -1,0 +1,43 @@
+<div class="detail-container">
+
+  <div class="detail">
+    <div class="detail-info">
+      <div class="info-title">
+        <h3>Fill your shoot details</h3>
+      </div>
+      <div class="info-input">
+        <label for="shoot-date">Date*</label>
+        <input type="date" id="shoot-date" name="shoot-date">
+      </div>
+      <div class="info-input">
+        <label for="shoot-time">Shoot Time*</label>
+        <select name="shoot-time" id="shoot-time">
+          <option *ngFor="let time of timeOptions" value="{{time.code}}">{{time.name}}</option>
+        </select>
+      </div>
+      <div class="info-input">
+        <label for="meeting-place">Meeting Place*</label>
+        <select name="meeting-place" id="meeting-place">
+          <option *ngFor="let time of placeOptions" value="{{time.code}}">{{time.name}}</option>
+        </select>
+        <input type="text" name="place-detail" id="place-detail" placeholder="Location detail, e.g Landmark81">
+      </div>
+      <div class="info-input">
+        <label for="addtional-info">Additional Info*</label>
+        <input type="text" name="additional-info" id="additional-info"
+          placeholder="Tell us more about your photoshoot, e.g: A family of 4 people.">
+      </div>
+      <div class="info-input">
+        <label for="meeting-place">Addittional Place*</label>
+        <select name="meeting-place" id="meeting-place">
+          <option *ngFor="let time of placeOptions" value="{{time.code}}">{{time.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="detail-temp-price">
+      <h3 class="detail-title">You have to pay</h3>
+      <h1 class="shoot-price"><span>{{this.shootPrice}}</span> VNĐ</h1>
+      <p>Enjoy all features and packs after you complete the payment.</p>
+    </div>
+  </div>
+</div>
