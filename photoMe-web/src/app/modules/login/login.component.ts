@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-localstorage';
-import { flatMap } from 'rxjs/operators';
 import { AlertifyService } from 'src/app/shared/services/alertify.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 

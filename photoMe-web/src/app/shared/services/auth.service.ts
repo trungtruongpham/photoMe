@@ -28,7 +28,7 @@ export class AuthService {
 
   // tslint:disable-next-line: typedef
   login(model: any) {
-    return this.http.post(this.baseUrl + 'Login', model).pipe(
+    return this.http.post(this.baseUrl + 'Login', model, ).pipe(
       map((response: any) => {
         const token = response.token;
         this.currentUser = response.user;
@@ -63,15 +63,15 @@ export class AuthService {
   }
 
   setDefaultAvatar(): void {
-    if (this.currentUser.avatar === null || this.currentUser.avatar === undefined) {
+    if (this.currentUser.avatarUrl === null || this.currentUser.avatarUrl === undefined) {
       this.currentUser.avatar = new Photo();
       if (this.currentUser.gender === 'female') {
         // tslint:disable-next-line:max-line-length
-        this.currentUser.avatar.url = 'https://user-images.githubusercontent.com/32018323/96729543-749ccd00-13df-11eb-99ef-ac493f185a91.png';
+        this.currentUser.avatarUrl = 'https://user-images.githubusercontent.com/32018323/96729543-749ccd00-13df-11eb-99ef-ac493f185a91.png';
       }
       else {
         // tslint:disable-next-line:max-line-length
-        this.currentUser.avatar.url = 'https://user-images.githubusercontent.com/32018323/96729540-74043680-13df-11eb-8e33-82f40db5b8c5.png';
+        this.currentUser.avatarUrl = 'https://user-images.githubusercontent.com/32018323/96729540-74043680-13df-11eb-8e33-82f40db5b8c5.png';
       }
     }
   }

@@ -45,15 +45,14 @@ export class PostComponent implements OnInit {
   ];
 
   constructor(private albumService: AlbumService, private alertify: AlertifyService, private reviewService: ReviewService,
-    private authService: AuthService, private router: Router) { }
+              private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.isLoading = false;
-    this.page = 0;
+    this.page = 1;
     this.isNoReview = false;
     this.loadAlbumData();
-    // this.loadReviews(this.albumId);
-    this.loadPagedReviews(1, this.albumId);
+    this.loadPagedReviews(this.page, this.albumId);
   }
 
   loadAlbumData(): void {
@@ -78,9 +77,8 @@ export class PostComponent implements OnInit {
         this.alertify.error('Bạn đã xem hết đánh giá!');
         return;
       }
-
-
-
+      console.log(page);
+      console.log(res);
       res.forEach(review => {
         this.reviews.push(review);
       });
@@ -102,15 +100,15 @@ export class PostComponent implements OnInit {
   }
 
   setDefaultAvatar(): void {
-    if (this.photographer.avatar === null || this.photographer.avatar === undefined) {
+    if (this.photographer.avatarUrl === null || this.photographer.avatarUrl === undefined) {
       this.photographer.avatar = new Photo();
       if (this.photographer.gender === 'female') {
         // tslint:disable-next-line:max-line-length
-        this.photographer.avatar.url = 'https://user-images.githubusercontent.com/32018323/96729543-749ccd00-13df-11eb-99ef-ac493f185a91.png';
+        this.photographer.avatarUrl = 'https://user-images.githubusercontent.com/32018323/96729543-749ccd00-13df-11eb-99ef-ac493f185a91.png';
       }
       else {
         // tslint:disable-next-line:max-line-length
-        this.photographer.avatar.url = 'https://user-images.githubusercontent.com/32018323/96729540-74043680-13df-11eb-8e33-82f40db5b8c5.png';
+        this.photographer.avatarUrl = 'https://user-images.githubusercontent.com/32018323/96729540-74043680-13df-11eb-8e33-82f40db5b8c5.png';
       }
     }
   }
@@ -129,21 +127,21 @@ export class PostComponent implements OnInit {
     this.newReview.reviewMessage = this.reviewMessage;
     this.newReview.albumId = this.albumId;
     this.newReview.makerId = this.authService.decodedToken.nameid;
-
     this.reviewService.reviewAlbum(this.newReview).subscribe(() => {
       this.reviewMessage = '';
       this.loadReviews(this.albumId);
-
-      this.alertify.success('Thêm nhận xét thành công!');
+      this.alertify.success('Add new comment successful :)');
     }, () => {
-      this.alertify.error('Thêm review thất bại!');
+      this.alertify.error('Failed to add new comment :(');
     });
   }
 
   onViewMoreClick(): void {
     this.page += 1;
     this.isLoading = true;
-
+    console.log(this.page);
+    
     this.loadPagedReviews(this.page, this.albumId);
+    
   }
 }

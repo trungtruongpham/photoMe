@@ -13,15 +13,17 @@ export class BookingStepsComponent implements OnInit, OnChanges {
 
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.curStep === 1){
+    if (this.curStep === 1) {
       this.isStep2 = false;
-      this.isStep3 = false
+      this.isStep3 = false;
     }
     if (this.curStep === 2) {
-      this.isStep2 = !this.isStep2;
+      this.isStep2 = true;
+      this.isStep3 = false;
     }
     else if (this.curStep === 3) {
       this.isStep3 = !this.isStep3;
+      this.isStep2 = true;
     }
   }
 

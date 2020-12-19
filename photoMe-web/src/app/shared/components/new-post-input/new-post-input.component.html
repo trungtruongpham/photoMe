@@ -1,25 +1,25 @@
 <div class="newsBox">
   <div class="row new-post">
     <div class="static-new-post">
-      <img
-        src="{{this.currentUser.avatar.url}}"
-        alt="Avatar" class="avatar" />
+      <a [routerLink]="['/user', this.currentUser.id]" id="userName">
+        <img src="{{this.currentUser.avatarUrl}}" alt="Avatar" class="avatar" />
+      </a>
       <textarea [rows]="3" [cols]="5" pInputTextarea class="popup-hint" (click)="this.handleNewPostClick()"
-        placeholder="{{this.currentUser.name}} ơi, bạn đang nghĩ gì thế?"></textarea>
+        placeholder="{{this.currentUser.name}} , can you show us your beautiful photos?"></textarea>
     </div>
     <div class="popup-container">
-      <p-dialog class="popup" header="Album mới" [(visible)]="isShowPopup" [style]="{ width: '50vw' }" [baseZIndex]="10000">
+      <p-dialog class="popup" header="Album mới" [(visible)]="isShowPopup" [style]="{ width: '50vw' }"
+        [baseZIndex]="10000">
         <form class="file-upload-form" [formGroup]="newAlbumForm">
           <div class="album-info">
             <textarea [rows]="3" [cols]="5" pInputTextarea formControlName="title" class="album-title"
-              placeholder="{{this.currentUser.name}}, bạn có muốn tải lên album mới không?"></textarea>
-            <p-dropdown [options]="albumTypes" placeholder="Chọn loại album" class="album-type" formControlName="type"
+              placeholder="What's on your mind, {{this.currentUser.name}}?"></textarea>
+            <p-dropdown [options]="albumTypes" placeholder="Album Type" class="album-type" formControlName="type"
               optionLabel="name" [showClear]="true" maxlength="14rem"></p-dropdown>
           </div>
-          <p-fileUpload #fileInput class="file-uploader" customUpload="true" name="file-upload"
-            url="{{ this.url }}" (uploadHandler)="this.uploadFile()" multiple="multiple" accept="image/*"
-            maxFileSize="1000000" [chooseLabel]="this.chooseLable" [showCancelButton]="false"
-            [showUploadButton]="false">
+          <p-fileUpload #fileInput class="file-uploader" customUpload="true" name="file-upload" url="{{ this.url }}"
+            (uploadHandler)="this.uploadFile()" multiple="multiple" accept="image/*" maxFileSize="1000000"
+            [chooseLabel]="this.chooseLable" [showCancelButton]="false" [showUploadButton]="false">
             <ng-template pTemplate="content">
               <ul *ngIf="uploadedFiles.length">
                 <li *ngFor="let file of uploadedFiles">
@@ -30,9 +30,9 @@
           </p-fileUpload>
         </form>
         <ng-template pTemplate="footer">
-          <p-button icon="pi pi-check" (click)="submitNewAlbum()" label="Đăng" styleClass="p-button-primary">
+          <p-button icon="pi pi-check" (click)="submitNewAlbum()" label="Post" styleClass="p-button-primary">
           </p-button>
-          <p-button icon="pi pi-times" (click)="isShowPopup = false" label="Hủy" styleClass="p-button-danger">
+          <p-button icon="pi pi-times" (click)="isShowPopup = false" label="Cancel" styleClass="p-button-danger">
           </p-button>
         </ng-template>
       </p-dialog>

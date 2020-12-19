@@ -15,19 +15,71 @@
       font-weight: bold;
       color: #ee6f57;
     }
-
-    .payment-info {
+    .payment-method {
       display: flex;
-      flex-direction: column;
-        
-      label {
-        margin-bottom: 0;
+
+      .payment-form {
+        flex-grow: 1;
+
+        .payment-info {
+          display: flex;
+          flex-direction: column;
+          padding-top: 10px;
+
+          label {
+            margin-bottom: 0 !important;
+            font-size: 20px;
+            font-weight: 500;
+          }
+          input {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid black;
+          }
+
+          .card-number {
+            display: flex;
+
+            input {
+              flex-grow: 1;
+            }
+          }
+        }
       }
-      input {
-        background-color: transparent;
-        border: none;
+
+      .payment-img {
+        img {
+          max-height: 350px;
+          max-width: 300px;
+        }
+      }
+    }
+
+    .submit-btn {
+      text-align: center;
+      margin-top: 30px;
+
+      button {
+        height: 50px;
+        width: 200px;
+        border-radius: 10px;
         outline: none;
-        border-bottom: 1px solid black;
+        border: none;
+        background-color: #ff8e71;
+        // img {
+        //   height: 24px;
+        //   width: 24px;
+        // }
+        span {
+          font-size: 20px;
+          font-weight: 600;
+        }
+      }
+
+      button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
       }
     }
   }

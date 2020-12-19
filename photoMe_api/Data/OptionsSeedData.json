@@ -1,0 +1,136 @@
+[
+  {
+    "Street": "Church Avenue",
+    "City": "Succasunna",
+    "Name": "Church Avenue Succasunna",
+    "Value": "Church Avenue",
+    "Price": 0,
+    "Type": "PlaceOption"
+  },
+  {
+    "Street": "Beekman Place",
+    "City": "Fannett",
+    "Name": "Beekman Place Fannett",
+    "Value": "Beekman Place",
+    "Price": 0,
+    "Type": "PlaceOption"
+  },
+  {
+    "Street": "Vandervoort Place",
+    "City": "Allamuchy",
+    "Name": "Vandervoort Place Allamuchy",
+    "Value": "Vandervoort Place",
+    "Price": 0,
+    "Type": "PlaceOption"
+  },
+  {
+    "Street": "Saratoga Avenue",
+    "City": "Cataract",
+    "Name": "Saratoga Avenue Cataract",
+    "Value": "Saratoga Avenue",
+    "Price": 0,
+    "Type": "PlaceOption"
+  },
+  {
+    "Street": "Halsey Street",
+    "City": "Frizzleburg",
+    "Name": "Halsey Street Frizzleburg",
+    "Value": "Halsey Street",
+    "Price": 0,
+    "Type": "PlaceOption"
+  },
+  {
+    "Street": "Manor Court",
+    "City": "Kidder",
+    "Name": "Manor Court Kidder",
+    "Value": "Manor Court",
+    "Price": 0,
+    "Type": "PlaceOption"
+  },
+  {
+    "Street": "Kingsland Avenue",
+    "City": "Wildwood",
+    "Name": "Kingsland Avenue Wildwood",
+    "Value": "Kingsland Avenue",
+    "Price": 0,
+    "Type": "PlaceOption"
+  },
+  {
+    "Street": "Bartlett Street",
+    "City": "Ferney",
+    "Name": "Bartlett Street Ferney",
+    "Value": "Bartlett Street",
+    "Price": 0,
+    "Type": "PlaceOption"
+  },
+  {
+    "Street": "Lefferts Place",
+    "City": "Bayview",
+    "Name": "Lefferts Place Bayview",
+    "Value": "Lefferts Place",
+    "Price": 0,
+    "Type": "PlaceOption"
+  },
+  {
+    "Street": "Lott Avenue",
+    "City": "Lopezo",
+    "Name": "Lott Avenue Lopezo",
+    "Value": "Lott Avenue",
+    "Price": 0,
+    "Type": "PlaceOption"
+  },
+  {
+    "Name": "8:00 AM",
+    "Value": "8",
+    "Price": 0,
+    "Type": "ShootTimeOption"
+  },
+  {
+    "Name": "9:00 AM",
+    "Value": "9",
+    "Price": 0,
+    "Type": "ShootTimeOption"
+  },
+  {
+    "Name": "10:00 AM",
+    "Value": "10",
+    "Price": 0,
+    "Type": "ShootTimeOption"
+  },
+  {
+    "Name": "11:00 AM",
+    "Value": "11",
+    "Price": 0,
+    "Type": "ShootTimeOption"
+  },
+  {
+    "Name": "1:00 PM",
+    "Value": "1",
+    "Price": 0,
+    "Type": "ShootTimeOption"
+  },
+  {
+    "Name": "2:00 PM",
+    "Value": "2",
+    "Price": 0,
+    "Type": "ShootTimeOption"
+  },
+  {
+    "Name": "3:00 PM",
+    "Value": "3",
+    "Price": 0,
+    "Type": "ShootTimeOption"
+  },
+  {
+    "Name": "4:00 PM",
+    "Value": "8",
+    "Price": 0,
+    "Type": "ShootTimeOption"
+  },
+  {
+    "Name": "5:00 PM",
+    "Value": "5",
+    "Price": 0,
+    "Type": "ShootTimeOption"
+  }
+]

@@ -39,7 +39,6 @@ namespace photoMe_api.Controllers
             messageToSave.Content = message.Content;
 
             await this._messageService.InsertMessage(messageToSave);
-
             await this._hubContext.Clients.Users(senderId, receiverId).SendAsync("SendToSpecificUser", senderId, receiverId, message.Content);
 
             return Ok(message);

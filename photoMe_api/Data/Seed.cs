@@ -17,22 +17,33 @@ namespace photoMe_api.Data
                 
                 foreach (var user in users)
                 {
-                    Console.Write(user.Username);
-
                     byte[] passwordHash, passwordSalt;
                     CreatePasswordHash("password", out passwordHash, out passwordSalt);
 
                     user.PasswordHash = passwordHash;
                     user.PasswordSalt = passwordSalt;
                     user.Username = user.Username.ToLower();
-                    user.CreatedAt = DateTime.Now;
                     user.UpdatedAt = DateTime.Now;
                     
                     context.Users.Add(user);
                 }
 
-                context.SaveChanges();
+                
             }
+
+            if(!context.SelectOptions.Any()){
+                var optionsData = System.IO.File.ReadAllText("Data/OptionsSeedData.json");
+                var options = JsonConvert.DeserializeObject<List<SelectOption>>(optionsData);
+                
+                foreach(var option in options){
+                    option.CreatedAt = DateTime.Now;
+                    option.UpdatedAt = DateTime.Now;
+
+                    context.SelectOptions.Add(option);
+                }
+            }
+
+            context.SaveChanges();
         }
 
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

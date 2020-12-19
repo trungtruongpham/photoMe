@@ -5,6 +5,7 @@ import { MessageDto } from '../models/messagedto';
 import * as signalR from '@microsoft/signalr';
 import { AuthService } from './auth.service';
 import { LocalStorageService } from 'ngx-localstorage';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,10 @@ export class ChatService {
     .withUrl('http://localhost:5000/chatsocket', { accessTokenFactory: () => this.localStorage.get('token')})
     .configureLogging(signalR.LogLevel.Information)
     .build();
-  readonly POST_URL = 'http://localhost:5000/api/chat/send';
-  readonly POST_URL2 = 'http://localhost:5000/api/chat/send/';
+
+
+  readonly POST_URL = environment.apiUrl + 'chat/send';
+  readonly POST_URL2 = environment.apiUrl + 'chat/send/';
   private connectionId: string;
 
   private receivedMessageObject: MessageDto = new MessageDto();

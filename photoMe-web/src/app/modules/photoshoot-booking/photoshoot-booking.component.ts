@@ -13,4 +13,10 @@ export class PhotoshootBookingComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  onSelectDay(e): void {
+    console.log(e);
+    console.log('a');
+    
+  }
 }

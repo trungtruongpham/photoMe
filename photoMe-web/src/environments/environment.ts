@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:5000/api/',
+  apiUrlDeploy: 'https://photomeapi20201204143027.azurewebsites.net/api/'
 };
 
 /*

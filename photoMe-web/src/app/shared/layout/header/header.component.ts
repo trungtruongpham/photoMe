@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
     this.authService.decodedToken = null;
     this.authService.currentUser = null;
     this.alertify.success('Đăng xuất thành công.');
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 
   showNotiPopup(): void {
@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
     this.notiService.getUserNotifications(this.currentUser.id).subscribe((res) => {
       this.notiList = res;
       console.log(res);
-      
+
     });
   }
 

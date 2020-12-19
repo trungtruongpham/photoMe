@@ -169,10 +169,20 @@ namespace photoMe_api.Controllers
         }
 
         [HttpGet("paged")]
-        public async Task<IActionResult> GetPagedAlbumAsync([FromQuery] int page, int pageSize){
+        public async Task<IActionResult> GetPagedAlbumAsync([FromQuery] int page, int pageSize)
+        {
             var result = await this._albumService.GetPagedAlbum(page, pageSize);
+            var listForReturn = new List<AlbumForListDto>();
 
-            return Ok(result);
+            foreach (var album in result)
+            {
+                AlbumForListDto albumForList = this._mapper.Map<AlbumForListDto>(album);
+                albumForList.Photographer = this._mapper.Map<UserForListDto>(album.Photographer);
+                albumForList.Photos = this._mapper.Map<List<Photo>, List<PhotoForReturnDto>>(album.Photos.ToList());
+                listForReturn.Add(albumForList);
+            }
+
+            return Ok(listForReturn);
         }
     }
 }

@@ -1,23 +1,19 @@
-<div>
-  <!--Navbar-->
-  <!-- <app-header></app-header> -->
+<div class="newsContainer">
+  <app-infinite-scroll (scrolled)="this.onScroll()">
+    <app-new-post-input
+      (submitAlbum)="this.onNewAlbumSubmitted()"
+    ></app-new-post-input>
+    <div *ngFor="let album of this.listAlbums">
+      <app-post [albumId]="album.id"></app-post>
+    </div>
 
-  <div class="newsContainer">
-    <app-infinite-scroll (scrolled)="this.onScroll()">
-      <app-new-post-input (submitAlbum)="this.onNewAlbumSubmitted()"></app-new-post-input>
-      <div *ngFor="let album of this.listAlbums">
-        <app-post [albumId]="album.id"></app-post>
+    <div class="loading-spinner" *ngIf="isLoading">
+      <div class="spinner">
+        <p-progressSpinner></p-progressSpinner>
       </div>
-
-      <div class="loading-spinner" *ngIf="isLoading">
-        <div class="spinner">
-          <p-progressSpinner></p-progressSpinner>
-        </div>
-      </div>
-      <div class="end-page" *ngIf="this.isEndPage">
-        <p>Đã hết album mới!</p>
-      </div>
-    </app-infinite-scroll>
-
-  </div>
+    </div>
+    <div class="end-page" *ngIf="this.isEndPage">
+      <p>Đã hết album mới!</p>
+    </div>
+  </app-infinite-scroll>
 </div>

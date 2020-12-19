@@ -17,8 +17,10 @@ namespace photoMe_api.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Introduction { get; set; }
+        public CreditCard CreditCard { get; set; }
         public DateTime DateOfBirth { get; set; }
         public DateTime JoinDate { get; set; }
+        public string AvatarUrl { get; set; }
         public ICollection<Album> PhotographerAlbums { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Album> ModelAlbums { get; set; }

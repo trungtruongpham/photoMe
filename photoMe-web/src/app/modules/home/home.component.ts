@@ -10,10 +10,8 @@ import { AlertifyService } from 'src/app/shared/services/alertify.service';
 export class HomeComponent implements OnInit {
   listAlbums = [];
   page: number;
-  pagedAlbums: [];
   isLoading: boolean;
   isEndPage: boolean;
-  title = 'HomePage';
 
   constructor(private albumService: AlbumService, private alertify: AlertifyService) { }
 
@@ -28,7 +26,7 @@ export class HomeComponent implements OnInit {
   }
 
   loadAlbums(page: number): void {
-    this.albumService.getPagedAlbum(page, 5).subscribe(res => {
+    this.albumService.getPagedAlbum(page, 4).subscribe(res => {
       if (!Object.keys(res).length) {
         this.isEndPage = true;
         this.isLoading = false;
@@ -46,5 +44,7 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
 
     this.loadAlbums(this.page);
+    console.log(this.listAlbums);
+    
   }
 }

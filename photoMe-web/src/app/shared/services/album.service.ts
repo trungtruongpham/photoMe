@@ -38,6 +38,9 @@ export class AlbumService {
       pageSize: pageSize.toString()
     };
 
+    console.log(params);
+    
+
     return this.httpCLient.get(url, {
       params,
     });

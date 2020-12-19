@@ -17,6 +17,7 @@ namespace photoMe_api.DTO
         public string KnownAs { get; set; }
         public DateTime LastActive { get; set; }
         public int Age { get; set; }
+        public string AvatarUrl { get; set; }
         public DateTime CreatedAt { get; set; }
         public ICollection<Album> Albums { get; set; }
         public ICollection<Photo> Photos { get; set; }

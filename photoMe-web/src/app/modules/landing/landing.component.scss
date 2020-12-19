@@ -1,0 +1,35 @@
+.landing {
+  .landing-container {
+    iframe {
+      position: fixed;
+      top: 0px;
+      bottom: 0px;
+      right: 0px;
+      width: 100%;
+      border: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      z-index: 1;
+      height: 100%;
+    }
+
+    button {
+      position: fixed;
+      padding: 10px;
+      bottom: 50px;
+      left: 47%;
+      z-index: 99999;
+      font-size: 20px;
+      font-weight: bold;
+      background-color: #e7e7de;
+      cursor: pointer;
+      border-radius: 20px;
+      outline: none;
+
+      &:hover{
+          transform: scaleX(1.01);
+      }
+    }
+  }
+}

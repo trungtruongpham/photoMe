@@ -41,7 +41,7 @@ export class FileUploadService {
   }
 
   uploadAlbum(albumFroCreation: AlbumForCreation): Observable<any> {
-    const formData: FormData = new FormData();
+    const formData = new FormData();
 
     formData.append('Title', albumFroCreation.title);
     formData.append('AlbumType', albumFroCreation.albumType);

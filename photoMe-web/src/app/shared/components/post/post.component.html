@@ -2,23 +2,28 @@
   <div class="">
     <div class="">
       <div class="userPostInfo d-flex flex-row">
-        <img src={{this.photographer.avatar?.url}} alt="Avatar" class="userAvatar" />
+        <img src="{{ this.photographer.avatarUrl }}" alt="Avatar" class="userAvatar" />
         <div class="userInfo">
           <div class="username">
-            <a [routerLink]="['/user', this.photographer.id]" id="userName">{{this.photographer.name}}</a>
+            <a [routerLink]="['/user', this.photographer.id]" id="userName">{{
+              this.photographer.name
+            }}</a>
           </div>
           <div class="user-location">
             <mat-icon class="iconLocation">location_on</mat-icon>
-            <a [routerLink]="['/user', this.photographer.id]" id="location"> {{this.photographer.address}}</a>
+            <a [routerLink]="['/user', this.photographer.id]" id="location">
+              {{ this.photographer.address }}</a>
           </div>
         </div>
         <div class="booking">
-          <button class="booking-btn" [routerLink]="['/booking']">Booking</button>
+          <button class="booking-btn" [routerLink]="['/booking']">
+            Booking
+          </button>
         </div>
       </div>
       <div class="album-description">
-        <p class="description">{{this.album.title}}</p>
-        <a class="hashTag" href="#">#{{this.album.albumType}}</a>
+        <p class="description">{{ this.album.title }}</p>
+        <a class="hashTag" href="#">#{{ this.album.albumType }}</a>
       </div>
       <div class="albumslider">
         <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions"
@@ -40,14 +45,16 @@
     </div>
     <section class="review-view">
       <div class="list-review" *ngIf="!this.isNoReview">
-        <div class="review" *ngFor="let review of this.reviews; let i=index">
-          <app-review [review]=review></app-review>
+        <div class="review" *ngFor="let review of this.reviews; let i = index">
+          <app-review [review]="review"></app-review>
         </div>
         <div class="spinner" *ngIf="isLoading">
-          <p-progressSpinner [style]="{width: '50px', height: '50px'}"></p-progressSpinner>
+          <p-progressSpinner [style]="{ width: '50px', height: '50px' }"></p-progressSpinner>
         </div>
-        <div [ngClass]="{'more-review': true, 'hide-more-review': true}">
-          <span><button class="view-more-button" (click)="onViewMoreClick()">Xem thêm</button></span>
+        <div [ngClass]="{ 'more-review': true, 'hide-more-review': true }">
+          <span><button class="view-more-button" (click)="onViewMoreClick()">
+              See more
+            </button></span>
         </div>
       </div>
     </section>
@@ -55,7 +62,7 @@
       <div class="comment-box">
         <textarea aria-label="Thêm nhận xét" placeholder="Thêm nhận xét..." class="text-input" #newCommentInput
           [(ngModel)]="this.reviewMessage" rows="3" (keydown.enter)="this.onEnterReview($event)"></textarea>
-        <button class="comment-button">Đăng</button>
+        <button class="comment-button">Post</button>
       </div>
     </section>
   </div>

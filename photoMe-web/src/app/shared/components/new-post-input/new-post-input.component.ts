@@ -25,7 +25,7 @@ export class NewPostInputComponent implements OnInit {
   uploadedFiles: any[] = [];
   url: string;
   isShowPopup: boolean;
-  chooseLable = 'Chọn';
+  chooseLable = 'Choose';
   newAlbum: AlbumForCreation;
   currentUser: User;
   newAlbumForm = new FormGroup({

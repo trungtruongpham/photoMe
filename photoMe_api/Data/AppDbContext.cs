@@ -18,6 +18,8 @@ namespace photoMe_api.Data
         public virtual DbSet<PhotoShoot> PhotoShoots { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<CreditCard> CreditCards { get; set; }
+        public virtual DbSet<SelectOption> SelectOptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -32,6 +34,8 @@ namespace photoMe_api.Data
             builder.Entity<PhotoShoot>().ToTable("PhotoShoots");
             builder.Entity<Review>().ToTable("Reviews");
             builder.Entity<User>().ToTable("Users");
+            builder.Entity<SelectOption>().ToTable("SelectOptions");
+            builder.Entity<CreditCard>().ToTable("CreditCards");
 
             builder.Entity<Album>()
                     .HasOne(a => a.Model)
@@ -110,6 +114,11 @@ namespace photoMe_api.Data
                     .HasOne<User>(l => l.Maker)
                     .WithMany(u => u.Likes)
                     .HasForeignKey(l => l.MakerId);
+
+            builder.Entity<User>()
+                    .HasOne<CreditCard>(u => u.CreditCard)
+                    .WithOne(c => c.User)
+                    .HasForeignKey<CreditCard>(c => c.UserId);
         }
     }
 }

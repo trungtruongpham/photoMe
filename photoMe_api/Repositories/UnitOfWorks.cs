@@ -17,7 +17,7 @@ namespace photoMe_api.Repositories
         PhotoShootRepository PhotoShootRepository();
         ReviewRepository ReviewRepository();
         UserRepository UserRepository();
-
+        SelectOptionRepository SelectOptionRepository();
     }
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
@@ -32,7 +32,7 @@ namespace photoMe_api.Repositories
         public PhotoShootRepository _photoShootRepository { get; set; }
         public ReviewRepository _reviewRepository { get; set; }
         public UserRepository _userRepository { get; set; }
-
+        public SelectOptionRepository _selectOptionRepository { get; set; }
 
         private bool disposed = false;
 
@@ -166,6 +166,16 @@ namespace photoMe_api.Repositories
             }
 
             return this._userRepository;
+        }
+
+        public SelectOptionRepository SelectOptionRepository()
+        {
+            if (this._selectOptionRepository == null)
+            {
+                this._selectOptionRepository = new SelectOptionRepository(this.context);
+            }
+
+            return this._selectOptionRepository;
         }
     }
 }

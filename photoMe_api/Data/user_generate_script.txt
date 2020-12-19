@@ -1,20 +1,18 @@
 [
+  '{{repeat(20)}}',
   {
-    'repeat(10)': {
-    Gender: 'female',
-    DateOfBirth: '{{moment(this.date(new Date(2014, 0, 1), new Date())).format("YYYY-MM-DD")}}',
+    Gender: 'male',
+    DateOfBirth: '{{date(new Date(1990, 0, 1), new Date(2000,0,1), "YYYY-MM-ddThh:mm:ss Z")}}',
     Password: 'password',
-    Role: '{{random("Photographer", "Model")}}',
-    firstname: '{{firstName("female")}}',
-    surname: '{{surname("female")}}',
-    Email: function() {
-    	return `${this.firstname}.${this.surname}@gmail.com`.toLowerCase();
+    Role: '{{random("Photographer" ,"User")}}',
+    firstname: '{{firstName("male")}}',
+    surname: '{{surname("male")}}',
+    Email: function() {return this.firstname.toLowerCase() + this.surname.toLowerCase() + '@gmail.com';
     },
-    Username: function() {
-    	return `${this.firstname}`.toLowerCase();
+    Username: function() {return this.firstname.toLowerCase();
     },
-    Name: function(){ return `${this.surname} ${this.firstname}`; },
-    CreatedAt: '{{moment(this.date(new Date(2014, 0, 1), new Date())).format("YYYY-MM-DD")}}',
+    Name: function(){ return this.surname + this.firstname; },
+    CreatedAt: '{{date(new Date(2019, 0, 1), new Date(2021,0,1), "YYYY-MM-ddThh:mm:ss Z")}}',
     LastActive: function(){return this.Created; },
     Introduction: '{{lorem(1, "paragraphs")}}',
     LookingFor: '{{lorem(1, "paragraphs")}}',
@@ -23,12 +21,8 @@
     Address: '{{integer(100, 999)}} {{street()}}',
     City: '{{city()}}',
     Country: '{{country()}}',
-    Avatar: 
-        {
-          url: function(num) {
+    AvatarUrl: function(num) {
           return 'https://randomuser.me/api/portraits/men/' + num.integer(1,99) + '.jpg';
-        },
       }
-  }
  } 
 ]

@@ -58,11 +58,7 @@ export class BookingComponent implements OnInit {
   }
 
   onActivateRoute(): void {
-    console.log(this.router.url);
-    console.log(this.curStep);
-
     if (this.curStep === 1 && this.router.url === '/booking/detail') {
-      console.log('a');
       this.curStep = 2;
     }
     console.log(this.curStep);

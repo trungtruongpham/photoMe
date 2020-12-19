@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Package } from 'src/app/shared/models/Package';
+import { PhotoShoot } from 'src/app/shared/models/PhotoShoot';
 import { BookingService } from 'src/app/shared/services/booking.service';
 
 @Component({
@@ -9,52 +11,65 @@ import { BookingService } from 'src/app/shared/services/booking.service';
 })
 export class ShootDetailComponent implements OnInit {
 
-  timeOptions: any[];
-  placeOptions: any[];
-  additionalService: any[];
+  timeOptions: any[] = [];
+  placeOptions: any[] = [];
   package: Package = new Package();
   shootPrice: string;
+  detailForm: FormGroup;
+  isShowError: boolean;
 
-  constructor(private bookService: BookingService) { }
+  constructor(private bookService: BookingService, private formBuider: FormBuilder) { }
 
   ngOnInit(): void {
-    this.timeOptions = [
-      {name: '8:00 AM', code: 8},
-      {name: '9:00 AM', code: 9},
-      {name: '10:00 AM', code: 10},
-      {name: '11:00 AM', code: 11},
-      {name: '1:00 PM', code: 13},
-      {name: '2:00 PM', code: 14},
-      {name: '3:00 PM', code: 15},
-      {name: '4:00 PM', code: 16},
-      {name: '5:00 PM', code: 17},
-    ];
-
-    this.placeOptions = [
-      {name: 'Hotel', code: 'ht'},
-      {name: 'Airport', code: 'ap'},
-      {name: 'Attraction', code: 'at'},
-      {name: 'CoffeShop', code: 'cs'},
-      {name: 'Landmark', code: 'lm'},
-      {name: 'Others', code: 'ot'},
-    ];
-
-    this.placeOptions = [
-      {name: 'Portraits', code: 'ht'},
-      {name: 'Photo Rights Usage / Permission Inquiry', code: 'ap'},
-      {name: 'Attraction', code: 'at'},
-      {name: 'CoffeShop', code: 'cs'},
-      {name: 'Landmark', code: 'lm'},
-      {name: 'Others', code: 'ot'},
-    ];
+    this.initCombobox();
+    this.initForm();
+    this.isShowError = false;
 
     this.package = this.bookService.package;
-    this.shootPrice = new Intl.NumberFormat('vi-VN', {maximumSignificantDigits: 3}).format(this.package.price);
-    console.log(this.package);
+    this.shootPrice = new Intl.NumberFormat('vi-VN', { maximumSignificantDigits: 3 }).format(this.package.price);
+    this.detailForm.valueChanges.subscribe(formValue => {
+      const newPhotoShoot = new PhotoShoot(formValue.additionInfo, formValue.additionService,
+        formValue.meetingPlace, formValue.meetingPlaceDetail, formValue.shootDate, formValue.shootTime);
+      this.bookService.setPhotoShoot(newPhotoShoot);
+      
+      console.log(formValue);
+      
+      console.log(this.bookService.photoShoot);
+
+    });
   }
 
+  initCombobox(): void {
+    this.bookService.getAllOptions().subscribe((res) => {
+      res.forEach(option => {
+        if (option.type === 'PlaceOption') {
+          this.placeOptions.push(option);
+        }
+        else if (option.type === 'ShootTimeOption') {
+          this.timeOptions.push(option);
+        }
+      });
+    });
 
-  nextStep(): void {
+  }
 
+  initForm(): void {
+    this.detailForm = this.formBuider.group({
+      shootDate: ['', Validators.required],
+      shootTime: ['', Validators.required],
+      meetingPlace: ['', Validators.required],
+      meetingPlaceDetail: ['', [Validators.maxLength(50), Validators.required]],
+      additionInfo: ['', [Validators.maxLength(50), Validators.required]],
+      additionService: ['', [Validators.required]]
+    });
+  }
+
+  onEnterSubmit(event): void {
+    if (event.keyCode === 13) {
+
+      if (this.detailForm.invalid) {
+        this.isShowError = true;
+      }
+    }
   }
 }

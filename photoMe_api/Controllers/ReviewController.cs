@@ -38,7 +38,6 @@ namespace photoMe_api.Controllers
             }
 
             Review review = this._mapper.Map<Review>(newReview);
-            Console.WriteLine(review.AlbumId);
 
             if (await this._reviewService.ReviewAlbum(review))
             {

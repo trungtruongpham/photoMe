@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from 'src/app/shared/guards/auth-guard.service';
 import { ChatComponent } from '../chat/chat.component';
 import { HomeComponent } from '../home/home.component';
+import { NotFoundComponent } from '../not-found/not-found.component';
 import { PhotoshootBookingComponent } from '../photoshoot-booking/photoshoot-booking.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { MainComponent } from './main.component';
@@ -23,7 +24,10 @@ const mainRoutes: Routes = [
       { path: 'inbox/:contactId', component: ChatComponent, canActivate: [AuthGuardService] },
       { path: 'booking-list', component: PhotoshootBookingComponent, canActivate: [AuthGuardService] },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'booking', loadChildren: () => import('../booking/booking.module').then(m => m.BookingModule) }
+      { path: 'booking', loadChildren: () => import('../booking/booking.module').then(m => m.BookingModule) },
+      {
+        path: '**', component: NotFoundComponent
+      }
     ]
   },
 ];

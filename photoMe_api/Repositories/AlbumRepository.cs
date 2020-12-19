@@ -32,9 +32,12 @@ namespace photoMe_api.Repositories {
 
         public async Task<IEnumerable<Album>> GetPagedAlbumAsync (int page, int pageSize) {
             var skip = (page - 1) * pageSize;
-            return await this.dbSet.Skip (skip).Take (pageSize).Include (album => album.Photos)
+            // var listAlbumDes = this.dbSet.Include (album => album.Photos)
+            //     .Include (album => album.Photographer)
+            //     .OrderByDescending (album => album.CreatedAt).Skip(skip).Take(pageSize).ToListAsync ();
+            return await this.dbSet.Include (album => album.Photos)
                 .Include (album => album.Photographer)
-                .OrderByDescending (album => album.CreatedAt).ToListAsync ();
+                .OrderByDescending (album => album.CreatedAt).Skip(skip).Take(pageSize).ToListAsync ();
         }
     }
 }

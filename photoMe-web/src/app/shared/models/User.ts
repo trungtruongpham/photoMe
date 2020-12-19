@@ -20,6 +20,7 @@ export class User {
   introduction?: string;
   lookingFor?: string;
   avatar?: Photo;
+  avatarUrl: string;
   photos?: Photo[];
   albums?: Album[];
 }

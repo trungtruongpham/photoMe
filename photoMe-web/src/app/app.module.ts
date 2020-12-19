@@ -13,7 +13,6 @@ import { AuthService } from './shared/services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { HomeComponent } from './modules/home/home.component';
-import { HeaderComponent } from './shared/layout/header/header.component';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { PostComponent } from './shared/components/post/post.component';
 import { NewPostInputComponent } from './shared/components/new-post-input/new-post-input.component';
@@ -39,12 +38,13 @@ import { ReactAlbumComponent } from './shared/components/react-album/react-album
 import { NewChatDialogComponent } from './shared/components/new-chat-dialog/new-chat-dialog.component';
 import { ReviewComponent } from './shared/components/review/review.component';
 import { InfiniteScrollComponent } from './shared/components/infinite-scroll/infinite-scroll.component';
-import { NotificationComponent } from './shared/components/notification/notification.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TokenInterceptor } from './shared/helpers/token.interceptor';
 import { PhotoshootBookingComponent } from './modules/photoshoot-booking/photoshoot-booking.component';
 import { CalendarModule } from 'primeng/calendar';
 import { MainModule } from './modules/main/main.module';
+import { CreditCardDirectivesModule } from 'angular-cc-library';
+import { LandingComponent } from './modules/landing/landing.component';
 
 
 @NgModule({
@@ -64,7 +64,8 @@ import { MainModule } from './modules/main/main.module';
     NewChatDialogComponent,
     ReviewComponent,
     InfiniteScrollComponent,
-    PhotoshootBookingComponent
+    PhotoshootBookingComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +93,8 @@ import { MainModule } from './modules/main/main.module';
     FontAwesomeModule,
     ProgressSpinnerModule,
     CalendarModule,
-    MainModule
+    MainModule,
+    CreditCardDirectivesModule
   ],
   providers: [
     AlertifyService,

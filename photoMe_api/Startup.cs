@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -44,11 +43,10 @@ namespace photoMe_api
                     opt.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
                 });
 
-            services.AddCors();
             services.AddAutoMapper(typeof(UserRepository).Assembly);
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection1"));
             });
 
             services.AddAuthentication(options =>
@@ -93,7 +91,8 @@ namespace photoMe_api
                 .AddScoped<IPhotoRepository, PhotoRepository>()
                 .AddScoped<IPhotoShootRepository, PhotoShootRepository>()
                 .AddScoped<IReviewRepository, ReviewRepository>()
-                .AddScoped<IUserRepository, UserRepository>();
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<ISelectOptionsRepository, SelectOptionRepository>();
 
             services.AddScoped<IAlbumService, AlbumService>()
                 .AddScoped<IAuthService, AuthService>()
@@ -103,7 +102,8 @@ namespace photoMe_api
                 .AddScoped<ILikeService, LikeService>()
                 .AddScoped<IReviewService, ReviewService>()
                 .AddScoped<INotificationService, NotificationService>()
-                .AddScoped<IPhotoShootService, PhotoShootService>();
+                .AddScoped<IPhotoShootService, PhotoShootService>()
+                .AddScoped<ISelectOptionService, SelectOptionService>();
 
             services.AddControllers();
 
@@ -115,6 +115,10 @@ namespace photoMe_api
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder => builder.WithOrigins("http://localhost:4200")
+                                                                   .AllowCredentials()
+                                                                   .AllowAnyMethod()
+                                                                   .AllowAnyHeader());
+                options.AddPolicy("CorsPolicyDeploy", builder => builder.WithOrigins("https://photome-web.web.app")
                                                                    .AllowCredentials()
                                                                    .AllowAnyMethod()
                                                                    .AllowAnyHeader());

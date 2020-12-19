@@ -84,6 +84,41 @@ namespace photoMe_api.Migrations
                     b.ToTable("Constants");
                 });
 
+            modelBuilder.Entity("photoMe_api.Models.CreditCard", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CCV")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CardName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ExpireDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("CreditCards");
+                });
+
             modelBuilder.Entity("photoMe_api.Models.Like", b =>
                 {
                     b.Property<Guid>("Id")
@@ -174,6 +209,38 @@ namespace photoMe_api.Migrations
                     b.ToTable("Notifications");
                 });
 
+            modelBuilder.Entity("photoMe_api.Models.Package", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DownloadPhotos")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EditPhotos")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Package");
+                });
+
             modelBuilder.Entity("photoMe_api.Models.Photo", b =>
                 {
                     b.Property<Guid>("Id")
@@ -228,6 +295,9 @@ namespace photoMe_api.Migrations
                     b.Property<Guid?>("ModelId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("PackageId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("PhotographerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -243,6 +313,8 @@ namespace photoMe_api.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ModelId");
+
+                    b.HasIndex("PackageId");
 
                     b.HasIndex("PhotographerId");
 
@@ -282,6 +354,35 @@ namespace photoMe_api.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("photoMe_api.Models.SelectOption", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SelectOptions");
+                });
+
             modelBuilder.Entity("photoMe_api.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -289,6 +390,9 @@ namespace photoMe_api.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AvatarUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
@@ -354,6 +458,15 @@ namespace photoMe_api.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("photoMe_api.Models.CreditCard", b =>
+                {
+                    b.HasOne("photoMe_api.Models.User", "User")
+                        .WithOne("CreditCard")
+                        .HasForeignKey("photoMe_api.Models.CreditCard", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("photoMe_api.Models.Like", b =>
                 {
                     b.HasOne("photoMe_api.Models.Album", "Album")
@@ -408,6 +521,10 @@ namespace photoMe_api.Migrations
                         .WithMany("ModelPhotoShoots")
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("photoMe_api.Models.Package", "Package")
+                        .WithMany()
+                        .HasForeignKey("PackageId");
 
                     b.HasOne("photoMe_api.Models.User", "Photographer")
                         .WithMany("PhotographerPhotoShoots")
