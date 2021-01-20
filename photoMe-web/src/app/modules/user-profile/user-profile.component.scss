@@ -42,7 +42,6 @@
 
   .midprofile {
     margin-right: 80px;
-    //padding: 30px;
     display: flex;
     .title {
       font-size: 20px;
@@ -50,7 +49,6 @@
       letter-spacing: 5px;
     }
     .personalinfo {
-      //margin-left: 40px;
       width: 410px;
       .personalinfo_inner {
         padding: 0px !important;
@@ -68,6 +66,8 @@
         .container {
           position: relative;
           img {
+            width: 136px;
+            height: 136px;
             display: block;
             border: solid white 8px;
             border-radius: 15px;

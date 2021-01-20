@@ -7,7 +7,7 @@
           <div class="username">
             <a [routerLink]="['/user', this.photographer.id]" id="userName">{{
               this.photographer.name
-            }}</a>
+              }}</a>
           </div>
           <div class="user-location">
             <mat-icon class="iconLocation">location_on</mat-icon>
@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="booking">
-          <button class="booking-btn" [routerLink]="['/booking']">
+          <button class="booking-btn" (click)="this.onBookingClick()">
             Booking
           </button>
         </div>

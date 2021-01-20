@@ -1,3 +1,4 @@
+import { CreditCard } from 'angular-cc-library';
 import { Album } from './Album';
 import { Photo } from './Photo';
 
@@ -23,4 +24,5 @@ export class User {
   avatarUrl: string;
   photos?: Photo[];
   albums?: Album[];
+  creditCard: CreditCard;
 }

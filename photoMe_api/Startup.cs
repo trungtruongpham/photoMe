@@ -46,7 +46,7 @@ namespace photoMe_api
             services.AddAutoMapper(typeof(UserRepository).Assembly);
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection1"));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddAuthentication(options =>
@@ -80,7 +80,7 @@ namespace photoMe_api
                         }
                     };
                 });
-
+            
             services.AddScoped<IAlbumRepository, AlbumRepository>()
                 .AddScoped<IUnitOfWork, UnitOfWork>()
                 .AddScoped<IAuthRepository, AuthRepository>()

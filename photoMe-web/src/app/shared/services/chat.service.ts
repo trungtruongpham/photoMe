@@ -43,6 +43,7 @@ export class ChatService {
     try {
       await this.connection.start();
       console.log('connected');
+      console.log(this.connection);
       this.connection.invoke('GetConnectionId').then((res) => {
         this.connectionId = res;
       });

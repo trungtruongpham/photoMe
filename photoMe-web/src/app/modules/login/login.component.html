@@ -49,13 +49,16 @@
       <div class="loginForm">
         <h1 style="font-size: 40px">𝓹𝓱𝓸𝓽𝓸𝓜𝓮</h1>
         <form [formGroup]="loginForm" *ngIf="!showDiv.isforgotPassword" method="post" action="">
-          <input type="text" name="username" placeholder="Username" formControlName="username" style="outline: none;"/>
-          <input type="password" name="password" placeholder="Password" formControlName="password" style="outline: none;"/>
-          <input *ngIf="showDiv.isSignUp" type="password" name="re-password" placeholder="Re-Password" formControlName ="rePassword" />
+          <input type="text" name="username" placeholder="Username" formControlName="username" style="outline: none;" />
+          <input type="password" name="password" placeholder="Password" formControlName="password"
+            style="outline: none;" />
+          <input *ngIf="showDiv.isSignUp" type="password" name="re-password" placeholder="Re-Password"
+            formControlName="rePassword" />
           <input *ngIf="showDiv.isSignUp" type="submit" name="submit" value="Register" (click)="this.register()" />
-          <input *ngIf="!showDiv.isSignUp" type="submit" name="submit" value="Login" (click)="this.login()"  style="outline: none;"/>
+          <input *ngIf="!showDiv.isSignUp" type="submit" name="submit" value="Login" (click)="this.login()"
+            style="outline: none;" />
         </form>
-        
+
         <form *ngIf="showDiv.isforgotPassword" method="post" action="">
           <input type="text" name="" placeholder="Email" />
           <input type="submit" name="submit" value="Lấy lại mật khẩu" />
@@ -66,13 +69,13 @@
 
       <div class="signContainer col">
         <div class="d-flex justify-content-center">
-          <p>Quên mật khẩu ?</p>
-          <a href="#" (click)="showDiv.isforgotPassword = !showDiv.isforgotPassword">Lấy lại tại đây!</a>
+          <p>Forgot password? </p>
+          <a href="/login" (click)="showDiv.isforgotPassword = !showDiv.isforgotPassword">Reset password here!</a>
         </div>
         <div class="d-flex justify-content-center">
-          <p>Chưa có tài khoản ?</p>
-          <a href="#" (click)="showDiv.isSignUp = !showDiv.isSignUp">
-            Đăng ký tài khoản mới!</a>
+          <p>Don't have an account? </p>
+          <a (click)="showDiv.isSignUp = !showDiv.isSignUp">
+            Signup here!</a>
         </div>
       </div>
     </div>

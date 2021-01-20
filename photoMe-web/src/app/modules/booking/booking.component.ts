@@ -21,7 +21,6 @@ export class BookingComponent implements OnInit {
     this.isStep2 = false;
     this.isStep3 = false;
     this.curStep = 1;
-    console.log(this.curStep);
   }
 
   nextStep(): void {
@@ -43,6 +42,7 @@ export class BookingComponent implements OnInit {
 
   prevStep(): void {
     if (this.curStep === 1) {
+      this.router.navigate(['/home']);
       return;
     }
     else if (this.curStep === 2) {
@@ -61,6 +61,5 @@ export class BookingComponent implements OnInit {
     if (this.curStep === 1 && this.router.url === '/booking/detail') {
       this.curStep = 2;
     }
-    console.log(this.curStep);
   }
 }

@@ -48,7 +48,7 @@ namespace photoMe_api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Model nhập sai!");
+                return BadRequest("Model invalid!");
             }
 
             var senderId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -67,7 +67,7 @@ namespace photoMe_api.Controllers
 
             if (await this._likeService.LikeAlbum(newLike))
             {
-                var sendResult = await this._notifService.SendNoti(new Guid(senderId), new List<Guid> { new Guid(album.PhotographerId.ToString()) }, senderName + " đã thích album của bạn!");
+                var sendResult = await this._notifService.SendNoti(new Guid(senderId), new List<Guid> { new Guid(album.PhotographerId.ToString()) }, senderName + " liked your album!");
 
                 if (sendResult)
                 {

@@ -4,7 +4,20 @@
     <a class="nav-brand" href="/home">𝓹𝓱𝓸𝓽𝓸𝓜𝓮</a>
     <div class="nav-form">
       <img src="https://www.flaticon.com/svg/static/icons/svg/711/711319.svg" alt="" srcset="" />
-      <textarea name="" id="" cols="10" rows="10" placeholder="Search"></textarea>
+      <textarea name="" id="" cols="10" rows="10" placeholder="Search" [(ngModel)]="this.username"
+        (ngModelChange)="this.onSearchUser()"></textarea>
+      <!-- <div class="dropdown-search" *ngIf="isSearching">
+        <ul>
+          <li *ngFor="let user of listUserSearch">{{user.username}}</li>
+        </ul>
+      </div> -->
+      <div class="user-overlayer" *ngIf="this.isSearching" (click)="onClickOut()">
+        <div *ngIf="isSearching" [ngClass]="{ 'user-popup': true, 'show': isSearching }">
+          <div *ngFor="let user of listUserSearch">
+            <app-user-card [userId] = user.id></app-user-card>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="nav-buttons" id="navbarSupportedContent">
@@ -19,7 +32,7 @@
           </span>
         </button>
         <div class="noti-overlayer" *ngIf="this.isShowNoti" (click)="onClickOut()">
-          <div *ngIf="isShowNoti" [ngClass]="{ 'noti-popup': true, show: isShowNoti }">
+          <div *ngIf="isShowNoti" [ngClass]="{ 'noti-popup': true, 'show': isShowNoti }">
             <div class="noti-view">
               <div *ngFor="let noti of this.notiList; let i = index">
                 <app-notification [noti]="noti"></app-notification>

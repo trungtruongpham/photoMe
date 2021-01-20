@@ -19,6 +19,29 @@ namespace photoMe_api.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("photoMe_api.Models.AdditionalService", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdditionalService");
+                });
+
             modelBuilder.Entity("photoMe_api.Models.Album", b =>
                 {
                     b.Property<Guid>("Id")
@@ -218,14 +241,14 @@ namespace photoMe_api.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DownloadPhotos")
-                        .HasColumnType("int");
+                    b.Property<string>("DownloadPhotos")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
-                    b.Property<int>("EditPhotos")
-                        .HasColumnType("int");
+                    b.Property<string>("EditPhotos")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -238,7 +261,7 @@ namespace photoMe_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Package");
+                    b.ToTable("Packages");
                 });
 
             modelBuilder.Entity("photoMe_api.Models.Photo", b =>
@@ -286,10 +309,22 @@ namespace photoMe_api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AdditionalInfo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("AdditionalServiceId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MeetingPlace")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MeetingPlaceDetail")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ModelId")
@@ -298,19 +333,30 @@ namespace photoMe_api.Migrations
                     b.Property<Guid?>("PackageId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("PaymentMethod")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid?>("PhotographerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ShootTime")
+                    b.Property<DateTime>("ShootDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ShootTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AdditionalServiceId");
 
                     b.HasIndex("ModelId");
 
@@ -517,13 +563,17 @@ namespace photoMe_api.Migrations
 
             modelBuilder.Entity("photoMe_api.Models.PhotoShoot", b =>
                 {
+                    b.HasOne("photoMe_api.Models.AdditionalService", "AdditionalService")
+                        .WithMany()
+                        .HasForeignKey("AdditionalServiceId");
+
                     b.HasOne("photoMe_api.Models.User", "Model")
                         .WithMany("ModelPhotoShoots")
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("photoMe_api.Models.Package", "Package")
-                        .WithMany()
+                        .WithMany("PhotoShoots")
                         .HasForeignKey("PackageId");
 
                     b.HasOne("photoMe_api.Models.User", "Photographer")

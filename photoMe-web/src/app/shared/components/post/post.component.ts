@@ -8,15 +8,15 @@ import { User } from '../../models/User';
 import { AlbumService } from '../../services/album.service';
 import { AlertifyService } from '../../services/alertify.service';
 import { AuthService } from '../../services/auth.service';
+import { BookingService } from '../../services/booking.service';
 import { ReviewService } from '../../services/review.service';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss']
+  styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-
   @ViewChild('newCommentInput') newCommentInput: ElementRef;
   @Input() albumId: string;
   photographer: User = new User();
@@ -32,20 +32,26 @@ export class PostComponent implements OnInit {
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
-      numVisible: 5
+      numVisible: 5,
     },
     {
       breakpoint: '768px',
-      numVisible: 3
+      numVisible: 3,
     },
     {
       breakpoint: '560px',
-      numVisible: 1
-    }
+      numVisible: 1,
+    },
   ];
 
-  constructor(private albumService: AlbumService, private alertify: AlertifyService, private reviewService: ReviewService,
-              private authService: AuthService, private router: Router) { }
+  constructor(
+    private albumService: AlbumService,
+    private alertify: AlertifyService,
+    private reviewService: ReviewService,
+    private authService: AuthService,
+    private router: Router,
+    private bookingService: BookingService
+  ) {}
 
   ngOnInit(): void {
     this.isLoading = false;
@@ -60,57 +66,47 @@ export class PostComponent implements OnInit {
       this.album = res;
       this.images = res.photos;
       this.photographer = res.photographer;
-      this.setDefaultAvatar();
     });
   }
 
   loadPagedReviews(page: number, albumId: string): void {
-    this.reviewService.getPagedReviews(page, 2, albumId).subscribe((res) => {
-      this.isLoading = false;
-      if (!Object.keys(res).length) {
+    this.reviewService.getPagedReviews(page, 2, albumId).subscribe(
+      (res) => {
+        this.isLoading = false;
+        if (!Object.keys(res).length) {
+          if (page === 1) {
+            this.isNoReview = true;
+            return;
+          }
 
-        if (page === 1) {
-          this.isNoReview = true;
+          this.alertify.error('You just seen all reviews!');
           return;
         }
-
-        this.alertify.error('Bạn đã xem hết đánh giá!');
-        return;
+        console.log(page);
+        console.log(res);
+        res.forEach((review) => {
+          this.reviews.push(review);
+        });
+      },
+      () => {
+        this.alertify.error('Cant load new review!');
       }
-      console.log(page);
-      console.log(res);
-      res.forEach(review => {
-        this.reviews.push(review);
-      });
-    }, () => {
-      this.alertify.error('Không thể tải đánh giá!');
-    });
+    );
   }
 
   loadReviews(albumId: string): void {
-    this.reviewService.getAlbumReviews(albumId).subscribe((res) => {
-      if (!Object.keys(res).length) {
-        this.isNoReview = true;
-      }
+    this.reviewService.getAlbumReviews(albumId).subscribe(
+      (res) => {
+        if (!Object.keys(res).length) {
+          this.isNoReview = true;
+        }
 
-      this.reviews = res;
-    }, () => {
-      this.alertify.error('Không thể tải đánh giá!');
-    });
-  }
-
-  setDefaultAvatar(): void {
-    if (this.photographer.avatarUrl === null || this.photographer.avatarUrl === undefined) {
-      this.photographer.avatar = new Photo();
-      if (this.photographer.gender === 'female') {
-        // tslint:disable-next-line:max-line-length
-        this.photographer.avatarUrl = 'https://user-images.githubusercontent.com/32018323/96729543-749ccd00-13df-11eb-99ef-ac493f185a91.png';
+        this.reviews = res;
+      },
+      () => {
+        this.alertify.error('Failed to load comment!');
       }
-      else {
-        // tslint:disable-next-line:max-line-length
-        this.photographer.avatarUrl = 'https://user-images.githubusercontent.com/32018323/96729540-74043680-13df-11eb-8e33-82f40db5b8c5.png';
-      }
-    }
+    );
   }
 
   onLikeClick(): void {
@@ -127,21 +123,27 @@ export class PostComponent implements OnInit {
     this.newReview.reviewMessage = this.reviewMessage;
     this.newReview.albumId = this.albumId;
     this.newReview.makerId = this.authService.decodedToken.nameid;
-    this.reviewService.reviewAlbum(this.newReview).subscribe(() => {
-      this.reviewMessage = '';
-      this.loadReviews(this.albumId);
-      this.alertify.success('Add new comment successful :)');
-    }, () => {
-      this.alertify.error('Failed to add new comment :(');
-    });
+    this.reviewService.reviewAlbum(this.newReview).subscribe(
+      () => {
+        this.reviewMessage = '';
+        this.loadReviews(this.albumId);
+        this.alertify.success('Add new comment successful :)');
+      },
+      () => {
+        this.alertify.error('Failed to add new comment :(');
+      }
+    );
   }
 
   onViewMoreClick(): void {
     this.page += 1;
     this.isLoading = true;
-    console.log(this.page);
-    
     this.loadPagedReviews(this.page, this.albumId);
-    
+  }
+
+  onBookingClick(): void {
+    console.log('click run');
+    this.bookingService.photoShoot.photographerId = this.photographer.id.toUpperCase();
+    this.router.navigate(['/booking']);
   }
 }

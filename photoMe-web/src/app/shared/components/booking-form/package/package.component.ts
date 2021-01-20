@@ -24,7 +24,7 @@ export class PackageComponent implements OnInit {
       this.package.downloadPhotos = '20';
     }
     else if (this.packageType === 2){
-      this.package.name = '2 Hour Photo Shoot';
+      this.package.name = '2 Hours Photo Shoot';
       this.package.price = 1000000;
       this.package.duration = '2';
       this.package.editPhotos = '100';

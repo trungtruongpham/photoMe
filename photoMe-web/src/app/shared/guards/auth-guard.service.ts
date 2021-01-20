@@ -16,7 +16,7 @@ export class AuthGuardService implements CanActivate {
     }
 
     this.router.navigate(['login']);
-    this.alertify.error('Bạn cần đăng nhập / đăng kí để tiếp tục !');
+    this.alertify.error('You need to signin / signup to continue !');
 
     return false;
   }

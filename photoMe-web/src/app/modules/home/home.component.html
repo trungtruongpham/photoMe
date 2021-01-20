@@ -1,19 +1,16 @@
 <div class="newsContainer">
   <app-infinite-scroll (scrolled)="this.onScroll()">
-    <app-new-post-input
-      (submitAlbum)="this.onNewAlbumSubmitted()"
-    ></app-new-post-input>
+    <app-new-post-input (submitAlbum)="this.onNewAlbumSubmitted()"></app-new-post-input>
     <div *ngFor="let album of this.listAlbums">
       <app-post [albumId]="album.id"></app-post>
     </div>
-
     <div class="loading-spinner" *ngIf="isLoading">
       <div class="spinner">
         <p-progressSpinner></p-progressSpinner>
       </div>
     </div>
     <div class="end-page" *ngIf="this.isEndPage">
-      <p>Đã hết album mới!</p>
+      <p>No more new album!</p>
     </div>
   </app-infinite-scroll>
 </div>

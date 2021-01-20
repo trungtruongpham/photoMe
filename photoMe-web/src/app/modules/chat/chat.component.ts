@@ -63,7 +63,7 @@ export class ChatComponent implements OnInit {
 
   onSubmitNewChat(contactId: string): void {
     if (contactId === undefined || contactId === null) {
-      this.alertify.error('Bạn chưa chọn người dùng!');
+      this.alertify.error('You havent seclect user!');
       return;
     }
 

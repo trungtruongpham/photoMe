@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocalStorageService } from 'ngx-localstorage';
-import { SelectItem } from 'primeng/api/selectitem';
 import { Album } from 'src/app/shared/models/Album';
 import { Photo } from 'src/app/shared/models/Photo';
 import { User } from 'src/app/shared/models/User';
-import { AlbumService } from 'src/app/shared/services/album.service';
-import { AlertifyService } from 'src/app/shared/services/alertify.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
@@ -21,8 +18,7 @@ export class UserProfileComponent implements OnInit {
   listPhotos: Photo[];
   userId: string;
 
-  constructor(public authService: AuthService, private userService: UserService, private localStorage: LocalStorageService,
-              private activatedRoute: ActivatedRoute) {
+  constructor(public authService: AuthService, private userService: UserService, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit(): void {

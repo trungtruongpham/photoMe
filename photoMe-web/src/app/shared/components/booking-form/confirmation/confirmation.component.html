@@ -6,61 +6,27 @@
       <form [formGroup]="creditForm" action="" class="payment-form">
         <div class="payment-info">
           <label for="horder-name">Card Holder's Name</label>
-          <input
-            type="text"
-            name="horder-name"
-            id="horder-name"
-            placeholder="MR A"
-            formControlName="holderName"
-            style="text-transform: uppercase"
-          />
+          <input type="text" name="horder-name" id="horder-name" placeholder="MR A" formControlName="holderName"
+            style="text-transform: uppercase" />
         </div>
         <div class="payment-info">
           <label for="cc-number">Card Number</label>
           <div class="card-number">
-            <input
-              type="tel"
-              name="cc-number"
-              id="cc-number"
-              #ccNumber="ccNumber"
-              formControlName="creditCard"
-              placeholder="6421 8212 4566 2344"
-              autocomplete="cc-number"
-              ccNumber
-            />
-            <img
-              src="../../../../../assets/credit-card-icon.png"
-              alt="credit-card-image"
-              srcset=""
-            />
+            <input type="tel" name="cc-number" id="cc-number" #ccNumber="ccNumber" formControlName="creditCard"
+              placeholder="6421 8212 4566 2344" autocomplete="cc-number" ccNumber />
+            <img src="../../../../../assets/credit-card-icon.png" alt="credit-card-image" srcset="" />
             <span class="scheme">{{ ccNumber.resolvedScheme$ | async }}</span>
           </div>
         </div>
         <div class="payment-info">
           <label for="cc-exp-date">Expire Date</label>
-          <input
-            type="tel"
-            name="cc-exp-date"
-            id="cc-exp-date"
-            placeholder="••/••"
-            autocomplete="cc-exp"
-            formControlName="expireDate"
-            ccExp
-          />
+          <input type="tel" name="cc-exp-date" id="cc-exp-date" placeholder="••/••" autocomplete="cc-exp"
+            formControlName="expireDate" ccExp />
         </div>
         <div class="payment-info">
           <label for="cc-cvc">CCV Code</label>
-          <input
-            type="tel"
-            name="cc-cvc"
-            id="cc-cvc"
-            placeholder="123"
-            formControlName="cvc"
-            autocomplete="off"
-            maxlength="3"
-            minlength="3"
-            ccCVC
-          />
+          <input type="tel" name="cc-cvc" id="cc-cvc" placeholder="123" formControlName="cvc" autocomplete="off"
+            maxlength="3" minlength="3" ccCVC />
         </div>
       </form>
       <div class="payment-img">
@@ -68,11 +34,19 @@
       </div>
     </div>
     <hr />
-    <div class="submit-btn">
-      <button type="submit" (click)="this.onSubmitCheckout()">
-        <img src="../../../../../assets/lock.png" alt="" srcset="" />
-        <span>Check Out</span>
-      </button>
+    <div class="submit">
+      <div class="submit-btn">
+        <button type="submit" (click)="this.onSubmitCheckout()">
+          <img src="../../../../../assets/lock.png" alt="" srcset="" />
+          <span>Check Out</span>
+        </button>
+      </div>
+      <div class="submit-btn">
+        <button type="submit" (click)="this.onSubmitPaidByCash()">
+          <img src="../../../../../assets/money.png" alt="" srcset="" />
+          <span>Paid By Cash</span>
+        </button>
+      </div>
     </div>
   </div>
   <div class="shoot-recap">

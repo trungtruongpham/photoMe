@@ -38,17 +38,17 @@ export class ReactAlbumComponent implements OnInit {
     like.makerId = this.authService.decodedToken.nameid;
     this.likeService.likeAlbum(like).subscribe((res) => {
       if (res === null || res === undefined) {
-        this.alertify.error('Bạn vừa bỏ thích một album!');
+        this.alertify.error('Unliked album');
         this.isLiked = !this.isLiked;
         this.onLikeAlbum.emit();
         return;
       }
 
-      this.alertify.success('Bạn vừa like một ablum!');
+      this.alertify.success('Liked album!');
       this.isLiked = !this.isLiked;
       this.onLikeAlbum.emit();
     }, error => {
-      this.alertify.error('Like thất bại!');
+      this.alertify.error('Like failed! Please try again');
     });
   }
 

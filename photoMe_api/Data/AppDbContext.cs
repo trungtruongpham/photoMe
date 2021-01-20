@@ -7,8 +7,8 @@ namespace photoMe_api.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-
         }
+
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<Constant> Constants { get; set; }
         public virtual DbSet<Like> Likes { get; set; }
@@ -20,6 +20,7 @@ namespace photoMe_api.Data
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<CreditCard> CreditCards { get; set; }
         public virtual DbSet<SelectOption> SelectOptions { get; set; }
+        public virtual DbSet<Package> Packages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -36,89 +37,105 @@ namespace photoMe_api.Data
             builder.Entity<User>().ToTable("Users");
             builder.Entity<SelectOption>().ToTable("SelectOptions");
             builder.Entity<CreditCard>().ToTable("CreditCards");
+            builder.Entity<Package>().ToTable("Packages");
 
             builder.Entity<Album>()
-                    .HasOne(a => a.Model)
-                    .WithMany(u => u.ModelAlbums)
-                    .HasForeignKey(a => a.ModelId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(a => a.Model)
+                .WithMany(u => u.ModelAlbums)
+                .HasForeignKey(a => a.ModelId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Album>()
-                    .HasOne(a => a.Photographer)
-                    .WithMany(u => u.PhotographerAlbums)
-                    .HasForeignKey(a => a.PhotographerId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(a => a.Photographer)
+                .WithMany(u => u.PhotographerAlbums)
+                .HasForeignKey(a => a.PhotographerId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Message>()
-                    .HasOne(m => m.Sender)
-                    .WithMany(u => u.SenderMessages)
-                    .HasForeignKey(a => a.SenderId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(m => m.Sender)
+                .WithMany(u => u.SenderMessages)
+                .HasForeignKey(a => a.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Message>()
-                    .HasOne(a => a.Receiver)
-                    .WithMany(u => u.ReceiverMessages)
-                    .HasForeignKey(a => a.ReceiverId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(a => a.Receiver)
+                .WithMany(u => u.ReceiverMessages)
+                .HasForeignKey(a => a.ReceiverId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Notification>()
-                    .HasOne(n => n.Sender)
-                    .WithMany(u => u.SenderNotifications)
-                    .HasForeignKey(n => n.SenderId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(n => n.Sender)
+                .WithMany(u => u.SenderNotifications)
+                .HasForeignKey(n => n.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Notification>()
-                    .HasOne(n => n.Receiver)
-                    .WithMany(u => u.ReceiverNotifications)
-                    .HasForeignKey(n => n.ReceiverId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(n => n.Receiver)
+                .WithMany(u => u.ReceiverNotifications)
+                .HasForeignKey(n => n.ReceiverId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<PhotoShoot>()
-                    .HasOne(ps => ps.Photographer)
-                    .WithMany(u => u.PhotographerPhotoShoots)
-                    .HasForeignKey(ps => ps.PhotographerId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(ps => ps.Photographer)
+                .WithMany(u => u.PhotographerPhotoShoots)
+                .HasForeignKey(ps => ps.PhotographerId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<PhotoShoot>()
-                    .HasOne(ps => ps.Model)
-                    .WithMany(u => u.ModelPhotoShoots)
-                    .HasForeignKey(ps => ps.ModelId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(ps => ps.Model)
+                .WithMany(u => u.ModelPhotoShoots)
+                .HasForeignKey(ps => ps.ModelId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Review>()
-                    .HasOne<User>(r => r.Maker)
-                    .WithMany(u => u.Reviews)
-                    .HasForeignKey(s => s.MakerId);
+                .HasOne<User>(r => r.Maker)
+                .WithMany(u => u.Reviews)
+                .HasForeignKey(s => s.MakerId);
 
             builder.Entity<Review>()
-                    .HasOne<Album>(r => r.Album)
-                    .WithMany(u => u.Reviews)
-                    .HasForeignKey(s => s.AlbumId);
+                .HasOne<Album>(r => r.Album)
+                .WithMany(u => u.Reviews)
+                .HasForeignKey(s => s.AlbumId);
 
             builder.Entity<Photo>()
-                    .HasOne<Album>(p => p.Album)
-                    .WithMany(a => a.Photos)
-                    .HasForeignKey(p => p.AlbumId);
+                .HasOne<Album>(p => p.Album)
+                .WithMany(a => a.Photos)
+                .HasForeignKey(p => p.AlbumId);
 
             builder.Entity<Photo>()
-                    .HasOne<User>(p => p.User)
-                    .WithMany(u => u.Photos)
-                    .HasForeignKey(p => p.UserId);
+                .HasOne<User>(p => p.User)
+                .WithMany(u => u.Photos)
+                .HasForeignKey(p => p.UserId);
 
             builder.Entity<Like>()
-                    .HasOne<Album>(l => l.Album)
-                    .WithMany(a => a.Likes)
-                    .HasForeignKey(l => l.AlbumId);
+                .HasOne<Album>(l => l.Album)
+                .WithMany(a => a.Likes)
+                .HasForeignKey(l => l.AlbumId);
 
             builder.Entity<Like>()
-                    .HasOne<User>(l => l.Maker)
-                    .WithMany(u => u.Likes)
-                    .HasForeignKey(l => l.MakerId);
+                .HasOne<User>(l => l.Maker)
+                .WithMany(u => u.Likes)
+                .HasForeignKey(l => l.MakerId);
 
             builder.Entity<User>()
-                    .HasOne<CreditCard>(u => u.CreditCard)
-                    .WithOne(c => c.User)
-                    .HasForeignKey<CreditCard>(c => c.UserId);
+                .HasOne<CreditCard>(u => u.CreditCard)
+                .WithOne(c => c.User)
+                .HasForeignKey<CreditCard>(c => c.UserId);
+
+            builder.Entity<PhotoShoot>()
+                .HasOne<User>(p => p.Photographer)
+                .WithMany(u => u.PhotographerPhotoShoots)
+                .HasForeignKey(p => p.PhotographerId);
+
+            builder.Entity<PhotoShoot>()
+                .HasOne<User>(p => p.Model)
+                .WithMany(u => u.ModelPhotoShoots)
+                .HasForeignKey(p => p.ModelId);
+
+            builder.Entity<PhotoShoot>()
+                .HasOne<Package>(ps => ps.Package)
+                .WithMany(p => p.PhotoShoots)
+                .HasForeignKey(ps => ps.PackageId);
         }
     }
 }

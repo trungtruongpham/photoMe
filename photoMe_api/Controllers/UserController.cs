@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using photoMe_api.DTO;
 using photoMe_api.Helpers;
+using photoMe_api.Models;
 using photoMe_api.Services;
 
 namespace photoMe_api.Controllers
@@ -25,6 +27,7 @@ namespace photoMe_api.Controllers
             this._userService = userService;
             this._mapper = mapper;
         }
+
         [HttpGet("all")]
         public async Task<IActionResult> GetUsers([FromQuery] UserParams userParams)
         {
@@ -63,20 +66,9 @@ namespace photoMe_api.Controllers
         public async Task<IActionResult> SearchUserAsync([FromBody] UserForSearchDto userInput)
         {
             var listUser = await this._userService.SearchUser(userInput.Username);
-            var listUserForReturn = new List<UserForListDto>();
-
-            foreach (var user in listUser)
-            {
-                UserForListDto userToReturn = this._mapper.Map<UserForListDto>(user);
-                listUserForReturn.Add(userToReturn);
-            }
-
-            if (listUserForReturn != null)
-            {
-                return Ok(listUserForReturn);
-            }
-
-            return BadRequest();
+            var listUserForReturn = listUser.Select(user => this._mapper.Map<UserForListDto>(user)).ToList();
+    
+            return Ok(listUserForReturn);
         }
     }
 }

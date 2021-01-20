@@ -50,3 +50,9 @@
 d-flex{
     padding-left: 10px;
 }
+
+.signup-btn {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}

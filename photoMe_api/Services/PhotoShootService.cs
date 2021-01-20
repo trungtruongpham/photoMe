@@ -9,7 +9,8 @@ namespace photoMe_api.Services
     public interface IPhotoShootService
     {
         Task<PhotoShoot> BookingNewShootAsync(PhotoShoot newShoot);
-        Task<IEnumerable<PhotoShoot>> GetListShootByUserAsync(Guid userId);
+        Task<IEnumerable<PhotoShoot>> GetListShootByPhotographer(Guid userId);
+        Task<IEnumerable<PhotoShoot>> GetListShootByModel(Guid userId);
         Task<IEnumerable<PhotoShoot>> GetListShootByDate(Guid userId, DateTime date);
     }
     public class PhotoShootService : IPhotoShootService
@@ -32,14 +33,19 @@ namespace photoMe_api.Services
             return null;
         }
 
+        public async Task<IEnumerable<PhotoShoot>> GetListShootByModel(Guid userId)
+        {
+            return await this._photoShootRepository.GetListShootByModel(userId);
+        }
+
         public async Task<IEnumerable<PhotoShoot>> GetListShootByDate(Guid userId, DateTime date)
         {
             return await this._photoShootRepository.GetListShootByDate(userId, date);
         }
 
-        public async Task<IEnumerable<PhotoShoot>> GetListShootByUserAsync(Guid userId)
+        public async Task<IEnumerable<PhotoShoot>> GetListShootByPhotographer(Guid userId)
         {
-            return await this._photoShootRepository.GetListShootByUserAsync(userId);
+            return await this._photoShootRepository.GetListShootByPhotographer(userId);
         }
     }
 }

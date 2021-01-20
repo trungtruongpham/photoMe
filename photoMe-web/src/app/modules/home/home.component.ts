@@ -44,7 +44,5 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
 
     this.loadAlbums(this.page);
-    console.log(this.listAlbums);
-    
   }
 }

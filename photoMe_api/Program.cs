@@ -24,7 +24,7 @@ namespace photoMe_api
                 {
                     var context = services.GetRequiredService<AppDbContext>();
                     context.Database.Migrate();
-                    Seed.SeedUser(context);
+                    Seed.SeedData(context);
                 }
                 catch (Exception ex)
                 {
@@ -38,9 +38,6 @@ namespace photoMe_api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseStartup<Startup>();
-            });
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

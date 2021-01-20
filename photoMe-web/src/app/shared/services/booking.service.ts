@@ -6,16 +6,17 @@ import { Package } from '../models/Package';
 import { PhotoShoot } from '../models/PhotoShoot';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BookingService {
   private optionUrl = environment.apiUrl + 'options/';
+  private bookingUrl = environment.apiUrl + 'photoshoot';
   private item: any[];
   public package: Package = new Package();
   public photoShoot: PhotoShoot = new PhotoShoot('', '', '', '', null, '');
   public curStep: number;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   addItem(data: any): void {
     this.item.push(data);
@@ -36,5 +37,9 @@ export class BookingService {
 
   getAllOptions(): Observable<any> {
     return this.httpClient.get(this.optionUrl + 'all');
+  }
+
+  bookPhotoShoot(photoshoot: PhotoShoot): Observable<any> {
+    return this.httpClient.post(this.bookingUrl, photoshoot);
   }
 }

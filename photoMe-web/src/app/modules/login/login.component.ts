@@ -44,11 +44,11 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.authService.login(this.loginForm.value).subscribe(
       (next) => {
-        this.alertifyService.success('Đăng nhập thành công');
+        this.alertifyService.success('Login successful');
       },
       // tslint:disable-next-line:no-shadowed-variable
       (error) => {
-        this.alertifyService.error('Đăng nhập thất bại! Vui lòng kiểm tra lại tài khoản và mật khẩu.');
+        this.alertifyService.error('Login failed! Please check again your username and password.');
       },
       () => {
         this.router.navigate(['/home']);
@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
 
   register(): void {
     this.authService.register(this.loginForm.value).subscribe((res) => {
-      this.alertifyService.success('Đăng kí thành công.');
+      this.alertifyService.success('Signup successful! Welcome to photoMe.');
     },
       (error) => {
         this.alertifyService.error(error);

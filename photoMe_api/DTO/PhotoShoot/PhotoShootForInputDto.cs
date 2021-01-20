@@ -8,6 +8,10 @@ namespace photoMe_api.DTO.PhotoShootDto
         public Guid ModelId { get; set; }
         public string Location { get; set; }
         public int Price { get; set; }
-        public DateTime ShootTime { get; set; }
+        public string ShootTime { get; set; }
+        public DateTime ShootDate { get; set; }
+        public string MeetingPlace { get; set; }
+        public string AdditpionalInfo { get; set; }
+        public string PaymentMethod { get; set; }
     }
 }

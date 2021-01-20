@@ -24,7 +24,7 @@ export class NotificationComponent implements OnInit {
 
   loadNotiInfo(): void {
     if (this.noti === null || this.noti === undefined) {
-      this.alertify.error('Không thể hiển thị dữ liệu thông báo!');
+      this.alertify.error('Failed to load user info :( ! Please try again later!');
       return;
     }
 
@@ -32,7 +32,7 @@ export class NotificationComponent implements OnInit {
       this.sender = res;
       this.userService.setDefaultAvatar(this.sender);
     }, error => {
-      this.alertify.error('Không thể tải thông tin người dùng!');
+      this.alertify.error('Failed to load user info :( ! Please try again later!');
     });
   }
 }

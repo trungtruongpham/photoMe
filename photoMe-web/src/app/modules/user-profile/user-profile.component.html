@@ -28,28 +28,28 @@
             </div>
             <div class="midprofile">
                 <div class="personalinfo">
-                    <p class="title">THÔNG TIN CÁ NHÂN</p>
+                    <p class="title">USER INFORMATION</p>
                     <table class="tableinfo">
                         <tbody>
                             <tr>
-                                <th data-field="Location">Vị trí :</th>
+                                <th data-field="Location">Location :</th>
                                 <td>{{this.currentUser.address}}</td>
                             </tr>
                             <tr>
-                                <th data-field="Age">Tuổi :</th>
+                                <th data-field="Age">Age :</th>
                                 <td>{{this.currentUser.age}}</td>
                             </tr>
                             <tr>
-                                <th data-field="Gender">Giới tính :</th>
+                                <th data-field="Gender">Gender :</th>
                                 <ng-container *ngIf="this.currentUser.gender === 'female'; else elseTemplate">
-                                    <td>Nữ</td>
+                                    <td>Female</td>
                                 </ng-container>
                                 <ng-template #elseTemplate>
-                                    <td>Nam</td>
+                                    <td>Male</td>
                                 </ng-template>
                             </tr>
                             <tr>
-                                <th data-field="PhoneNumber">SĐT :</th>
+                                <th data-field="PhoneNumber">Phone :</th>
                                 <td>{{this.currentUser.phone}}</td>
                             </tr>
                             <tr>
@@ -60,32 +60,56 @@
                     </table>
                 </div>
                 <div class="album">
-                    <p class="title">CÁC ALBUM ĐÃ CHỤP</p>
+                    <p class="title">ALBUMS</p>
                     <div class="albumslider">
-                        <div class="container">
-                            <img src="https://placekitten.com/120/120" />
-                            <a href="dog.png" download="new-filename">
-                                <i class="fa fa-picture-o fa-2x"></i>
-                            </a>
-                        </div>
-                        <div class="container">
-                            <img src="https://placekitten.com/120/120" />
-                            <a>
-                                <i class="fa fa-picture-o fa-2x"></i>
-                            </a>
-                        </div>
-                        <div class="container">
-                            <img src="https://placekitten.com/120/120" />
-                            <a>
-                                <i class="fa fa-picture-o fa-2x"></i>
-                            </a>
-                        </div>
+                        <ng-container *ngIf="this.listPhotos != null; else elseTemplate">
+                            <div class="container">
+                                <img src={{this.listPhotos[0].url}} />
+                                <a href="dog.png" download="new-filename">
+                                    <i class="fa fa-picture-o fa-2x"></i>
+                                </a>
+                            </div>
+                            <div class="container">
+                                <img src={{this.listPhotos[0].url}} />
+                                <a>
+                                    <i class="fa fa-picture-o fa-2x"></i>
+                                </a>
+                            </div>
+                            <div class="container">
+                                <img src={{this.listPhotos[0].url}} />
+                                <a>
+                                    <i class="fa fa-picture-o fa-2x"></i>
+                                </a>
+                            </div>
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            <div class="container">
+                                <img src="https://placekitten.com/120/120" />
+                                <a href="dog.png" download="new-filename">
+                                    <i class="fa fa-picture-o fa-2x"></i>
+                                </a>
+                            </div>
+                            <div class="container">
+                                <img src="https://placekitten.com/120/120" />
+                                <a>
+                                    <i class="fa fa-picture-o fa-2x"></i>
+                                </a>
+                            </div>
+                            <div class="container">
+                                <img src="https://placekitten.com/120/120" />
+                                <a>
+                                    <i class="fa fa-picture-o fa-2x"></i>
+                                </a>
+                            </div>
+                        </ng-template>
+                        
+                        
                     </div>
                 </div>
             </div>
         </div>
         <button type="button" class="btn btn-outline-primary">
-            LIÊN HỆ NGAY !
+            CONTACT NOW !
         </button>
 
         <div class="botprofile">

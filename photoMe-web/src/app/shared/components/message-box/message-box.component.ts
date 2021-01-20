@@ -1,5 +1,11 @@
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { LocalStorageService } from 'ngx-localstorage';
 import { MessageDto } from '../../models/messagedto';
 import { User } from '../../models/User';
@@ -12,7 +18,7 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-message-box',
   templateUrl: './message-box.component.html',
-  styleUrls: ['./message-box.component.scss']
+  styleUrls: ['./message-box.component.scss'],
 })
 export class MessageBoxComponent implements OnInit, OnChanges {
   @Input() contactId: string;
@@ -21,9 +27,16 @@ export class MessageBoxComponent implements OnInit, OnChanges {
   isTexting: boolean;
   contactUser: User = new User();
   messageList: MessageDto[] = [];
+  insertMessageText = 'Insert new message ...';
 
-  constructor(private userService: UserService, private messageService: MessageService, private alertify: AlertifyService,
-              private chatService: ChatService, private authService: AuthService) { }
+  constructor(
+    private userService: UserService,
+    private messageService: MessageService,
+    private alertify: AlertifyService,
+    private chatService: ChatService,
+    private authService: AuthService,
+    private localStorage: LocalStorageService
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.loadUserInfo(this.contactId);
@@ -35,11 +48,19 @@ export class MessageBoxComponent implements OnInit, OnChanges {
     this.loadUserInfo(this.contactId);
     this.loadTalkMessages(this.contactId);
 
-    this.chatService.retrieveMappedObject().subscribe((receivedObj: MessageDto) => { this.addToInbox(receivedObj); });
+    this.chatService
+      .retrieveMappedObject()
+      .subscribe((receivedObj: MessageDto) => {
+        this.addToInbox(receivedObj);
+      });
   }
 
   onMessageChange(): void {
-    if (this.message !== null || this.message !== undefined || this.message !== '') {
+    if (
+      this.message !== null ||
+      this.message !== undefined ||
+      this.message !== ''
+    ) {
       this.isTexting = true;
     }
 
@@ -50,33 +71,48 @@ export class MessageBoxComponent implements OnInit, OnChanges {
 
   loadTalkMessages(contactId: string): void {
     if (contactId !== null && contactId !== '' && contactId !== undefined) {
-      this.messageService.getTalkMessage(this.contactId).subscribe((res) => {
-        this.messageList = res;
-        this.messageList.forEach(message => {
-          message.receiverId === this.contactId ? message.messageType = 'send' : message.messageType = 'receive';
-        });
-      }, error => {
-        this.alertify.error(error);
-      });
+      this.messageService.getTalkMessage(this.contactId).subscribe(
+        (res) => {
+          this.messageList = res;
+          this.messageList.forEach((message) => {
+            message.receiverId === this.contactId
+              ? (message.messageType = 'send')
+              : (message.messageType = 'receive');
+          });
+        },
+        (error) => {
+          this.alertify.error(error);
+        }
+      );
     }
   }
 
   loadUserInfo(userId: string): void {
-    if (this.contactId !== null && this.contactId !== undefined && this.contactId !== '') {
-      this.userService.getUserById(this.contactId).subscribe((res) => {
-        this.contactUser = res;
-        this.userService.setDefaultAvatar(this.contactUser);
-      }, error => {
-        this.alertify.error(error);
-      });
+    if (
+      this.contactId !== null &&
+      this.contactId !== undefined &&
+      this.contactId !== ''
+    ) {
+      this.userService.getUserById(this.contactId).subscribe(
+        (res) => {
+          this.contactUser = res;
+          this.userService.setDefaultAvatar(this.contactUser);
+        },
+        (error) => {
+          this.alertify.error(error);
+        }
+      );
     }
   }
 
   sendMessage(): void {
-    if (this.message === null || this.message === '' || this.message === undefined) {
-      this.alertify.error('Bạn phải nhập tin nhắn trước khi gửi!');
-    }
-    else {
+    if (
+      this.message === null ||
+      this.message === '' ||
+      this.message === undefined
+    ) {
+      this.alertify.error('You must enter message before send!');
+    } else {
       const messageDto = new MessageDto();
       messageDto.messageType = 'send';
       messageDto.content = this.message;
@@ -92,6 +128,7 @@ export class MessageBoxComponent implements OnInit, OnChanges {
     newMessage.messageType = messageDto.messageType;
     newMessage.receiverId = messageDto.receiverId;
     newMessage.content = messageDto.content;
+
     this.messageList.push(newMessage);
   }
 

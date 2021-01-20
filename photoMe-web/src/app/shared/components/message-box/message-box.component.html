@@ -24,11 +24,13 @@
           class="p-button-rounded p-button-text p-button-plain p-button-lg"></button>
         <div class="message-input">
           <textarea [(ngModel)]="this.message" (ngModelChange)="this.onMessageChange()" cols="20" rows="10"
-            style="height: 28px;" placeholder="Nhập tin nhắn ..." (keydown.enter)="this.onKeyDown($event)"></textarea>
+            style="height: 28px;" placeholder="{{this.insertMessageText}}"
+            (keydown.enter)="this.onKeyDown($event)"></textarea>
         </div>
         <div class="submit-button">
           <ng-container *ngIf="this.isTexting; else elseTemplate">
-            <button pButton pRipple type="button" label="Gửi" class="p-button-text" (click)="this.sendMessage()"></button>
+            <button pButton pRipple type="button" label="Send" class="p-button-text"
+              (click)="this.sendMessage()"></button>
           </ng-container>
           <ng-template #elseTemplate>
             <button pButton pRipple type="button" icon="pi pi-image"

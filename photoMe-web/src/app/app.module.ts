@@ -45,6 +45,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { MainModule } from './modules/main/main.module';
 import { CreditCardDirectivesModule } from 'angular-cc-library';
 import { LandingComponent } from './modules/landing/landing.component';
+import { PhotoshootComponent } from './shared/components/photoshoot/photoshoot.component';
 
 
 @NgModule({
@@ -56,7 +57,6 @@ import { LandingComponent } from './modules/landing/landing.component';
     PostComponent,
     NewPostInputComponent,
     UserProfileComponent,
-    UserCardComponent,
     ChatComponent,
     MessageBoxComponent,
     MessageComponent,
@@ -65,7 +65,8 @@ import { LandingComponent } from './modules/landing/landing.component';
     ReviewComponent,
     InfiniteScrollComponent,
     PhotoshootBookingComponent,
-    LandingComponent
+    LandingComponent,
+    PhotoshootComponent
   ],
   imports: [
     BrowserModule,

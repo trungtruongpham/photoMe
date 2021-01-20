@@ -56,30 +56,35 @@
       }
     }
 
-    .submit-btn {
-      text-align: center;
-      margin-top: 30px;
+    .submit {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      .submit-btn {
+        text-align: center;
+        margin-top: 30px;
 
-      button {
-        height: 50px;
-        width: 200px;
-        border-radius: 10px;
-        outline: none;
-        border: none;
-        background-color: #ff8e71;
-        // img {
-        //   height: 24px;
-        //   width: 24px;
-        // }
-        span {
-          font-size: 20px;
-          font-weight: 600;
+        button {
+          height: 50px;
+          width: 200px;
+          border-radius: 10px;
+          outline: none;
+          border: none;
+          background-color: #ff8e71;
+          img {
+            height: 32px;
+            width: 32px;
+          }
+          span {
+            font-size: 20px;
+            font-weight: 600;
+          }
         }
-      }
 
-      button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+        button:hover {
+          transform: scale(1.05);
+          box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+        }
       }
     }
   }

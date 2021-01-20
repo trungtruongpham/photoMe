@@ -39,9 +39,10 @@ export class NewPostInputComponent implements OnInit {
     this.url = environment.apiUrl + 'user/' + authService.decodedToken.nameid + '/photos/upload-photos';
     this.isShowPopup = false;
     this.albumTypes = [
-      { name: 'Thiên nhiên', code: 'TN' },
-      { name: 'Phong cảnh', code: 'PC' },
-      { name: 'Học đường', code: 'HD' }
+      { name: 'Natural Scene', code: 'NS' },
+      { name: 'Model', code: 'MD' },
+      { name: 'School', code: 'SC' },
+      { name: 'ComicDesign', code: 'CD'},
     ];
 
     this.newAlbum = new AlbumForCreation();
@@ -57,9 +58,9 @@ export class NewPostInputComponent implements OnInit {
     });
 
     this.fileUploadService.uploadFiles(this.uploadedFiles).subscribe(res => {
-      this.alertify.success('Tải ảnh thành công');
+      this.alertify.success('Upload successful');
     }, error => {
-      this.alertify.error('Tải thất bại.');
+      this.alertify.error('Upload failed :(');
     });
   }
 
@@ -76,10 +77,10 @@ export class NewPostInputComponent implements OnInit {
     this.fileUploadService.uploadAlbum(this.newAlbum).subscribe((res) => {
       this.clearForm();
       this.isShowPopup = false;
-      this.alertify.success('Tải lên thành công!');
+      this.alertify.success('Upload successful!');
       this.submitAlbum.emit();
     }, error => {
-      this.alertify.error('Tải lên thất bại!');
+      this.alertify.error('Upload failed!');
     });
   }
 

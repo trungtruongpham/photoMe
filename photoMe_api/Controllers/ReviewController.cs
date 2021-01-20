@@ -46,7 +46,7 @@ namespace photoMe_api.Controllers
                 var senderId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var senderName = User.FindFirstValue(ClaimTypes.Name);
 
-                await this._notifService.SendNoti(new Guid(senderId), listUserReview.ToList(), senderName + " bình luận bài viết!");
+                await this._notifService.SendNoti(new Guid(senderId), listUserReview.ToList(), senderName + " commented to your post!");
 
                 return Ok(reviewToReturn);
             }

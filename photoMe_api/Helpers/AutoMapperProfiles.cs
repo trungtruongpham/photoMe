@@ -1,6 +1,8 @@
 using System;
 using AutoMapper;
 using photoMe_api.DTO;
+using photoMe_api.DTO.PhotoShoot;
+using photoMe_api.DTO.PhotoShootDto;
 using photoMe_api.DTO.ReviewDto;
 using photoMe_api.Models;
 
@@ -24,6 +26,8 @@ namespace photoMe_api.Helpers
             CreateMap<Album, AlbumForListDto>().ForMember(dest => dest.Photographer, opt => opt.MapFrom(src => src.Photographer));
             CreateMap<Review, ReviewForListDto>();
             CreateMap<ReviewForCreationDto, Review>();
+            CreateMap<PhotoShootForInputDto, PhotoShoot>();
+            CreateMap<PhotoShoot, PhotoShootForReturnDto>();
         }
     }
 }

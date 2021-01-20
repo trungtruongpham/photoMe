@@ -5,7 +5,7 @@ import { LoginComponent } from './modules/login/login.component';
 import { AuthGuardService } from './shared/guards/auth-guard.service';
 
 const routes: Routes = [
-  { path: '', component: LandingComponent },
+  { path: '', component: LandingComponent, canActivate: [AuthGuardService] },
   {
     path: 'main',
     loadChildren: () => import('./modules/main/main.module').then(m => m.MainModule),

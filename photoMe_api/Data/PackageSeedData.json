@@ -1,0 +1,23 @@
+﻿[
+  {
+  "Name": "1 Hour Photo Shoot",
+  "Price": 500000,
+  "Duration": 1,
+  "EditPhotos": "40",
+  "DownloadPhotos": "20"
+  },
+  {
+    "Name": "2 Hours Photo Shoot",
+    "Price": 1000000,
+    "Duration": 2,
+    "EditPhotos": "100",
+    "DownloadPhotos": "40"
+  },
+  {
+    "Name": "Full-day Photo Shoot",
+    "Price": 3000000,
+    "Duration": 8,
+    "EditPhotos": "All",
+    "DownloadPhotos": "All"
+  }
+]

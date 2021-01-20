@@ -5,13 +5,16 @@ import { CalendarModule } from 'primeng/calendar';
 import { MainRoutingModule } from './main-routing.module';
 import { HeaderComponent } from 'src/app/shared/layout/header/header.component';
 import { NotificationComponent } from 'src/app/shared/components/notification/notification.component';
+import { FormsModule } from '@angular/forms';
+import { UserCardComponent } from 'src/app/shared/components/user-card/user-card.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CalendarModule,
-    MainRoutingModule
+  imports: [CommonModule, CalendarModule, MainRoutingModule, FormsModule],
+  declarations: [
+    MainComponent,
+    HeaderComponent,
+    NotificationComponent,
+    UserCardComponent
   ],
-  declarations: [MainComponent, HeaderComponent, NotificationComponent]
 })
-export class MainModule { }
+export class MainModule {}
